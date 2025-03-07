@@ -24,6 +24,7 @@ import java.util.List;
         @UniqueConstraint(name = "USER_NATIONAL_ID_UNIQUE_CONSTRAINT", columnNames = "nid")
 })
 public class User implements org.springframework.security.core.userdetails.UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,15 +1,22 @@
 package com.abdoatiia542.GraduationProject.model;
 
+import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
+import com.abdoatiia542.GraduationProject.model.enumerations.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,11 +25,7 @@ import java.util.List;
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "USERS", uniqueConstraints = {
-        @UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"),
-        @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email"),
-        @UniqueConstraint(name = "USER_NATIONAL_ID_UNIQUE_CONSTRAINT", columnNames = "nid")
-})
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"), @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email"), @UniqueConstraint(name = "USER_NATIONAL_ID_UNIQUE_CONSTRAINT", columnNames = "nid")})
 public class User implements org.springframework.security.core.userdetails.UserDetails {
 
     @Id
@@ -38,8 +41,29 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = false)
     private String password;
 
+
+    @Enumerated(value = EnumType.STRING)
     @Column
-    private String nid;
+    private Gender gender;
+
+    @Column
+    private LocalDate birthDate;
+
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "device_tokens", joinColumns = @JoinColumn(nullable = false))
+    @Column(name = "device_token", nullable = false)
+    private Set<String> deviceTokens = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,21 +72,21 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

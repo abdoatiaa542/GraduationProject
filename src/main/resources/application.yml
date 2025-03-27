@@ -1,6 +1,8 @@
 spring:
   application:
-    name: Graduation_Project
+      name: Graduation_Project
+  profiles:
+    active: dev
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
@@ -8,9 +10,13 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-         default_batch_fetch_size: 10
+        default_batch_fetch_size: 10
   datasource:
-    url: jdbc:mysql://localhost:3306/Graduation_Project
-    username: root
-    password: 12345
+    url: ${application.datasource.url}
+    username: ${application.datasource.username}
+    password: ${application.datasource.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+application:
+  security:
+    access-token:
+      secret-key: T1Wg3DaZ+wG5l+gdJgsmGx0P6MBSwl6Dk6jUzqKwyr8=

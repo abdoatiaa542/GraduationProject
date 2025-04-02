@@ -3,10 +3,7 @@ package com.abdoatiia542.GraduationProject.model;
 import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
 import com.abdoatiia542.GraduationProject.model.enumerations.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,6 +56,14 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = false)
     private Role role;
 
+
+    @Builder.Default
+    @Column(nullable = false, columnDefinition = "bit(1) default true")
+    private boolean accountNonLocked = true;
+
+    @Column(nullable = false, columnDefinition = "bit(1) default false")
+    private boolean enabled;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "device_tokens", joinColumns = @JoinColumn(nullable = false))
     @Column(name = "device_token", nullable = false)
@@ -75,10 +80,10 @@ public class User implements org.springframework.security.core.userdetails.UserD
         return true;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
 
     @Override
     public boolean isCredentialsNonExpired() {

@@ -36,6 +36,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final BearerTokenWrapper bearerTokenWrapper;
 
 
+    /*
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -69,7 +71,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     securityContext.setAuthentication(authentication);
 
                     SecurityContextHolder.setContext(securityContext);
-
+                    System.out.println("ayoaaaaaaaaaaaaaa ana hena ");
                     bearerTokenWrapper.setToken(jwt);
                 }
             } catch (Exception exception) {

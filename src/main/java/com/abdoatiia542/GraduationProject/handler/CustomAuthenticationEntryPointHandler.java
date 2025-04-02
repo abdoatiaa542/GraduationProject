@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.handeler;
+package com.abdoatiia542.GraduationProject.handler;
 
 import com.abdoatiia542.GraduationProject.dto.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

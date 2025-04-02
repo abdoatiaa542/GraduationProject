@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject.mapper;
 
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
+import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationResponse;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.enumerations.Role;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,18 @@ public class TraineeRegistrationRequestMapper implements Function<TraineeRegistr
         trainee.setPassword(passwordEncoder.encode(request.password()));
         trainee.setGender(request.gender());
         trainee.setBirthDate(request.birthDate());
-        trainee.setRole(Role.TRAINEE); // إضافة هذا السطر
+        trainee.setRole(Role.TRAINEE); //
         return trainee;
     }
+
+    public TraineeRegistrationResponse toResponse(Trainee trainee) {
+        return new TraineeRegistrationResponse(
+                trainee.getId(),
+                trainee.getUsername(),
+                trainee.getEmail(),
+                trainee.getGender().name(),
+                trainee.getBirthDate()
+        );
+    }
+
 }

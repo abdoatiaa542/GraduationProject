@@ -3,7 +3,8 @@ package com.abdoatiia542.GraduationProject.service.auth;
 import com.abdoatiia542.GraduationProject.dto.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.LoginRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
-import com.abdoatiia542.GraduationProject.exception.ResourceAlreadyExistsException;
+import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationResponse;
+import com.abdoatiia542.GraduationProject.handler.ResourceAlreadyExistsException;
 import com.abdoatiia542.GraduationProject.mapper.TraineeRegistrationRequestMapper;
 import com.abdoatiia542.GraduationProject.model.AccessToken;
 import com.abdoatiia542.GraduationProject.model.Trainee;
@@ -11,7 +12,6 @@ import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import com.abdoatiia542.GraduationProject.service.access_token.AccessTokenService;
-import com.abdoatiia542.GraduationProject.service.db.DatabaseService;
 import com.abdoatiia542.GraduationProject.service.jwt.BearerTokenWrapper;
 import com.abdoatiia542.GraduationProject.utils.ContextHolderUtils;
 import io.jsonwebtoken.lang.Strings;
@@ -20,11 +20,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,16 +33,18 @@ public class AuthService implements IAuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TraineeRepository traineeRepository;
-    private final PasswordEncoder passwordEncoder;
     private final TraineeRegistrationRequestMapper traineeRegistrationRequestMapper;
 
     @Override
     public Object registerTrainee(TraineeRegistrationRequest request) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaa");
         if (userRepository.existsByEmailIgnoreCase(request.email())) {
             throw new ResourceAlreadyExistsException("User with this email already exists");
         }
         Trainee trainee = traineeRegistrationRequestMapper.apply(request);
-        return traineeRepository.save(trainee);
+        traineeRepository.save(trainee);
+        TraineeRegistrationResponse response = traineeRegistrationRequestMapper.toResponse(trainee);
+        return ApiResponse.of("Trainee registered successfully.", response);
     }
 
     @Override
@@ -53,10 +53,7 @@ public class AuthService implements IAuthService {
         Authentication authentication = authenticationManager.
                 authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
 
-        if (Objects.nonNull(authentication) &&
-                authentication.isAuthenticated() &&
-                authentication.getPrincipal()
-                        instanceof User user) {
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user) {
 
             AccessToken accessToken = accessTokenService.create(user);
 
@@ -76,7 +73,11 @@ public class AuthService implements IAuthService {
 
     @Override
     public Object logoutUser(String deviceToken) {
+        System.out.println("i am here .............");
         String bearerToken = bearerTokenWrapper.getToken();
+        if (!Strings.hasText(bearerToken)) {
+            throw new IllegalArgumentException("Bearer token must not be null or empty");
+        }
         accessTokenService.delete(bearerToken);
 
         if (Strings.hasText(deviceToken)) {

@@ -34,7 +34,8 @@ public class AuthenticationManagerConfiguration implements AuthenticationManager
 
         if (!userDetails.isEnabled()) {
             String username = authentication.getName();
-            User user = userRepository.findByUsernameOrEmail(username).orElseThrow(() -> new RuntimeException("User not found"));
+            User user = userRepository.findByUsernameOrEmail(username).
+                    orElseThrow(() -> new RuntimeException("User not found"));
             customResponse.put("message", "The account is not activated yet.");
             customResponse.put("userId", user.getId().toString());  // Assuming MyUserDetails has getId() method
             customResponse.put("email", user.getEmail());

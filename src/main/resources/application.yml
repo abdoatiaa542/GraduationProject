@@ -1,6 +1,6 @@
 spring:
   application:
-      name: Graduation_Project
+    name: Graduation_Project
   profiles:
     active: dev
   jpa:
@@ -16,6 +16,14 @@ spring:
     username: ${application.datasource.username}
     password: ${application.datasource.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-email-password
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 application:
   security:
     access-token:

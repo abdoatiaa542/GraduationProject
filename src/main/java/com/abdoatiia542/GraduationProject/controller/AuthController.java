@@ -4,17 +4,12 @@ import com.abdoatiia542.GraduationProject.dto.LoginRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.service.auth.AuthService;
 import com.abdoatiia542.GraduationProject.service.auth.IAuthService;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import java.net.URI;
-import java.util.Base64;
 
 @Validated
 @RestController

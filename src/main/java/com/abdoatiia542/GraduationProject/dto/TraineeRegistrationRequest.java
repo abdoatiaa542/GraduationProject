@@ -13,16 +13,15 @@ import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 
-
 public record TraineeRegistrationRequest(
 
         @NotBlank
-        @UserUnique(constraint = UserUniqueConstraint.USERNAME)
+        @UserUnique(constraint = UserUniqueConstraint.USERNAME, message = "this username is already used")
         String username,
 
         @Email
         @NotBlank
-        @UserUnique(constraint = UserUniqueConstraint.EMAIL)
+        @UserUnique(constraint = UserUniqueConstraint.EMAIL, message = "this email is already used")
         String email,
 
         @NotBlank
@@ -35,15 +34,5 @@ public record TraineeRegistrationRequest(
         LocalDate birthDate
 
 ) {
-    public static TraineeRegistrationRequest of(Trainee trainee) {
-        return new TraineeRegistrationRequest(
-                trainee.getUsername(),
-                trainee.getEmail(),
-                trainee.getPassword(),
-                trainee.getGender(),
-                trainee.getBirthDate()
-
-        );
-    }
 
 }

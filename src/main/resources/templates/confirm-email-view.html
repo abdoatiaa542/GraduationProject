@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+</head>
+<body>
+<p>Dear Recipient,</p>
+<p>We received a request to confirm your email for your account with FIT AI.</p>
+<p>If you did not request this email confirmation, please disregard this email.
+    Your account security is important to us.</p>
+<p>To confirm your email, please copy the following code:</p>
+<p th:text="${code}">${code}</p>
+<p>This code requested <span th:text="${requested}">${requested}</span> at
+    and will expire after 3 minutes in <span th:text="${expiration}">${expiration}</span> for security reasons.</p>
+<p>Thank you for your attention to this matter.</p>
+<p>Best regards,</p>
+<p>EDU AI Team</p>
+</body>
+</html>

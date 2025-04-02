@@ -10,7 +10,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
+/*
+* login  >>  deviceToken
+*
+* */
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = ElementType.FIELD)
 @Constraint(validatedBy = UserUniqueValidator.class)

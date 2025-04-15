@@ -1,0 +1,43 @@
+package com.fitnessapp.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "Exercises")
+public class Exercise {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "workout_id", nullable = false)
+    private Workout workout;
+
+    @Column(name = "exercise_name", nullable = false)
+    private String exerciseName;
+
+    @Column(name = "exercise_image")
+    private String exerciseImage;
+
+    @Column(nullable = false)
+    private Integer sets;
+
+    @Column(nullable = false)
+    private Integer reps;
+
+    @Column(name = "time_duration")
+    private Integer timeDuration;
+
+    @Column(name = "rest_time")
+    private Integer restTime;
+
+    @Column
+    private Double weight;
+}

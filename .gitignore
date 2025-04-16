@@ -33,7 +33,7 @@ build/
 .vscode/
 
 src/main/resources/application-dev.yml
-
+application-dev.yml
 # Ignore any file ending with ~
 *~
 

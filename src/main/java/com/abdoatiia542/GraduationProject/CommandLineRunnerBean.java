@@ -6,7 +6,6 @@ import com.abdoatiia542.GraduationProject.model.enumerations.Role;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -72,8 +71,8 @@ public class CommandLineRunnerBean {
                 userRepository.save(trainee3);
 
                 log.info("CommandLineRunnerBean initialized successfully");
-        }
-    };
+            }
+        };
     }
 
 }

@@ -24,14 +24,19 @@ import java.time.LocalDate;
 @Table(name = "trainees")
 public class Trainee extends User {
 
-    //    @Column(nullable = false)
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
     private Double height;
 
-    //    @Column(nullable = false)
+    @Column(nullable = false)
     private Double weight;
 
-    //    @Column(nullable = false)
+    @Column(nullable = false)
     private Double targetWeight;
-
 
 }

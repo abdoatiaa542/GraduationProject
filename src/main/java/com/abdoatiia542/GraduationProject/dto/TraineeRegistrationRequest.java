@@ -26,12 +26,12 @@ public record TraineeRegistrationRequest(
 
         @NotBlank
         @Pattern(regexp = RegexConstants.PASSWORD)
-        String password,
+        String password
 
-        @NotNull
-        Gender gender,
-
-        LocalDate birthDate
+//        @NotNull
+//        Gender gender,
+//
+//        LocalDate birthDate
 
 ) {
 

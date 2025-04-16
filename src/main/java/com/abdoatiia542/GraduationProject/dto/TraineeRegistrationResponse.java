@@ -7,15 +7,15 @@ public record TraineeRegistrationResponse(
 
         String username,
 
-        String email,
+        String email
 
 //        String picture,
 
 //        boolean hasPicture,
 
-        String gender,
-
-        LocalDate birthDate
+//        String gender,
+//
+//        LocalDate birthDate
 
 //        boolean enabled,
 //

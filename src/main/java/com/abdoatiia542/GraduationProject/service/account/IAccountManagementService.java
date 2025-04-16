@@ -7,10 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IAccountManagementService {
 
-    ApiResponse getUserProfile();
-
-    ApiResponse updateUserProfile(UpdateUserProfileRequest request);
-
+//    ApiResponse getUserProfile();
+//
+//    ApiResponse updateUserProfile(UpdateUserProfileRequest request);
+//
     ApiResponse changePassword(ChangePasswordRequest request);
 
     ApiResponse uploadProfilePicture(MultipartFile picture);

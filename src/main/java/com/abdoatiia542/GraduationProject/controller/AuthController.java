@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject.controller;
 
 import com.abdoatiia542.GraduationProject.dto.LoginRequest;
+import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.service.auth.AuthService;
 import com.abdoatiia542.GraduationProject.service.auth.IAuthService;
@@ -40,6 +41,14 @@ public class AuthController {
 
         return ResponseEntity.accepted().body(service.loginUser(request));
     }
+
+
+    @PostMapping(value = "complete registration")
+    public ResponseEntity<?> completeRegistration(@Valid @RequestBody TraineeRegistrationCompleteRequest request) {
+        return ResponseEntity.created(URI.create("/api/v1/auth/trainee-registration"))
+                .body(service.completeTraineeRegistration(request));
+    }
+
 
     @PostMapping(value = "logout")
     public ResponseEntity<?> logoutUser(

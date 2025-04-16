@@ -40,10 +40,10 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
 
     @Enumerated(value = EnumType.STRING)
-    @Column
+    @Column(nullable = false)
     private Gender gender;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate birthDate;
 
 
@@ -68,6 +68,10 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @CollectionTable(name = "device_tokens", joinColumns = @JoinColumn(nullable = false))
     @Column(name = "device_token", nullable = false)
     private Set<String> deviceTokens = new HashSet<>();
+
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private UserPicture picture;
 
 
     @Override

@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -26,12 +27,16 @@ public class SecurityFilterChainConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable())
-                .httpBasic(httpBasic -> httpBasic.disable())
+                .httpBasic(basic -> basic.disable())
                 .cors(new CorsCustomizer())
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Permit Swagger UI and API docs
-                                .anyRequest().authenticated()  // Secure all other endpoints
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/v3/api-docs/",
+                                "/swagger-ui/",
+                                "/swagger-ui.html",
+                                "/api/v1/auth/"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(new SessionManagementCustomizer())
                 .exceptionHandling(new ExceptionHandlingCustomizer())

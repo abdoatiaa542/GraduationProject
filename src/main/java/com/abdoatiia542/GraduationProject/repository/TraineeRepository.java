@@ -10,7 +10,7 @@ public interface TraineeRepository extends JpaRepository<Trainee, Long> {
 
     boolean existsByUsernameIgnoreCase(String username);
 
-    Trainee findByEmailIgnoreCase(String email);
+    Optional<Trainee> findByEmailIgnoreCase(String email);
 
 
 }

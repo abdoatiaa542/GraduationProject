@@ -1,10 +1,8 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
-import com.abdoatiia542.GraduationProject.dto.LoginRequest;
-import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
-import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationResponse;
+import com.abdoatiia542.GraduationProject.dto.*;
 import com.abdoatiia542.GraduationProject.handler.ResourceAlreadyExistsException;
+import com.abdoatiia542.GraduationProject.handler.ResourceNotFoundException;
 import com.abdoatiia542.GraduationProject.mapper.TraineeRegistrationRequestMapper;
 import com.abdoatiia542.GraduationProject.model.AccessToken;
 import com.abdoatiia542.GraduationProject.model.Trainee;
@@ -37,7 +35,6 @@ public class AuthService implements IAuthService {
 
     @Override
     public Object registerTrainee(TraineeRegistrationRequest request) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaa");
         if (userRepository.existsByEmailIgnoreCase(request.email())) {
             throw new ResourceAlreadyExistsException("User with this email already exists");
         }
@@ -45,6 +42,18 @@ public class AuthService implements IAuthService {
         traineeRepository.save(trainee);
         TraineeRegistrationResponse response = traineeRegistrationRequestMapper.toResponse(trainee);
         return ApiResponse.of("Trainee registered successfully.", response);
+    }
+
+    @Override
+    public Object completeTraineeRegistration(TraineeRegistrationCompleteRequest request) {
+        Trainee trainee = (Trainee) ContextHolderUtils.getUser();
+        trainee.setFirstName(request.firstName());
+        trainee.setLastName(request.lastName());
+        trainee.setGender(request.gender());
+        trainee.setBirthDate(request.birthDate());
+
+        traineeRepository.save(trainee);
+        return ApiResponse.of("Trainee profile completed successfully.");
     }
 
     @Override

@@ -74,7 +74,7 @@ public class AuthService implements IAuthService {
             String response = accessToken.getToken();
             String message = "Successful user login.";
 
-            return ApiResponse.of(message, response);
+            return new LoginResponse(message,response,user.getEmail(),user.getUsername(),user.getGender().name(),user.getRole().name());
         }
 
         throw new UsernameNotFoundException("Invalid username or password");
@@ -109,3 +109,4 @@ public class AuthService implements IAuthService {
     }
 
 }
+

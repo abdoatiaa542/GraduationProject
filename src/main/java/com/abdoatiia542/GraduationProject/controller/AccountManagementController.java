@@ -2,6 +2,9 @@ package com.abdoatiia542.GraduationProject.controller;
 
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
 import com.abdoatiia542.GraduationProject.service.account.IAccountManagementService;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,12 @@ public class AccountManagementController {
 
     private final IAccountManagementService service;
 
+
+    @GetMapping("/generate-secret-key")
+    public String generateSecretKey() {
+        String secretKey = Encoders.BASE64.encode(Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded());
+        return secretKey;
+    }
 
     @PostMapping(value = "password/change")
     ResponseEntity<?> changePassword(

@@ -2,9 +2,9 @@ spring:
   application:
     name: Graduation_Project
   profiles:
-    active: dev
+    active: '@spring.profiles.active@'
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     hibernate:
       ddl-auto: update
@@ -15,7 +15,7 @@ spring:
     url: ${application.datasource.url}
     username: ${application.datasource.username}
     password: ${application.datasource.password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
   mail:
     host: smtp.gmail.com
     port: 587

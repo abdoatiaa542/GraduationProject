@@ -58,11 +58,13 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
 
     @Builder.Default
-    @Column(nullable = false, columnDefinition = "bit(1) default true")
+    @Column(nullable = false)
     private boolean accountNonLocked = true;
 
-    @Column(nullable = false, columnDefinition = "bit(1) default false")
-    private boolean enabled;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean enabled =  false;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "device_tokens", joinColumns = @JoinColumn(nullable = false))

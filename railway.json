@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "nixpacks",
+    "buildCommand": "mvn clean package -DskipTests"
+  },
+  "start": {
+    "cmd": "java -jar target/*.jar"
+  }
+}

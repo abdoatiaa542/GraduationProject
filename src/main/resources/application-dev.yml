@@ -1,6 +1,6 @@
 application:
   datasource:
-    url: jdbc:postgresql://ep-autumn-wave-a8qdk74l-pooler.eastus2.azure.neon.tech/Fit-Ai?user=Fit-Ai_owner&password=npg_uS58QMazsUBJ&sslmode=require
+    url: jdbc:postgresql://localhost:5432/Fit-Ai
     username: postgres
     password: 12345
   jpa:

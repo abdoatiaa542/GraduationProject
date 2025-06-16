@@ -32,7 +32,7 @@ public class SecurityFilterChainConfiguration {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/api/v1/auth/**" // ✅ استثني كل الـ endpoints الخاصة بالتسجيل والدخول
+                                "/api/v1/auth/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

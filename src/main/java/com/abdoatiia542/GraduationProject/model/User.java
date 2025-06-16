@@ -43,7 +43,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = false)
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate birthDate;
 
 

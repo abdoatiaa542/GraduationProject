@@ -69,4 +69,10 @@ public class AuthController {
 
         return ResponseEntity.accepted().body(service.existsByUsername(username));
     }
+
+
+//    @PostMapping(value = "refresh-token")
+//    public ResponseEntity<?> refreshToken(@RequestHeader("Authorization") String authHeader) {
+//        return ResponseEntity.ok(service.refreshToken(authHeader));
+//    }
 }

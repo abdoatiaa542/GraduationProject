@@ -13,4 +13,6 @@ public interface IAccessTokenService {
     boolean exists(String token);
 
     void delete(String token);
+
+    AccessToken refresh(User user);
 }

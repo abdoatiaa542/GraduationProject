@@ -21,17 +21,17 @@ public class JwtService {
     @Value(value = "${application.security.access-token.secret-key}")
     private String secretKey;
 
-    public String generateToken(User user) {
+    public String generateToken(User user, long expirationMillis) {
         Map<String, Object> claims = Map.of(
                 JwtConstants.REGISTRATION_CLAIM, user.getCreatedAt().toString(),
                 JwtConstants.ROLE_CLAIM, user.getRole().name(),
                 JwtConstants.EMAIL_CLAIM, user.getEmail()
         );
 
-        return generateToken(user.getUsername(), claims);
+        return generateToken(user.getUsername(), claims ,expirationMillis);
     }
 
-    private String generateToken(String subject, Map<String, Object> claims) {
+    private String generateToken(String subject, Map<String, Object> claims, long expirationMillis) {
         long currentTime = System.currentTimeMillis();
         return Jwts
                 .builder()
@@ -39,10 +39,11 @@ public class JwtService {
                 .setSubject(subject)
                 .setIssuer(JwtConstants.ISSUER)
                 .setIssuedAt(new Date(currentTime))
-                .setExpiration(new Date(currentTime + JwtConstants.EXPIRATION_IN_SECONDS))
+                .setExpiration(new Date(currentTime + expirationMillis))
                 .signWith(getSecretKey())
                 .compact();
     }
+
 
     public boolean isValidToken(String token) {
         return getExpiration(token).after(new Date());

@@ -58,27 +58,36 @@ public class AuthService implements IAuthService {
 
     @Override
     public Object loginUser(Object object) {
-        LoginRequest request = (LoginRequest) object;
-        Authentication authentication = authenticationManager.
-                authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+        try {
+            LoginRequest request = (LoginRequest) object;
+            Authentication authentication = authenticationManager.
+                    authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
 
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user) {
+            if (Objects.nonNull(authentication) && authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user) {
 
-            AccessToken accessToken = accessTokenService.create(user);
+                AccessToken accessToken = accessTokenService.create(user);
+                AccessToken refreshToken = accessTokenService.refresh(user);
 
-            if (Strings.hasText(request.deviceToken())) {
-                user.getDeviceTokens().add(request.deviceToken().strip());
-                userRepository.save(user);
+                if (Strings.hasText(request.deviceToken())) {
+                    user.getDeviceTokens().add(request.deviceToken().strip());
+                    userRepository.save(user);
+                }
+
+                String token = accessToken.getToken();
+                String refreshTokenValue = refreshToken.getToken();
+                String message = "Successful user login.";
+
+                LoginResponse response = new LoginResponse(message, token,refreshTokenValue ,  user.getEmail(), user.getUsername(), user.getGender().name(), user.getRole().name());
+
+                return ApiResponse.of(message, response);
+            } else {
+                return ApiResponse.of("Invalid username or password", false);
             }
-
-            String response = accessToken.getToken();
-            String message = "Successful user login.";
-
-            return new LoginResponse(message,response,user.getEmail(),user.getUsername(),user.getGender().name(),user.getRole().name());
+        } catch (Exception e) {
+            return ApiResponse.of("Error logging in user: " + e.getMessage(), false);
         }
-
-        throw new UsernameNotFoundException("Invalid username or password");
     }
+
 
     @Override
     public Object logoutUser(String deviceToken) {

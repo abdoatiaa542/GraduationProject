@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
-
 @Component
 @RequiredArgsConstructor
 public class TraineeRegistrationRequestMapper implements Function<TraineeRegistrationRequest, Trainee> {
@@ -20,13 +19,10 @@ public class TraineeRegistrationRequestMapper implements Function<TraineeRegistr
     @Override
     public Trainee apply(TraineeRegistrationRequest request) {
         Trainee trainee = new Trainee();
-
         trainee.setUsername(request.username());
         trainee.setEmail(request.email());
         trainee.setPassword(passwordEncoder.encode(request.password()));
-//        trainee.setGender(request.gender());
-//        trainee.setBirthDate(request.birthDate());
-        trainee.setRole(Role.TRAINEE); //
+        trainee.setRole(Role.TRAINEE);
         return trainee;
     }
 
@@ -35,9 +31,6 @@ public class TraineeRegistrationRequestMapper implements Function<TraineeRegistr
                 trainee.getId(),
                 trainee.getUsername(),
                 trainee.getEmail()
-//                trainee.getGender().name(),
-//                trainee.getBirthDate()
         );
     }
-
 }

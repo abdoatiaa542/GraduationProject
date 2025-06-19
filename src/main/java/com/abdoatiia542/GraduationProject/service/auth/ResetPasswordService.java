@@ -11,6 +11,7 @@ import com.abdoatiia542.GraduationProject.service.db.DatabaseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,7 @@ public class ResetPasswordService implements IResetPasswordService {
         response.put("emails", emails);
         response.put("userId", user.getId());
 
-        return ApiResponse.of("User account found successfully, this is available emails to reset password", response);
+        return ApiResponse.success("User account found successfully, this is available emails to reset password", response);
     }
 
     @Transactional
@@ -95,13 +96,13 @@ public class ResetPasswordService implements IResetPasswordService {
                 }, executor)
                 .thenAcceptAsync(resetPasswordEmailSender::sendResetPasswordEmail, executor);
 
-        return ApiResponse.of("Reset password email generated and sent successfully");
+        return ApiResponse.success("Reset password request sent successfully");
     }
 
     @Override
     public ApiResponse checkResetPasswordCode(String email, int code) {
         getResetPasswordToken(email, code);
-        return ApiResponse.of("Reset password code is validated successfully");
+return ApiResponse.success("Reset password code is valid");
     }
 
     @Override
@@ -114,7 +115,7 @@ public class ResetPasswordService implements IResetPasswordService {
 
         resetPasswordTokenRepository.delete(token);
 
-        return ApiResponse.of("Password reset successfully");
+return ApiResponse.success("Password reset successfully");
     }
 
     private static int generateCode() {

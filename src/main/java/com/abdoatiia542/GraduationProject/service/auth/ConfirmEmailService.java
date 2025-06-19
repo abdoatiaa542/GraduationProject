@@ -102,7 +102,8 @@ public class ConfirmEmailService implements IConfirmEmailService {
                 }, executor)
                 .thenAcceptAsync(emailSender::sendRegisterConfirmationEmail, executor);
 
-        return ApiResponse.of("Confirmation OTP generated and sent successfully");
+        return ApiResponse.success("Confirmation OTP generated and sent successfully");
+
     }
 
     @Override
@@ -115,7 +116,8 @@ public class ConfirmEmailService implements IConfirmEmailService {
 
         registrationOTPRepository.delete(otp);
 
-        return ApiResponse.of("Email confirmed successfully");
+        return ApiResponse.success("Email confirmed successfully");
+
     }
 
     private static int generateCode() {

@@ -47,7 +47,7 @@ public class AccountManagementService implements IAccountManagementService {
             user.setPassword(passwordEncoder.encode(request.newPassword()));
             userRepository.save(user);
 
-            return ApiResponse.of("Password updated successfully.");
+            return ApiResponse.success("Password changed successfully.");
         }
 
         throw new IllegalArgumentException("Invalid password");
@@ -68,7 +68,8 @@ public class AccountManagementService implements IAccountManagementService {
 
 //        userPictureSaver.accept(picture, user);
 
-        return ApiResponse.of("User picture updated successfully.");
+        return ApiResponse.success("User profile picture uploaded successfully.");
+
     }
 
     @Override
@@ -81,7 +82,7 @@ public class AccountManagementService implements IAccountManagementService {
 
 //        userPictureDeleter.accept(user.getPicture().getId());
 
-        return ApiResponse.of("User profile picture deleted successfully.");
+        return ApiResponse.success("User profile picture deleted successfully.");
     }
 
 
@@ -90,6 +91,6 @@ public class AccountManagementService implements IAccountManagementService {
     public ApiResponse getAuthorities() {
         User user = ContextHolderUtils.getUser();
         List<String> authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-        return ApiResponse.of("User authorities retrieved successfully", authorities);
+        return ApiResponse.success("Authorities retrieved successfully.", authorities);
     }
 }

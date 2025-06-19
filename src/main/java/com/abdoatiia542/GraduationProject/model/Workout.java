@@ -29,7 +29,6 @@
 //    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH,CascadeType.DETACH,CascadeType.MERGE})
 //    @JoinColumn(name = "Category_ID", nullable = false)
 //    private WorkoutCategory category;
-//
 //    @Column(name = "Workout_Name", nullable = false)
 //    @NotNull(message = " Workout name is required")
 //    private String workoutName;

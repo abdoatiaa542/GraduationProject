@@ -18,10 +18,4 @@ public class Goals {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
-
-
-
-
 }

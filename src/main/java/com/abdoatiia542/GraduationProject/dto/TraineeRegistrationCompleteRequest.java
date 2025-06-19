@@ -16,10 +16,10 @@ public record TraineeRegistrationCompleteRequest(
         @Nullable
         String lastName,
 
-        @NotBlank
+        @Nullable
         Gender gender,
 
-        @NotNull
+        @Nullable
         LocalDate birthDate
 ) {
 }

@@ -30,13 +30,13 @@ public class Trainee extends User {
     @Column()
     private String lastName;
 
-    @Column(nullable = false)
+    @Column()
     private Double height;
 
-    @Column(nullable = false)
+    @Column()
     private Double weight;
 
-    @Column(nullable = false)
+    @Column()
     private Double targetWeight;
 
 }

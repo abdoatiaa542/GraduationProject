@@ -22,7 +22,7 @@ import java.util.Set;
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"), @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email"), @UniqueConstraint(name = "USER_NATIONAL_ID_UNIQUE_CONSTRAINT", columnNames = "nid")})
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"), @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email")})
 public class User implements org.springframework.security.core.userdetails.UserDetails {
 
     @Id
@@ -40,7 +40,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Gender gender;
 
     @Column(nullable = true)
@@ -48,7 +48,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = true)
     private LocalDateTime createdAt;
 
 
@@ -58,7 +58,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
 
     @Builder.Default
-    @Column(nullable = false)
+    @Column(nullable = true)
     private boolean accountNonLocked = true;
 
 
@@ -67,7 +67,10 @@ public class User implements org.springframework.security.core.userdetails.UserD
     private boolean enabled =  false;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "device_tokens", joinColumns = @JoinColumn(nullable = false))
+    @CollectionTable(
+            name = "device_tokens",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false)
+    )
     @Column(name = "device_token", nullable = false)
     private Set<String> deviceTokens = new HashSet<>();
 

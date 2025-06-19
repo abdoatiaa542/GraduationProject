@@ -33,16 +33,30 @@ public class AuthService implements IAuthService {
     private final TraineeRepository traineeRepository;
     private final TraineeRegistrationRequestMapper traineeRegistrationRequestMapper;
 
-    @Override
-    public Object registerTrainee(TraineeRegistrationRequest request) {
-        if (userRepository.existsByEmailIgnoreCase(request.email())) {
-            throw new ResourceAlreadyExistsException("User with this email already exists");
-        }
-        Trainee trainee = traineeRegistrationRequestMapper.apply(request);
-        traineeRepository.save(trainee);
-        TraineeRegistrationResponse response = traineeRegistrationRequestMapper.toResponse(trainee);
-        return ApiResponse.of("Trainee registered successfully.", response);
+@Override
+public Object registerTrainee(TraineeRegistrationRequest request) {
+    if (userRepository.existsByEmailIgnoreCase(request.email())) {
+        throw new ResourceAlreadyExistsException("User with this email already exists");
     }
+    Trainee trainee = traineeRegistrationRequestMapper.apply(request);
+    traineeRepository.save(trainee);
+    // Create tokens
+    AccessToken accessToken = accessTokenService.create(trainee);
+    AccessToken refreshToken = accessTokenService.refresh(trainee);
+    String token = accessToken.getToken();
+    String refreshTokenValue = refreshToken.getToken();
+    String message = "Trainee registered successfully.";
+    LoginResponse response = new LoginResponse(
+            message,
+            token,
+            refreshTokenValue,
+            trainee.getEmail(),
+            trainee.getUsername(),
+            trainee.getRole().name()
+    );
+
+    return ApiResponse.success(message, response);
+}
 
     @Override
     public Object completeTraineeRegistration(TraineeRegistrationCompleteRequest request) {
@@ -53,7 +67,7 @@ public class AuthService implements IAuthService {
         trainee.setBirthDate(request.birthDate());
 
         traineeRepository.save(trainee);
-        return ApiResponse.of("Trainee profile completed successfully.");
+        return ApiResponse.success("Trainee registration completed successfully.");
     }
 
     @Override
@@ -77,14 +91,14 @@ public class AuthService implements IAuthService {
                 String refreshTokenValue = refreshToken.getToken();
                 String message = "Successful user login.";
 
-                LoginResponse response = new LoginResponse(message, token,refreshTokenValue ,  user.getEmail(), user.getUsername(), user.getGender().name(), user.getRole().name());
+                LoginResponse response = new LoginResponse(message, token,refreshTokenValue ,  user.getEmail(), user.getUsername(), user.getRole().name());
 
-                return ApiResponse.of(message, response);
+                return ApiResponse.success(message, response);
             } else {
-                return ApiResponse.of("Invalid username or password", false);
+                return ApiResponse.failure("Invalid username or password");
             }
         } catch (Exception e) {
-            return ApiResponse.of("Error logging in user: " + e.getMessage(), false);
+            return  ApiResponse.failure("Error logging in user: " + e.getMessage());
         }
     }
 
@@ -104,17 +118,17 @@ public class AuthService implements IAuthService {
             userRepository.save(currentUser);
         }
 
-        return ApiResponse.of("User logged out successfully.");
+        return ApiResponse.success("User logged out successfully.");
     }
 
     @Override
     public Object existsByEmail(String email) {
-        return ApiResponse.of("Existence state: ", userRepository.existsByEmailIgnoreCase(email));
+        return userRepository.existsByEmailIgnoreCase(email)? ApiResponse.success(email + " is exists") : ApiResponse.failure(email + " is not exists");
     }
 
     @Override
     public Object existsByUsername(String username) {
-        return ApiResponse.of("Existence state: ", userRepository.existsByUsernameIgnoreCase(username));
+        return userRepository.existsByUsernameIgnoreCase(username)? ApiResponse.success(username + " is exists") : ApiResponse.failure(username + " is not exists");
     }
 
 }

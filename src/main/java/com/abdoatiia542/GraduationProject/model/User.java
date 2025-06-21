@@ -64,7 +64,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
     @Builder.Default
     @Column(nullable = false)
-    private boolean enabled =  false;
+    private boolean enabled = false;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

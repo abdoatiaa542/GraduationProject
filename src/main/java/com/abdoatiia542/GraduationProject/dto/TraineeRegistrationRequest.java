@@ -27,7 +27,6 @@ public record TraineeRegistrationRequest(
         @NotBlank
         @Pattern(regexp = RegexConstants.PASSWORD)
         String password
-//        LocalDate birthDate
 
 ) {
 

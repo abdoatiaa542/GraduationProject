@@ -1,6 +1,0 @@
-package com.abdoatiia542.GraduationProject.model.enumerations;
-
-
-public enum DifficultyLevel {
-    BEGINNER, INTERMEDIATE, ADVANCED
-}

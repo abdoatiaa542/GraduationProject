@@ -24,7 +24,13 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+
 application:
   security:
     access-token:
       secret-key: T1Wg3DaZ+wG5l+gdJgsmGx0P6MBSwl6Dk6jUzqKwyr8=
+
+cloudinary:
+  cloud-name: dt6tkjbv0
+  api-key: 847815547535319
+  api-secret: lXtK-kVtnNDjf45r4210rbwRS-k

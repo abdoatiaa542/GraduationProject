@@ -31,7 +31,6 @@ public class CommandLineRunnerBean {
         return args -> {
             log.info("Command line runner start");
             inserUser();
-            log.info("CommandLineRunnerBean initialized successfully");
 
             if (workoutPlanRepository.count() == 0) {
                 insertWorkoutPlans();
@@ -39,6 +38,7 @@ public class CommandLineRunnerBean {
             } else {
                 log.info("Workout plans already exist, skipping initialization");
             }
+            log.info("CommandLineRunnerBean initialized successfully");
         };
     }
 

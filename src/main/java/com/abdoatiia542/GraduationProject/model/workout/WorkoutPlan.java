@@ -1,7 +1,9 @@
 package com.abdoatiia542.GraduationProject.model.workout;
 
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import jakarta.persistence.*;
 import lombok.*;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -44,6 +46,11 @@ public class WorkoutPlan {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "workoutPlan", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    private List<Trainee> trainees = new ArrayList<>();
+
 
     @Builder.Default
     @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

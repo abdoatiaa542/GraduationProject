@@ -1,6 +1,5 @@
 package com.abdoatiia542.GraduationProject.model.workout;
 
-import com.abdoatiia542.GraduationProject.model.BaseAttachment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "exercises")
-public class Exercise  {
+public class Exercise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,7 +43,26 @@ public class Exercise  {
     @Column(name = "exercise_order")
     private Integer exerciseOrder = 1;
 
+    @Column(name = "body_focus", length = 100)
+    private String bodyFocus;
+
+    @Column(name = "calories_burned")
+    private Integer caloriesBurned;
+
+    @Column(name = "total_calories")
+    private Integer totalCalories;
+
+    @Column(name = "is_completed")
+    private Boolean isCompleted = false;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
+    @Column(name = "video_url", length = 500)
+    private String videoUrl;
+
 }

@@ -56,19 +56,25 @@ public class WorkoutPlanMapper {
 
         return dto;
     }
-
     public static ExerciseDto toDto(Exercise entity) {
-        ExerciseDto dto = new ExerciseDto();
-        dto.setId(entity.getId());
-        dto.setExerciseName(entity.getExerciseName());
-        dto.setSetsCount(entity.getSetsCount());
-        dto.setReps(entity.getReps());
-        dto.setRestSeconds(entity.getRestSeconds());
-        dto.setNotes(entity.getNotes());
-        dto.setExerciseOrder(entity.getExerciseOrder());
-        dto.setCreatedAt(entity.getCreatedAt());
-        return dto;
+        return ExerciseDto.builder()
+                .id(entity.getId())
+                .exerciseName(entity.getExerciseName())
+                .setsCount(entity.getSetsCount())
+                .reps(entity.getReps())
+                .restSeconds(entity.getRestSeconds())
+                .notes(entity.getNotes())
+                .exerciseOrder(entity.getExerciseOrder())
+                .bodyFocus(entity.getBodyFocus())
+                .caloriesBurned(entity.getCaloriesBurned())
+                .totalCalories(entity.getTotalCalories())
+                .imageUrl(entity.getImageUrl())
+                .videoUrl(entity.getVideoUrl())
+                .createdAt(entity.getCreatedAt())
+                .isCompleted(entity.getIsCompleted() != null ? entity.getIsCompleted() : false)
+                .build();
     }
+
 
     public static PlanConsiderationDto toDto(PlanConsideration entity) {
         PlanConsiderationDto dto = new PlanConsiderationDto();

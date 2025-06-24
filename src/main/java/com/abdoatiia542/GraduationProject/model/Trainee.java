@@ -2,6 +2,7 @@ package com.abdoatiia542.GraduationProject.model;
 
 
 import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
+import com.abdoatiia542.GraduationProject.model.workout.WorkoutPlan;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -38,5 +39,9 @@ public class Trainee extends User {
 
     @Column()
     private Double targetWeight;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    @JoinColumn(name = "workout_plan_id")
+    private WorkoutPlan workoutPlan;
 
 }

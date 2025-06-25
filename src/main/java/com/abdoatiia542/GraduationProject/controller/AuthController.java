@@ -6,6 +6,7 @@ import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.service.auth.AuthService;
 import com.abdoatiia542.GraduationProject.service.auth.IAuthService;
+import com.abdoatiia542.GraduationProject.utils.ResponseUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,77 +33,42 @@ public class AuthController {
 @PostMapping("/trainee-registration")
 public ResponseEntity<?> registerTrainee(@Valid @RequestBody TraineeRegistrationRequest request) {
     ApiResponse response = (ApiResponse) service.registerTrainee(request);
-
-    if (response.success()) {
-        return ResponseEntity.created(URI.create("/api/v1/auth/trainee-registration")).body(response);
-    } else {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-    }
+    return ResponseUtil.createdOrConflict(response, "/api/v1/auth/trainee-registration");
 }
 
-
-
-    @PostMapping(value = "/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
-        ApiResponse response = (ApiResponse) service.loginUser(request);
-
-        if (response.success()) {
-            return ResponseEntity.ok(response); // 200 OK
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); // 401 Unauthorized
-        }
-    }
-
-
-
-    @PostMapping(value = "/complete-registration")
+    @PostMapping("/complete-registration")
     public ResponseEntity<?> completeRegistration(@Valid @RequestBody TraineeRegistrationCompleteRequest request) {
         ApiResponse response = (ApiResponse) service.completeTraineeRegistration(request);
-
-        if (response.success()) {
-            return ResponseEntity
-                    .created(URI.create("/api/v1/auth/complete-registration"))
-                    .body(response); // 201 Created
-        } else {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(response); // 400 Bad Request
-        }
+        return ResponseUtil.okOrBadRequest(response);
     }
 
+    // ---------------- Login ----------------
 
-
-    @PostMapping(value = "logout")
-    public ResponseEntity<?> logoutUser(
-            @RequestParam(value = "device-token", required = false) String deviceToken) {
-
-        return ResponseEntity.accepted().body(service.logoutUser(deviceToken));
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
+        ApiResponse response = (ApiResponse) service.loginUser(request);
+        return ResponseUtil.okOrUnauthorized(response);
     }
 
-    @GetMapping(value = "exists-by-email")
-    public ResponseEntity<?> existsByEmail(@RequestParam(value = "email") String email) {
+    // ---------------- Logout ----------------
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(@RequestParam(value = "device-token", required = false) String deviceToken) {
+        ApiResponse response = (ApiResponse) service.logoutUser(deviceToken);
+        return ResponseUtil.accepted(response);
+    }
+    @GetMapping("/exists-by-email")
+    public ResponseEntity<?> existsByEmail(@RequestParam String email) {
         ApiResponse response = (ApiResponse) service.existsByEmail(email);
-
-        if (response.success()) {
-            return ResponseEntity.ok(response); // 200 OK
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); // 401 Unauthorized
-        }
+        return ResponseEntity.ok(response);
     }
 
-
-    @GetMapping(value = "exists-by-username")
-    public ResponseEntity<?> existsByUsername(
-            @RequestParam(value = "username") String username) {
+    @GetMapping("/exists-by-username")
+    public ResponseEntity<?> existsByUsername(@RequestParam String username) {
         ApiResponse response = (ApiResponse) service.existsByUsername(username);
-
-        if (response.success()) {
-            return ResponseEntity.ok(response); // 200 OK
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); // 401 Unauthorized
-        }
+        return ResponseEntity.ok(response);
     }
+
 
 
 //    @PostMapping(value = "refresh-token")

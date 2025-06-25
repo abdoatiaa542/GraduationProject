@@ -14,22 +14,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
-
     private final ExerciseRepository exerciseRepository;
+        public List<ExerciseDto> getRandomExercisesByLevel(TrainingLevel level) {
+            List<Exercise> exercises = exerciseRepository.findAllByTrainingLevel(level);
 
-    public List<ExerciseDto> getRandom8ByTrainingLevel(TrainingLevel level) {
-        List<Exercise> exercises = exerciseRepository.findAllByTrainingLevel(level);
+            if (exercises.isEmpty()) {
+                return Collections.emptyList(); // هنتعامل معاها في الكنترولر
+            }
 
-        if (exercises.isEmpty()) {
-            return Collections.emptyList(); // سيبه فاضي وخليه يتعامل في الكنترولر
+            Collections.shuffle(exercises);
+
+            return exercises.stream()
+                    .limit(8)
+                    .map(WorkoutPlanMapper::toDto)
+                    .toList();
         }
-
-        Collections.shuffle(exercises);
-
-        return exercises.stream()
-                .limit(8)
-                .map(WorkoutPlanMapper::toDto)
-                .toList();
     }
 
-}

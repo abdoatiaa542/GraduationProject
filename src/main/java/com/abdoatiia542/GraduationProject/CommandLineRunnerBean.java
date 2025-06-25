@@ -120,7 +120,6 @@ public class CommandLineRunnerBean {
     }
 
 
-
     private void createBMILevel1Plan() {
         WorkoutPlan plan = WorkoutPlan.builder()
                 .bmiLevel(1)
@@ -135,8 +134,8 @@ public class CommandLineRunnerBean {
         addExercise(day1, "Bodyweight Squat", 2, "8-10", 60, "Proper form, deep as comfortable", "Leg & Butt", 1, 35, 70);
         addExercise(day1, "Incline Push Up", 2, "AMRAP", 60, "Hands elevated, modify if needed", "Chest Muscles", 2, 25, 50);
         addExercise(day1, "Bodyweight Assisted Pull Up", 2, "AMRAP", 60, "Use assistance, decrease over time", "Back Muscles", 3, 30, 60);
-        addExercise(day1, "Hand Plank", 2, "20-30s hold", 60, "Straight line head to heels", "Six Pack (Core)", 4, 20, 40);
-        addExercise(day1, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack (Core)", 5, 25, 50);
+        addExercise(day1, "Hand Plank", 2, "20-30s hold", 60, "Straight line head to heels", "Six Pack", 4, 20, 40);
+        addExercise(day1, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack", 5, 25, 50);
         addExercise(day1, "Glute Bridge", 2, "12-15", 60, "Squeeze glutes", "Leg & Butt", 6, 30, 60);
 
         // Day 2 - Rest
@@ -147,9 +146,9 @@ public class CommandLineRunnerBean {
         addExercise(day3, "Bodyweight Squat", 2, "8-10", 60, "Controlled movements.", "Leg & Butt", 1, 35, 70);
         addExercise(day3, "Incline Push Up", 2, "AMRAP", 60, "", "Chest Muscles", 2, 25, 50);
         addExercise(day3, "Inverted Row", 2, "AMRAP", 60, "Sturdy table or TRX, lower slowly", "Back Muscles", 3, 28, 56);
-        addExercise(day3, "Elbow Side Plank", 2, "20-30s hold per side", 60, "Straight line", "Six Pack (Core)", 4, 22, 44);
+        addExercise(day3, "Elbow Side Plank", 2, "20-30s hold per side", 60, "Straight line", "Six Pack", 4, 22, 44);
         addExercise(day3, "Supermans", 2, "10-12", 60, "Glutes and lower back", "Back Muscles", 5, 26, 52);
-        addExercise(day3, "Laying Leg Raises", 2, "10-12", 60, "Lower back on ground", "Six Pack (Core)", 6, 24, 48);
+        addExercise(day3, "Laying Leg Raises", 2, "10-12", 60, "Lower back on ground", "Six Pack", 6, 24, 48);
 
         // Day 4 - Rest
         createWorkoutDay(plan, 4, "Day 4", true, "Rest or Light Activity");
@@ -159,8 +158,8 @@ public class CommandLineRunnerBean {
         addExercise(day5, "Bodyweight Squat", 2, "8-10", 60, "Proper form, deep as comfortable", "Leg & Butt", 1, 35, 70);
         addExercise(day5, "Incline Push Up", 2, "AMRAP", 60, "Hands elevated, modify if needed", "Chest Muscles", 2, 25, 50);
         addExercise(day5, "Bodyweight Assisted Pull Up", 2, "AMRAP", 60, "Use assistance, decrease over time", "Back Muscles", 3, 30, 60);
-        addExercise(day5, "Hand Plank", 2, "20-30s hold", 60, "Straight line head to heels", "Six Pack (Core)", 4, 20, 40);
-        addExercise(day5, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack (Core)", 5, 25, 50);
+        addExercise(day5, "Hand Plank", 2, "20-30s hold", 60, "Straight line head to heels", "Six Pack", 4, 20, 40);
+        addExercise(day5, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack", 5, 25, 50);
         addExercise(day5, "Glute Bridge", 2, "12-15", 60, "Squeeze glutes", "Leg & Butt", 6, 30, 60);
 
         // Day 6 & 7 - Rest
@@ -178,6 +177,7 @@ public class CommandLineRunnerBean {
         // Save the plan
         workoutPlanRepository.save(plan);
     }
+
     private void createBMILevel2Plan() {
         WorkoutPlan plan = WorkoutPlan.builder()
                 .bmiLevel(2)
@@ -193,7 +193,7 @@ public class CommandLineRunnerBean {
         addExercise(day1, "Dumbbell Bench Press", 2, "8-10", 60, "Chest activation", "Chest Muscles", 2, 30, 60);
         addExercise(day1, "Dumbbell Row Unilateral", 2, "8-10 per side", 60, "Stable core, avoid twisting", "Back Muscles", 3, 32, 64);
         addExercise(day1, "Bodyweight Assisted Pull Up", 2, "AMRAP", 60, "Use assistance as needed", "Back Muscles", 4, 30, 60);
-        addExercise(day1, "Hand Plank", 2, "30-45s hold", 60, "Straight line, core engaged", "Six Pack (Core)", 5, 22, 44);
+        addExercise(day1, "Hand Plank", 2, "30-45s hold", 60, "Straight line, core engaged", "Six Pack", 5, 22, 44);
         addExercise(day1, "Glute Bridge", 2, "12-15", 60, "Squeeze glutes", "Leg & Butt", 6, 30, 60);
 
         // Day 2 - Rest
@@ -204,8 +204,8 @@ public class CommandLineRunnerBean {
         addExercise(day3, "Dumbbell Romanian Deadlift", 2, "10-12", 60, "Hinge at hips, straight back", "Leg & Butt", 1, 38, 76);
         addExercise(day3, "Dumbbell Overhead Press", 2, "8-10", 60, "Control weight", "Shoulders", 2, 30, 60);
         addExercise(day3, "Inverted Row", 2, "AMRAP", 60, "Choose appropriate variation", "Back Muscles", 3, 28, 56);
-        addExercise(day3, "Elbow Side Plank", 2, "30-45s hold per side", 60, "Straight line, core engaged", "Six Pack (Core)", 4, 24, 48);
-        addExercise(day3, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack (Core)", 5, 25, 50);
+        addExercise(day3, "Elbow Side Plank", 2, "30-45s hold per side", 60, "Straight line, core engaged", "Six Pack", 4, 24, 48);
+        addExercise(day3, "Bird Dog", 2, "10-12 per side", 60, "Engage core, balance", "Six Pack", 5, 25, 50);
         addExercise(day3, "Dumbbell Curl", 2, "10-12", 60, "Controlled movements", "Biceps", 6, 26, 52);
 
         // Day 4 - Rest
@@ -217,7 +217,7 @@ public class CommandLineRunnerBean {
         addExercise(day5, "Dumbbell Bench Press", 2, "8-10", 60, "Chest activation", "Chest Muscles", 2, 30, 60);
         addExercise(day5, "Dumbbell Row Unilateral", 2, "8-10 per side", 60, "Stable core, avoid twisting", "Back Muscles", 3, 32, 64);
         addExercise(day5, "Bodyweight Assisted Pull Up", 2, "AMRAP", 60, "Use assistance as needed", "Back Muscles", 4, 30, 60);
-        addExercise(day5, "Hand Plank", 2, "30-45s hold", 60, "Straight line, core engaged", "Six Pack (Core)", 5, 22, 44);
+        addExercise(day5, "Hand Plank", 2, "30-45s hold", 60, "Straight line, core engaged", "Six Pack", 5, 22, 44);
         addExercise(day5, "Glute Bridge", 2, "12-15", 60, "Squeeze glutes", "Leg & Butt", 6, 30, 60);
 
         // Day 6 & 7 - Rest
@@ -247,10 +247,10 @@ public class CommandLineRunnerBean {
         WorkoutDay day1 = createWorkoutDay(plan, 1, "Day 1", false, null);
         addExercise(day1, "Barbell Reverse Grip Bench Press", 2, "8-10", 75, "Start with empty bar, gradual increase", "Chest Muscles", 1, 35, 70);
         addExercise(day1, "Dumbbell Row Bilateral", 2, "8-10 per side", 75, "Stable core, flat back", "Back Muscles", 2, 32, 64);
-        addExercise(day1, "Dumbbell Overhead Press", 2, "8-10", 75, "Control weight, gradual increase", "Shoulders", 3, 30, 60);
+        addExercise(day1, "Dumbbell Overhead Press", 2, "8-10", 75, "Control weight, gradual increase", "Arm & Shoulder", 3, 30, 60);
         addExercise(day1, "Bodyweight Assisted Pull Up", 2, "AMRAP", 75, "Decrease assistance/increase weight", "Back Muscles", 4, 30, 60);
-        addExercise(day1, "Dumbbell Curl", 2, "10-12", 60, "Controlled movements", "Biceps", 5, 26, 52);
-        addExercise(day1, "Dumbbell Seated Overhead Tricep Extension", 2, "10-12", 60, "Elbows close to head", "Triceps", 6, 27, 54);
+        addExercise(day1, "Dumbbell Curl", 2, "10-12", 60, "Controlled movements", "Arm & Shoulder", 5, 26, 52);
+        addExercise(day1, "Dumbbell Seated Overhead Tricep Extension", 2, "10-12", 60, "Elbows close to head", "Arm & Shoulder", 6, 27, 54);
 
         // Day 2 - Lower Body
         WorkoutDay day2 = createWorkoutDay(plan, 2, "Day 2", false, null);
@@ -268,10 +268,10 @@ public class CommandLineRunnerBean {
         WorkoutDay day4 = createWorkoutDay(plan, 4, "Day 4", false, null);
         addExercise(day4, "Dumbbell Bench Press", 2, "12-15", 60, "Muscle-mind connection", "Chest Muscles", 1, 30, 60);
         addExercise(day4, "Dumbbell Row Bilateral", 2, "12-15", 60, "Lighter than Day 1", "Back Muscles", 2, 30, 60);
-        addExercise(day4, "Dumbbell Lateral Raise", 2, "12-15", 60, "Shoulder stability", "Shoulders", 3, 28, 56);
-        addExercise(day4, "Cable Rope Face Pulls", 2, "15-20", 60, "Light weight, rear deltoids", "Rear Shoulders", 4, 26, 52);
-        addExercise(day4, "Dumbbell Curl", 2, "12-15", 60, "", "Biceps", 5, 26, 52);
-        addExercise(day4, "Dumbbell Overhead Tricep Extension", 2, "12-15", 60, "", "Triceps", 6, 27, 54);
+        addExercise(day4, "Dumbbell Lateral Raise", 2, "12-15", 60, "Shoulder stability", "Arm & Shoulder", 3, 28, 56);
+        addExercise(day4, "Cable Rope Face Pulls", 2, "15-20", 60, "Light weight, rear deltoids", "Arm & Shoulder", 4, 26, 52);
+        addExercise(day4, "Dumbbell Curl", 2, "12-15", 60, "", "Arm & Shoulder", 5, 26, 52);
+        addExercise(day4, "Dumbbell Overhead Tricep Extension", 2, "12-15", 60, "", "Arm & Shoulder", 6, 27, 54);
 
         // Day 5 - Lower Body (Light)
         WorkoutDay day5 = createWorkoutDay(plan, 5, "Day 5", false, null);
@@ -356,6 +356,7 @@ public class CommandLineRunnerBean {
 
         workoutPlanRepository.save(plan);
     }
+
     private void createBMILevel5Plan() {
         WorkoutPlan plan = WorkoutPlan.builder()
                 .bmiLevel(5)
@@ -383,7 +384,7 @@ public class CommandLineRunnerBean {
         addExercise(day3, "Dumbbell Reverse Lunge", 3, "10-12 per leg", 75, "Maintain balance", "Leg & Butt", 2, 36, 108);
         addExercise(day3, "Dumbbell Curl", 3, "12-15", 60, "Controlled movement", "Biceps", 3, 26, 78);
         addExercise(day3, "Dumbbell Overhead Tricep Extension", 3, "12-15", 60, "Elbows close to head", "Triceps", 4, 27, 81);
-        addExercise(day3, "Bicycle Crunch", 3, "15-20 per side", 60, "Engage core", "Six Pack (Core)", 5, 28, 84);
+        addExercise(day3, "Bicycle Crunch", 3, "15-20 per side", 60, "Engage core", "Six Pack", 5, 28, 84);
         addExercise(day3, "Cycling or Rowing", 1, "30-45 minutes", 0, "Choose different from Day 1", "Cardio", 6, 0, 0);
 
         // Day 4 - Rest
@@ -543,51 +544,51 @@ public class CommandLineRunnerBean {
 
         // Day 1 - Push
         WorkoutDay day1 = createWorkoutDay(plan, 1, "Day 1", false, null);
-        addExercise(day1, "Barbell Bench Press", 4, "6-8", 120, "Focus on power, full range", "Chest", 1, 40, 160);
-        addExercise(day1, "Incline Dumbbell Press", 3, "8-10", 90, "Controlled tempo", "Upper Chest", 2, 35, 105);
-        addExercise(day1, "Dumbbell Lateral Raises", 3, "12-15", 60, "Pause at the top", "Shoulders", 3, 28, 84);
-        addExercise(day1, "Dips", 3, "AMRAP", 60, "Add weight if possible", "Chest & Triceps", 4, 34, 102);
-        addExercise(day1, "Cable Rope Pushdown", 3, "12-15", 60, "Strict form", "Triceps", 5, 28, 84);
+        addExercise(day1, "Barbell Bench Press", 4, "6-8", 120, "Focus on power, full range", "Chest Muscles", 1, 40, 160);
+        addExercise(day1, "Incline Dumbbell Press", 3, "8-10", 90, "Controlled tempo", "Chest Muscles", 2, 35, 105);
+        addExercise(day1, "Dumbbell Lateral Raises", 3, "12-15", 60, "Pause at the top", "Arm & Shoulder", 3, 28, 84);
+        addExercise(day1, "Dips", 3, "AMRAP", 60, "Add weight if possible", "Chest Muscles", 4, 34, 102);
+        addExercise(day1, "Cable Rope Pushdown", 3, "12-15", 60, "Strict form", "Arm & Shoulder", 5, 28, 84);
 
         // Day 2 - Pull
         WorkoutDay day2 = createWorkoutDay(plan, 2, "Day 2", false, null);
-        addExercise(day2, "Barbell Deadlift", 4, "5-6", 120, "Explosive lift, heavy weight", "Back & Legs", 1, 45, 180);
-        addExercise(day2, "Weighted Pull-Ups", 3, "AMRAP", 90, "Control the eccentric", "Back", 2, 36, 108);
-        addExercise(day2, "Barbell Row", 3, "8-10", 90, "Flat back, full ROM", "Back", 3, 32, 96);
-        addExercise(day2, "Incline Curl", 3, "10-12", 60, "Stretch fully", "Biceps", 4, 26, 78);
-        addExercise(day2, "Hammer Curl", 3, "10-12", 60, "Keep elbows tight", "Biceps & Forearms", 5, 26, 78);
+        addExercise(day2, "Barbell Deadlift", 4, "5-6", 120, "Explosive lift, heavy weight", "Back Muscles", 1, 45, 180);
+        addExercise(day2, "Weighted Pull-Ups", 3, "AMRAP", 90, "Control the eccentric", "Back Muscles", 2, 36, 108);
+        addExercise(day2, "Barbell Row", 3, "8-10", 90, "Flat back, full ROM", "Back Muscles", 3, 32, 96);
+        addExercise(day2, "Incline Curl", 3, "10-12", 60, "Stretch fully", "Arm & Shoulder", 4, 26, 78);
+        addExercise(day2, "Hammer Curl", 3, "10-12", 60, "Keep elbows tight", "Arm & Shoulder", 5, 26, 78);
 
         // Day 3 - Legs
         WorkoutDay day3 = createWorkoutDay(plan, 3, "Day 3", false, null);
-        addExercise(day3, "Barbell Squat", 4, "6-8", 120, "Deep and powerful reps", "Legs", 1, 44, 176);
-        addExercise(day3, "Romanian Deadlift", 3, "10-12", 90, "Hamstring stretch focus", "Hamstrings & Glutes", 2, 38, 114);
-        addExercise(day3, "Walking Lunges", 3, "12 per leg", 90, "Dumbbells optional", "Legs & Glutes", 3, 36, 108);
-        addExercise(day3, "Leg Extension", 3, "12-15", 60, "Pause at top", "Quads", 4, 30, 90);
-        addExercise(day3, "Calf Raise", 3, "20-25", 60, "Slow tempo", "Calves", 5, 28, 84);
+        addExercise(day3, "Barbell Squat", 4, "6-8", 120, "Deep and powerful reps", "Leg & Butt", 1, 44, 176);
+        addExercise(day3, "Romanian Deadlift", 3, "10-12", 90, "Hamstring stretch focus", "Leg & Butt", 2, 38, 114);
+        addExercise(day3, "Walking Lunges", 3, "12 per leg", 90, "Dumbbells optional", "Leg & Butt", 3, 36, 108);
+        addExercise(day3, "Leg Extension", 3, "12-15", 60, "Pause at top", "Leg & Butt", 4, 30, 90);
+        addExercise(day3, "Calf Raise", 3, "20-25", 60, "Slow tempo", "Leg & Butt", 5, 28, 84);
 
-        // Day 4 - Active Recovery
+        // Day 4 - Recovery
         createWorkoutDay(plan, 4, "Day 4", true, "Rest or Active Recovery (Light Cardio, Mobility, Foam Rolling)");
 
         // Day 5 - Push Variation
         WorkoutDay day5 = createWorkoutDay(plan, 5, "Day 5", false, null);
-        addExercise(day5, "Dumbbell Shoulder Press", 4, "8-10", 90, "Strict form", "Shoulders", 1, 32, 128);
-        addExercise(day5, "Incline Dumbbell Fly", 3, "10-12", 60, "Stretch chest", "Chest", 2, 30, 90);
-        addExercise(day5, "Push Ups", 3, "AMRAP", 60, "Final burnout", "Chest & Core", 3, 28, 84);
-        addExercise(day5, "Overhead Cable Tricep Extension", 3, "12-15", 60, "Stretch at bottom", "Triceps", 4, 27, 81);
+        addExercise(day5, "Dumbbell Shoulder Press", 4, "8-10", 90, "Strict form", "Arm & Shoulder", 1, 32, 128);
+        addExercise(day5, "Incline Dumbbell Fly", 3, "10-12", 60, "Stretch chest", "Chest Muscles", 2, 30, 90);
+        addExercise(day5, "Push Ups", 3, "AMRAP", 60, "Final burnout", "Chest Muscles", 3, 28, 84);
+        addExercise(day5, "Overhead Cable Tricep Extension", 3, "12-15", 60, "Stretch at bottom", "Arm & Shoulder", 4, 27, 81);
 
         // Day 6 - Pull Variation
         WorkoutDay day6 = createWorkoutDay(plan, 6, "Day 6", false, null);
-        addExercise(day6, "Lat Pulldown", 4, "10-12", 90, "Full stretch at top", "Back", 1, 34, 136);
-        addExercise(day6, "Dumbbell Row Bilateral", 3, "10-12", 90, "Keep core tight", "Back", 2, 32, 96);
-        addExercise(day6, "Face Pulls", 3, "15-20", 60, "Focus on rear delts", "Shoulders", 3, 28, 84);
-        addExercise(day6, "EZ Bar Curl", 3, "10-12", 60, "Squeeze at top", "Biceps", 4, 26, 78);
+        addExercise(day6, "Lat Pulldown", 4, "10-12", 90, "Full stretch at top", "Back Muscles", 1, 34, 136);
+        addExercise(day6, "Dumbbell Row Bilateral", 3, "10-12", 90, "Keep core tight", "Back Muscles", 2, 32, 96);
+        addExercise(day6, "Face Pulls", 3, "15-20", 60, "Focus on rear delts", "Arm & Shoulder", 3, 28, 84);
+        addExercise(day6, "EZ Bar Curl", 3, "10-12", 60, "Squeeze at top", "Arm & Shoulder", 4, 26, 78);
 
         // Day 7 - Core Focus
         WorkoutDay day7 = createWorkoutDay(plan, 7, "Day 7", false, null);
-        addExercise(day7, "Hanging Leg Raise", 3, "15-20", 60, "Strict form, no swinging", "Core", 1, 26, 78);
-        addExercise(day7, "Russian Twist with Weight", 3, "20-30", 60, "Each side counts", "Obliques", 2, 28, 84);
-        addExercise(day7, "Plank with Reach", 3, "30s hold + reach", 60, "Engage entire core", "Core & Stability", 3, 24, 72);
-        addExercise(day7, "Mountain Climbers", 3, "20 per leg", 45, "Cardio + Core finisher", "Cardio & Core", 4, 30, 90);
+        addExercise(day7, "Hanging Leg Raise", 3, "15-20", 60, "Strict form, no swinging", "Six Pack", 1, 26, 78);
+        addExercise(day7, "Russian Twist with Weight", 3, "20-30", 60, "Each side counts", "Six Pack", 2, 28, 84);
+        addExercise(day7, "Plank with Reach", 3, "30s hold + reach", 60, "Engage entire core", "Six Pack", 3, 24, 72);
+        addExercise(day7, "Mountain Climbers", 3, "20 per leg", 45, "Cardio + Core finisher", "Six Pack", 4, 30, 90);
 
         // Considerations
         plan.setConsiderations(List.of(
@@ -600,6 +601,7 @@ public class CommandLineRunnerBean {
 
         workoutPlanRepository.save(plan);
     }
+
 
 
     private WorkoutDay createWorkoutDay(WorkoutPlan plan, int dayNumber, String dayName, boolean isRest, String restNotes) {

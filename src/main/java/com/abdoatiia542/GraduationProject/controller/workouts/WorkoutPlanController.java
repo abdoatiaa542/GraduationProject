@@ -2,9 +2,11 @@ package com.abdoatiia542.GraduationProject.controller.workouts;
 
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
+import com.abdoatiia542.GraduationProject.model.enumerations.BodyFocus;
 import com.abdoatiia542.GraduationProject.model.workout.TrainingLevel;
 import com.abdoatiia542.GraduationProject.service.workout.ExerciseService;
 import com.abdoatiia542.GraduationProject.service.workout.WorkoutPlanService;
+import com.abdoatiia542.GraduationProject.utils.ResponseUtil;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,16 +40,17 @@ public class WorkoutPlanController {
     public ResponseEntity<?> getWorkoutPlanById(@PathVariable @Positive Long id) {
         return ResponseEntity.ok(workoutPlanService.getWorkoutPlanById(id));
     }
-
-    private ResponseEntity<ApiResponse> toResponse(String message, List<ExerciseDto> data) {
-        return data.isEmpty()
-                ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.failure("No exercises found for the specified training level"))
-                : ResponseEntity.ok(ApiResponse.success(message, data));
-    }
-
     @GetMapping("/WorkoutByLevel")
-    public ResponseEntity<ApiResponse> getRandom8ByTrainingLevel(@RequestParam TrainingLevel level) {
-        return toResponse("Fetched 8 random exercises", exerciseService.getRandomExercisesByLevel(level));
+    public ResponseEntity<ApiResponse> getExercisesByTrainingLevel(@RequestParam TrainingLevel level) {
+        List<ExerciseDto> data = exerciseService.getExercisesByTrainingLevel(level);
+        return ResponseUtil.buildListResponse("Successfully fetched exercises ", data);
     }
+    @GetMapping("/WorkoutByFocus")
+    public ResponseEntity<ApiResponse> getExercisesByBodyFocus(@RequestParam BodyFocus focus) {
+        List<ExerciseDto> exercises = exerciseService.getExercisesByBodyFocus(focus);
+        return ResponseUtil.buildListResponse("Successfully fetched exercises", exercises);
+    }
+
+
 
 }

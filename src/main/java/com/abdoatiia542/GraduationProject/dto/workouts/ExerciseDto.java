@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.dto.workouts;
 
+import com.abdoatiia542.GraduationProject.model.enumerations.BodyFocus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class ExerciseDto {
     private Integer restSeconds;
     private String notes;
     private Integer exerciseOrder;
-    private String bodyFocus;
+    private BodyFocus bodyFocus;
     private Integer caloriesBurned;
     private Integer totalCalories;
     private String imageUrl;

@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.model.workout;
 
+import com.abdoatiia542.GraduationProject.model.enumerations.BodyFocus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,8 +44,9 @@ public class Exercise {
     @Column(name = "exercise_order")
     private Integer exerciseOrder = 1;
 
-    @Column(name = "body_focus", length = 100)
-    private String bodyFocus;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "body_focus", nullable = false)
+    private BodyFocus bodyFocus;
 
     @Column(name = "calories_burned")
     private Integer caloriesBurned;

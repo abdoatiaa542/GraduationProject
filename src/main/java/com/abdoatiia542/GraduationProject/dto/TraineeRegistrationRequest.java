@@ -25,7 +25,10 @@ public record TraineeRegistrationRequest(
         String email,
 
         @NotBlank
-        @Pattern(regexp = RegexConstants.PASSWORD)
+        @Pattern(
+                regexp = RegexConstants.PASSWORD,
+                message = "Password must be 8-32 characters and include uppercase, lowercase, number, and special character"
+        )
         String password
 
 ) {

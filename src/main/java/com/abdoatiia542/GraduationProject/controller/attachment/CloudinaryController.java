@@ -1,7 +1,7 @@
-package com.abdoatiia542.GraduationProject.controller;
+package com.abdoatiia542.GraduationProject.controller.attachment;
 
 import com.abdoatiia542.GraduationProject.cloudnairy.CloudinaryService;
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

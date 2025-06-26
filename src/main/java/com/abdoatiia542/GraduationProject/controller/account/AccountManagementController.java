@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.controller;
+package com.abdoatiia542.GraduationProject.controller.account;
 
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
 import com.abdoatiia542.GraduationProject.service.account.IAccountManagementService;

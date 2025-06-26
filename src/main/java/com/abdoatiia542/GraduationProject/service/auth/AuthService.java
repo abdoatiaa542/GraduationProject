@@ -1,8 +1,8 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
 import com.abdoatiia542.GraduationProject.dto.*;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.handler.ResourceAlreadyExistsException;
-import com.abdoatiia542.GraduationProject.handler.ResourceNotFoundException;
 import com.abdoatiia542.GraduationProject.mapper.TraineeRegistrationRequestMapper;
 import com.abdoatiia542.GraduationProject.model.AccessToken;
 import com.abdoatiia542.GraduationProject.model.Trainee;
@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

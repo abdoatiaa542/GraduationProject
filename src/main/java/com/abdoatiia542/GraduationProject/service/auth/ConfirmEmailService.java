@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.model.RegistrationOTP;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.RegistrationOTPRepository;

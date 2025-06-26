@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.controller;
+package com.abdoatiia542.GraduationProject.controller.auth;
 
 import com.abdoatiia542.GraduationProject.constant.RegexConstants;
 import com.abdoatiia542.GraduationProject.service.auth.IResetPasswordService;

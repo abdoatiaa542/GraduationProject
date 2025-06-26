@@ -1,6 +1,6 @@
 //package com.abdoatiia542.GraduationProject.dto.notification;
 //
-//import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+//import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 //import com.abdoatiia542.GraduationProject.model.Notification;
 //import com.abdoatiia542.GraduationProject.model.User;
 //import com.abdoatiia542.GraduationProject.model.UserNotification;

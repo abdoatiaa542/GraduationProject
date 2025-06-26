@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.handler;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

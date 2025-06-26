@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.dto;
+package com.abdoatiia542.GraduationProject.dto.api;
 
 import org.springframework.http.HttpHeaders;
 

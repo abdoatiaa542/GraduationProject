@@ -1,7 +1,7 @@
 package com.abdoatiia542.GraduationProject.service.account;
 
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;

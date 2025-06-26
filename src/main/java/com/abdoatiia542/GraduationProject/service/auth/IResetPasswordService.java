@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 
 public interface IResetPasswordService {
     ApiResponse findAccount(String usernameOrEmail);

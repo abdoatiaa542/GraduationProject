@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.controller.workouts;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
 import com.abdoatiia542.GraduationProject.model.workout.TrainingLevel;
 import com.abdoatiia542.GraduationProject.service.workout.ExerciseService;
@@ -8,6 +8,7 @@ import com.abdoatiia542.GraduationProject.service.workout.WorkoutPlanService;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/workout-plans")
-//@CrossOrigin(origins = "*")
 @Validated
 @Slf4j
 public class WorkoutPlanController {

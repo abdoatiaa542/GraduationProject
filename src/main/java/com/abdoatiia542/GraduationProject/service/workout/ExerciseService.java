@@ -6,6 +6,8 @@ import com.abdoatiia542.GraduationProject.model.workout.Exercise;
 import com.abdoatiia542.GraduationProject.model.workout.TrainingLevel;
 import com.abdoatiia542.GraduationProject.repository.workouts.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

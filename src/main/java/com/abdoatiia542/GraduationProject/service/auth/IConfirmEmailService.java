@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import jakarta.transaction.Transactional;
 
 public interface  IConfirmEmailService {

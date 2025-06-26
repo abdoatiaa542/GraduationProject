@@ -1,7 +1,7 @@
 package com.abdoatiia542.GraduationProject.service.auth;
 
 
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.model.ResetPasswordToken;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
@@ -11,7 +11,6 @@ import com.abdoatiia542.GraduationProject.service.db.DatabaseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

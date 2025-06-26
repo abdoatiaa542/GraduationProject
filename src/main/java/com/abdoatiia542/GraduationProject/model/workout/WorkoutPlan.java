@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "workout_plans")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "workoutDays") // 👈 تمنع الطباعة الدائرية
+@ToString(exclude = "workoutDays")
+@Table(name = "workout_plans")   // one week
 public class WorkoutPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +47,9 @@ public class WorkoutPlan {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "workoutPlan", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    private List<Trainee> trainees = new ArrayList<>();
+//    @OneToMany(mappedBy = "workoutPlan", fetch = FetchType.LAZY,
+//            cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+//    private List<Trainee> trainees = new ArrayList<>();
 
 
     @Builder.Default

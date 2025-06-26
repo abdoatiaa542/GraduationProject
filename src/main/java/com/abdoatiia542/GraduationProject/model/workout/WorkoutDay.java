@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "workoutPlan") // 👈 تمنع الطباعة الدائرية
+@ToString(exclude = "workoutPlan")
 public class WorkoutDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

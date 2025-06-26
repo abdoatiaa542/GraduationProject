@@ -1,7 +1,7 @@
 package com.abdoatiia542.GraduationProject.filter;
 
 import com.abdoatiia542.GraduationProject.constant.JwtConstants;
-import com.abdoatiia542.GraduationProject.dto.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.model.AccessToken;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.service.access_token.IAccessTokenService;

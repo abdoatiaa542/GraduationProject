@@ -40,8 +40,10 @@ public class Trainee extends User {
     @Column()
     private Double targetWeight;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "workout_plan_id")
     private WorkoutPlan workoutPlan;
+
+//    activitylevel
 
 }

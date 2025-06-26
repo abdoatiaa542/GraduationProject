@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.dto;
+package com.abdoatiia542.GraduationProject.dto.api;
 
 public record ApiResponse(
         boolean success,

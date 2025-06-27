@@ -43,7 +43,7 @@ public class WorkoutPlanController {
         List<ExerciseDto> data = exerciseService.getExercisesByTrainingLevel(level);
         return ResponseUtil.buildListResponse("Successfully fetched exercises ", data);
     }
-    @GetMapping("/WorkoutByFocus")
+    @GetMapping("/WorkoutByBodyFocus")
     public ResponseEntity<ApiResponse> getExercisesByBodyFocus(@RequestParam BodyFocus focus) {
         List<ExerciseDto> exercises = exerciseService.getExercisesByBodyFocus(focus);
         return ResponseUtil.buildListResponse("Successfully fetched exercises", exercises);

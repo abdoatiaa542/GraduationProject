@@ -21,4 +21,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     List<Exercise> findByBodyFocus(BodyFocus bodyFocus, Pageable pageable);
 
+    Exercise findByExerciseName(String exerciseName);
+
 }

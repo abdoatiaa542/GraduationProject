@@ -1,20 +1,11 @@
 package com.abdoatiia542.GraduationProject.model;
 
-
-import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
-import com.abdoatiia542.GraduationProject.model.workout.WorkoutPlan;
+import com.abdoatiia542.GraduationProject.model.embeddables.BodyFatRange;
+import com.abdoatiia542.GraduationProject.model.enumerations.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.Valid;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -25,25 +16,46 @@ import java.time.LocalDate;
 @Table(name = "trainees")
 public class Trainee extends User {
 
-    @Column()
+    @Column
     private String firstName;
 
-    @Column()
+    @Column
     private String lastName;
 
-    @Column()
+    @Column
     private Double height;
 
-    @Column()
+    @Column
     private Double weight;
 
-    @Column()
+    @Column
     private Double targetWeight;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "workout_plan_id")
-    private WorkoutPlan workoutPlan;
+    @Enumerated(EnumType.STRING)
+    private Goal goal;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "min", column = @Column(name = "body_fat_min")),
+            @AttributeOverride(name = "max", column = @Column(name = "body_fat_max"))
+    })
+    @Valid
+    private BodyFatRange bodyFat;
 
-//    activitylevel
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "min", column = @Column(name = "target_body_fat_min")),
+            @AttributeOverride(name = "max", column = @Column(name = "target_body_fat_max"))
+    })
+    @Valid
+    private BodyFatRange targetBodyFat;
+
+    @Enumerated(EnumType.STRING)
+    private TrainingLevel trainingLevel;
+
+    @Enumerated(EnumType.STRING)
+    private ActivityLevel activityLevel;
+
+    @Column
+    int birthYear;
 
 }

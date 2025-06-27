@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.controller.auth;
 import com.abdoatiia542.GraduationProject.dto.LoginRequest;
+import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
@@ -35,6 +36,11 @@ public class AuthController {
     @PostMapping("/complete-registration")
     public ResponseEntity<?> completeRegistration(@Valid @RequestBody TraineeRegistrationCompleteRequest request) {
         ApiResponse response = (ApiResponse) service.completeTraineeRegistration(request);
+        return ResponseUtil.okOrBadRequest(response);
+    }
+    @PostMapping("/complete-measurements")
+    public ResponseEntity<?> completeMeasurements(@Valid @RequestBody TraineeMeasurementsRequest request) {
+        ApiResponse response = (ApiResponse) service.CompleteTraineeMeasurements(request);
         return ResponseUtil.okOrBadRequest(response);
     }
 

@@ -1,6 +1,5 @@
-package com.abdoatiia542.GraduationProject.utils;
+package com.abdoatiia542.GraduationProject.utils.Response;
 
-import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ public class ResponseUtil {
         return ResponseEntity.status(status)
                 .body(ApiResponse.failure(message));
     }
+
     public static ResponseEntity<ApiResponse> createdOrConflict(ApiResponse response, String locationPath) {
         return response.success()
                 ? ResponseEntity.created(URI.create(locationPath)).body(response)

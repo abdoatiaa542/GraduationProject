@@ -9,7 +9,7 @@ import java.util.List;
 public class ResourceAlreadyExistsException extends RuntimeException {
 
     public ResourceAlreadyExistsException(Class theClass, List<String> args) {
-        throw new RuntimeException(theClass.getSimpleName() + " with fields [%s]".formatted(String.join(", ", args)) + " Already exists");
+        throw new RuntimeException(theClass.getSimpleName()+" with fields [%s]".formatted(String.join(", ", args)) + " Already exists");
     }
 
     public ResourceAlreadyExistsException(String message) {

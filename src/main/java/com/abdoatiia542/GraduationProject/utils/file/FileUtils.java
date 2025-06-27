@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.utils;
+package com.abdoatiia542.GraduationProject.utils.file;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;

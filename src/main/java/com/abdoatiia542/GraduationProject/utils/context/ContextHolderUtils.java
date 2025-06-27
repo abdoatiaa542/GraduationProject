@@ -1,6 +1,7 @@
-package com.abdoatiia542.GraduationProject.utils;
+package com.abdoatiia542.GraduationProject.utils.context;
 
 
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,14 @@ public class ContextHolderUtils {
             return user;
         }
         throw new IllegalStateException();
+    }
+
+    // get trainee
+    public static Trainee getTrainee() {
+        if (getUser() instanceof Trainee trainee) {
+            return trainee;
+        }
+        throw new IllegalArgumentException("User is not trainee");
     }
 
 

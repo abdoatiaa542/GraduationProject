@@ -5,7 +5,7 @@ import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.service.auth.AuthService;
 import com.abdoatiia542.GraduationProject.service.auth.IAuthService;
-import com.abdoatiia542.GraduationProject.utils.ResponseUtil;
+import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -11,7 +11,7 @@ import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import com.abdoatiia542.GraduationProject.service.access_token.AccessTokenService;
 import com.abdoatiia542.GraduationProject.service.jwt.BearerTokenWrapper;
-import com.abdoatiia542.GraduationProject.utils.ContextHolderUtils;
+import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import io.jsonwebtoken.lang.Strings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

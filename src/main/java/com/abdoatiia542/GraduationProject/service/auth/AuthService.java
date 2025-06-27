@@ -32,30 +32,30 @@ public class AuthService implements IAuthService {
     private final TraineeRepository traineeRepository;
     private final TraineeRegistrationRequestMapper traineeRegistrationRequestMapper;
 
-@Override
-public Object registerTrainee(TraineeRegistrationRequest request) {
-    if (userRepository.existsByEmailIgnoreCase(request.email())) {
-        throw new ResourceAlreadyExistsException("User with this email already exists");
-    }
-    Trainee trainee = traineeRegistrationRequestMapper.apply(request);
-    traineeRepository.save(trainee);
-    // Create tokens
-    AccessToken accessToken = accessTokenService.create(trainee);
-    AccessToken refreshToken = accessTokenService.refresh(trainee);
-    String token = accessToken.getToken();
-    String refreshTokenValue = refreshToken.getToken();
-    String message = "Trainee registered successfully.";
-    LoginResponse response = new LoginResponse(
-            message,
-            token,
-            refreshTokenValue,
-            trainee.getEmail(),
-            trainee.getUsername(),
-            trainee.getRole().name()
-    );
+    @Override
+    public Object registerTrainee(TraineeRegistrationRequest request) {
+        if (userRepository.existsByEmailIgnoreCase(request.email())) {
+            throw new ResourceAlreadyExistsException("User with this email already exists");
+        }
+        Trainee trainee = traineeRegistrationRequestMapper.apply(request);
+        traineeRepository.save(trainee);
+        // Create tokens
+        AccessToken accessToken = accessTokenService.create(trainee);
+        AccessToken refreshToken = accessTokenService.refresh(trainee);
+        String token = accessToken.getToken();
+        String refreshTokenValue = refreshToken.getToken();
+        String message = "Trainee registered successfully.";
+        LoginResponse response = new LoginResponse(
+                message,
+                token,
+                refreshTokenValue,
+                trainee.getEmail(),
+                trainee.getUsername(),
+                trainee.getRole().name()
+        );
 
-    return ApiResponse.success(message, response);
-}
+        return ApiResponse.success(message, response);
+    }
 
     @Override
     public Object completeTraineeRegistration(TraineeRegistrationCompleteRequest request) {
@@ -63,12 +63,26 @@ public Object registerTrainee(TraineeRegistrationRequest request) {
         trainee.setFirstName(request.firstName());
         trainee.setLastName(request.lastName());
         trainee.setGender(request.gender());
-        trainee.setBirthDate(request.birthDate());
+        trainee.setBirthYear(request.birthYear());
 
         traineeRepository.save(trainee);
         return ApiResponse.success("Trainee registration completed successfully.");
     }
 
+    @Override
+    public Object CompleteTraineeMeasurements(TraineeMeasurementsRequest request) {
+        Trainee trainee = (Trainee) ContextHolderUtils.getUser();
+        trainee.setActivityLevel(request.activityLevel());
+        trainee.setHeight(request.height());
+        trainee.setWeight(request.weight());
+        trainee.setTargetWeight(request.targetWeight());
+        trainee.setBodyFat(request.bodyFat());
+        trainee.setTargetBodyFat(request.targetBodyFat());
+        trainee.setGoal(request.goal());
+        trainee.setTrainingLevel(request.trainingLevel());
+        traineeRepository.save(trainee);
+        return ApiResponse.success("Trainee measurements completed successfully.");
+    }
     @Override
     public Object loginUser(Object object) {
         try {
@@ -90,14 +104,14 @@ public Object registerTrainee(TraineeRegistrationRequest request) {
                 String refreshTokenValue = refreshToken.getToken();
                 String message = "Successful user login.";
 
-                LoginResponse response = new LoginResponse(message, token,refreshTokenValue ,  user.getEmail(), user.getUsername(), user.getRole().name());
+                LoginResponse response = new LoginResponse(message, token, refreshTokenValue, user.getEmail(), user.getUsername(), user.getRole().name());
 
                 return ApiResponse.success(message, response);
             } else {
                 return ApiResponse.failure("Invalid username or password");
             }
         } catch (Exception e) {
-            return  ApiResponse.failure("Error logging in user: " + e.getMessage());
+            return ApiResponse.failure("Error logging in user: " + e.getMessage());
         }
     }
 
@@ -122,12 +136,12 @@ public Object registerTrainee(TraineeRegistrationRequest request) {
 
     @Override
     public Object existsByEmail(String email) {
-        return userRepository.existsByEmailIgnoreCase(email)? ApiResponse.success(email + " is exists") : ApiResponse.failure(email + " is not exists");
+        return userRepository.existsByEmailIgnoreCase(email) ? ApiResponse.success(email + " is exists") : ApiResponse.failure(email + " is not exists");
     }
 
     @Override
     public Object existsByUsername(String username) {
-        return userRepository.existsByUsernameIgnoreCase(username)? ApiResponse.success(username + " is exists") : ApiResponse.failure(username + " is not exists");
+        return userRepository.existsByUsernameIgnoreCase(username) ? ApiResponse.success(username + " is exists") : ApiResponse.failure(username + " is not exists");
     }
 
 }

@@ -20,6 +20,6 @@ public record TraineeRegistrationCompleteRequest(
         Gender gender,
 
         @Nullable
-        LocalDate birthDate
+        int birthYear
 ) {
 }

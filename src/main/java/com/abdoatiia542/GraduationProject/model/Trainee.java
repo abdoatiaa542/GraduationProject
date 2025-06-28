@@ -1,16 +1,11 @@
 package com.abdoatiia542.GraduationProject.model;
 
-
-import com.abdoatiia542.GraduationProject.model.plan.TraineePlan;
+import com.abdoatiia542.GraduationProject.model.embeddables.BodyFatRange;
+import com.abdoatiia542.GraduationProject.model.enumerations.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.Valid;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
@@ -21,24 +16,46 @@ import java.util.List;
 @Table(name = "trainees")
 public class Trainee extends User {
 
-    @Column()
+    @Column
     private String firstName;
 
-    @Column()
+    @Column
     private String lastName;
 
-    @Column()
+    @Column
     private Double height;
 
-    @Column()
+    @Column
     private Double weight;
 
-    @Column()
+    @Column
     private Double targetWeight;
 
+    @Enumerated(EnumType.STRING)
+    private Goal goal;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "min", column = @Column(name = "body_fat_min")),
+            @AttributeOverride(name = "max", column = @Column(name = "body_fat_max"))
+    })
+    @Valid
+    private BodyFatRange bodyFat;
 
-    @OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TraineePlan> traineePlans = new ArrayList<>();
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "min", column = @Column(name = "target_body_fat_min")),
+            @AttributeOverride(name = "max", column = @Column(name = "target_body_fat_max"))
+    })
+    @Valid
+    private BodyFatRange targetBodyFat;
 
+    @Enumerated(EnumType.STRING)
+    private TrainingLevel trainingLevel;
+
+    @Enumerated(EnumType.STRING)
+    private ActivityLevel activityLevel;
+
+    @Column
+    int birthYear;
 
 }

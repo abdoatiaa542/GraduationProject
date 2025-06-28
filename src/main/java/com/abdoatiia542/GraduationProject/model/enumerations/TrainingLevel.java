@@ -1,17 +1,14 @@
 package com.abdoatiia542.GraduationProject.model.enumerations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum TrainingLevel {
-    BEGINNER("Beginner"),
-    INTERMEDIATE("Intermediate"),
-    ADVANCED("Advanced");
+    BEGINNER,
+    INTERMEDIATE,
+    ADVANCED;
 
-    private final String displayName;
-
-    TrainingLevel(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
+    @JsonCreator
+    public static TrainingLevel from(String value) {
+        return TrainingLevel.valueOf(value.toUpperCase());
     }
 }

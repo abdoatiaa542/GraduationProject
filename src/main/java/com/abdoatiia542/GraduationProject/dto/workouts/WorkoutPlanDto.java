@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.dto.workouts;
 
-import com.abdoatiia542.GraduationProject.model.workout.TrainingLevel;
+import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.model.workout;
+package com.abdoatiia542.GraduationProject.model.enumerations;
 
 public enum TrainingLevel {
     BEGINNER("Beginner"),

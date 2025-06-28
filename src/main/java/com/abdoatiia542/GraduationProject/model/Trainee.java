@@ -1,20 +1,16 @@
 package com.abdoatiia542.GraduationProject.model;
 
 
-import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
-import com.abdoatiia542.GraduationProject.model.workout.WorkoutPlan;
+import com.abdoatiia542.GraduationProject.model.plan.TraineePlan;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -40,10 +36,9 @@ public class Trainee extends User {
     @Column()
     private Double targetWeight;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "workout_plan_id")
-    private WorkoutPlan workoutPlan;
 
-//    activitylevel
+    @OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TraineePlan> traineePlans = new ArrayList<>();
+
 
 }

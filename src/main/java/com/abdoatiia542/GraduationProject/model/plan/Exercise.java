@@ -32,9 +32,26 @@ public class Exercise {
     @Column(nullable = true)
     private String videoLink;
 
+
+    @Column(nullable = true)
+    private String reps;
+
+    @Column(nullable = true)
+    private Integer sets;
+
+    @Column(nullable = true)
+    private Integer durationSeconds;
+
+    @Column(nullable = true)
+    private Integer caloriesBurned;
+
+    @Column(nullable = true)
+    private Integer totalCalories; // sets * caloriesBurned
+
     @ManyToMany(mappedBy = "exercises")
     private List<WorkoutSessions> sessions;
 
-
+    @OneToMany
+    private List<BodyFocus> bodyFocuses;
 
 }

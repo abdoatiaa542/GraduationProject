@@ -22,7 +22,9 @@ import java.util.Set;
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"), @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email")})
+@Table(name = "USERS", uniqueConstraints =
+        {@UniqueConstraint(name = "USER_USERNAME_UNIQUE_CONSTRAINT", columnNames = "username"),
+                @UniqueConstraint(name = "USER_EMAIL_UNIQUE_CONSTRAINT", columnNames = "email")})
 public class User implements org.springframework.security.core.userdetails.UserDetails {
 
     @Id

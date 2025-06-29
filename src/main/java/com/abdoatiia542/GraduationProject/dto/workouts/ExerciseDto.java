@@ -1,10 +1,11 @@
 package com.abdoatiia542.GraduationProject.dto.workouts;
 
-import com.abdoatiia542.GraduationProject.model.enumerations.BodyFocus;
+import com.abdoatiia542.GraduationProject.model.plan.BodyFocus;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class ExerciseDto {
     private Integer restSeconds;
     private String notes;
     private Integer exerciseOrder;
-    private BodyFocus bodyFocus;
+    private List<BodyFocus> bodyFocuses;
     private Integer caloriesBurned;
     private Integer totalCalories;
     private String imageUrl;

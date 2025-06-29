@@ -26,11 +26,4 @@ public class TraineeRegistrationRequestMapper implements Function<TraineeRegistr
         return trainee;
     }
 
-    public TraineeRegistrationResponse toResponse(Trainee trainee) {
-        return new TraineeRegistrationResponse(
-                trainee.getId(),
-                trainee.getUsername(),
-                trainee.getEmail()
-        );
-    }
 }

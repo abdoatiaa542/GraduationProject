@@ -44,6 +44,7 @@ public class AuthService implements IAuthService {
         AccessToken refreshToken = accessTokenService.refresh(trainee);
         String token = accessToken.getToken();
         String refreshTokenValue = refreshToken.getToken();
+
         String message = "Trainee registered successfully.";
         LoginResponse response = new LoginResponse(
                 message,
@@ -54,7 +55,7 @@ public class AuthService implements IAuthService {
                 trainee.getRole().name()
         );
 
-        return ApiResponse.success(message, response);
+        return ApiResponse.of(message, response);
     }
 
     @Override
@@ -63,7 +64,6 @@ public class AuthService implements IAuthService {
         trainee.setFirstName(request.firstName());
         trainee.setLastName(request.lastName());
         trainee.setGender(request.gender());
-        trainee.setBirthYear(request.birthYear());
 
         traineeRepository.save(trainee);
         return ApiResponse.success("Trainee registration completed successfully.");
@@ -83,6 +83,7 @@ public class AuthService implements IAuthService {
         traineeRepository.save(trainee);
         return ApiResponse.success("Trainee measurements completed successfully.");
     }
+
     @Override
     public Object loginUser(Object object) {
         try {

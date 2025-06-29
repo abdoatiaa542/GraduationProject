@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @Validated
 @RestController
 @RequestMapping(value = "api/v1/auth")
@@ -29,8 +31,8 @@ public class AuthController {
 //    }
     @PostMapping("/trainee-registration")
     public ResponseEntity<?> registerTrainee(@Valid @RequestBody TraineeRegistrationRequest request) {
-        ApiResponse response = (ApiResponse) service.registerTrainee(request);
-        return ResponseUtil.createdOrConflict(response, "/api/v1/auth/trainee-registration");
+        return ResponseEntity.created(URI.create("/api/v1/auth/trainee-registration"))
+                .body( service.registerTrainee(request));
     }
 
     @PostMapping("/complete-registration")

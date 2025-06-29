@@ -18,4 +18,13 @@ public record ApiResponse(
         return new ApiResponse(false, message, null);
     }
 
+    public static ApiResponse of(String message, Object data) {
+        return new ApiResponse(true, message, data);
+    }
+
+    public static ApiResponse of(String message) {
+        return new ApiResponse(true, message, "");
+    }
+
+
 }

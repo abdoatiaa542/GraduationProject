@@ -45,8 +45,8 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = true)
     private Gender gender;
 
-    @Column(nullable = true)
-    private LocalDate birthDate;
+    @Column(name = "birth_year" ,  nullable = true)
+    private Integer birthYear;
 
 
     @CreationTimestamp
@@ -79,6 +79,8 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserPicture picture;
+
+
 
 
     @Override

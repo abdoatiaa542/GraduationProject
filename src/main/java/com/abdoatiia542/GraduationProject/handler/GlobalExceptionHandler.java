@@ -48,7 +48,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHandlerMethodValidationException(@NonNull HandlerMethodValidationException exception, @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request) {
-        return ResponseEntity.status(status).body(new ApiResponse(false, "Missing or invalid Request Parameter(s).", exception.getDetailMessageArguments()));
+        return ResponseEntity.status(status).body(
+                new ApiResponse(false, "Missing or invalid Request Parameter(s).", exception.getDetailMessageArguments()));
     }
 
     @ExceptionHandler(value = AuthenticationException.class)

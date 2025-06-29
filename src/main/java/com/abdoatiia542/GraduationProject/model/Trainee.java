@@ -1,10 +1,15 @@
 package com.abdoatiia542.GraduationProject.model;
 
 import com.abdoatiia542.GraduationProject.model.embeddables.BodyFatRange;
-import com.abdoatiia542.GraduationProject.model.enumerations.*;
+import com.abdoatiia542.GraduationProject.model.enumerations.ActivityLevel;
+import com.abdoatiia542.GraduationProject.model.enumerations.Goal;
+import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Setter
@@ -55,7 +60,5 @@ public class Trainee extends User {
     @Enumerated(EnumType.STRING)
     private ActivityLevel activityLevel;
 
-    @Column
-    int birthYear;
 
 }

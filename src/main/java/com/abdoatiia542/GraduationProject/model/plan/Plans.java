@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.model.plan;
 
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,5 @@ public class Plans {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "plan_id")
     private List<PlanDays> planDays = new ArrayList<>();
-
 
 }

@@ -4,6 +4,7 @@ import com.abdoatiia542.GraduationProject.model.embeddables.BodyFatRange;
 import com.abdoatiia542.GraduationProject.model.enumerations.ActivityLevel;
 import com.abdoatiia542.GraduationProject.model.enumerations.Goal;
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
+import com.abdoatiia542.GraduationProject.model.food.MealPlan;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -59,6 +62,13 @@ public class Trainee extends User {
 
     @Enumerated(EnumType.STRING)
     private ActivityLevel activityLevel;
+    @ManyToMany
+    @JoinTable(
+            name = "trainee_meal_plans",
+            joinColumns = @JoinColumn(name = "trainee_id"),
+            inverseJoinColumns = @JoinColumn(name = "meal_plan_id")
+    )
+    private List<MealPlan> mealPlans;
 
 
 }

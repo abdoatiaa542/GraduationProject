@@ -1,11 +1,14 @@
 package com.abdoatiia542.GraduationProject.controller.auth;
+
 import com.abdoatiia542.GraduationProject.dto.LoginRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
-import com.abdoatiia542.GraduationProject.service.auth.AuthService;
-import com.abdoatiia542.GraduationProject.service.auth.IAuthService;
+import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
+import com.abdoatiia542.GraduationProject.service.auth.authentication.AuthService;
+import com.abdoatiia542.GraduationProject.service.auth.authentication.IAuthService;
+import com.abdoatiia542.GraduationProject.service.jwt.JwtService;
 import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +22,13 @@ import java.net.URI;
 @RequestMapping(value = "api/v1/auth")
 public class AuthController {
     private final IAuthService service;
+    private final JwtService jwtService;
+    private final TraineeRepository traineeRepository;
 
-    public AuthController(AuthService service) {
+    public AuthController(AuthService service, JwtService jwtService, TraineeRepository traineeRepository) {
         this.service = service;
+        this.jwtService = jwtService;
+        this.traineeRepository = traineeRepository;
     }
 
     //    @GetMapping("/generate-secure-secret-key")
@@ -32,7 +39,7 @@ public class AuthController {
     @PostMapping("/trainee-registration")
     public ResponseEntity<?> registerTrainee(@Valid @RequestBody TraineeRegistrationRequest request) {
         return ResponseEntity.created(URI.create("/api/v1/auth/trainee-registration"))
-                .body( service.registerTrainee(request));
+                .body(service.registerTrainee(request));
     }
 
     @PostMapping("/complete-registration")
@@ -40,6 +47,7 @@ public class AuthController {
         ApiResponse response = (ApiResponse) service.completeTraineeRegistration(request);
         return ResponseUtil.okOrBadRequest(response);
     }
+
     @PostMapping("/complete-measurements")
     public ResponseEntity<?> completeMeasurements(@Valid @RequestBody TraineeMeasurementsRequest request) {
         ApiResponse response = (ApiResponse) service.CompleteTraineeMeasurements(request);
@@ -75,8 +83,9 @@ public class AuthController {
     }
 
 
-//    @PostMapping(value = "refresh-token")
-//    public ResponseEntity<?> refreshToken(@RequestHeader("Authorization") String authHeader) {
-//        return ResponseEntity.ok(service.refreshToken(authHeader));
-//    }
+
+    @PostMapping(value = "refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestHeader("Authorization") String authHeader) {
+        return ResponseEntity.ok(service.refreshToken(authHeader));
+    }
 }

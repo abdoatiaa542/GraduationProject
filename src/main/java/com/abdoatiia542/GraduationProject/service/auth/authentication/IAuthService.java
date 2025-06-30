@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.service.auth;
+package com.abdoatiia542.GraduationProject.service.auth.authentication;
 
 import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest;
@@ -21,6 +21,9 @@ public interface IAuthService {
     Object existsByEmail(String email);
 
     Object existsByUsername(String username);
+
+    Object refreshToken(String token);
+
 
 
 }

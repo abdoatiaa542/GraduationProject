@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.service.auth;
+package com.abdoatiia542.GraduationProject.service.auth.resetpassword;
 
 
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
@@ -7,6 +7,8 @@ import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.ResetPasswordTokenRepository;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
+import com.abdoatiia542.GraduationProject.service.auth.sendemail.EmailTemplate;
+import com.abdoatiia542.GraduationProject.service.auth.sendemail.IEmailSender;
 import com.abdoatiia542.GraduationProject.service.db.DatabaseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

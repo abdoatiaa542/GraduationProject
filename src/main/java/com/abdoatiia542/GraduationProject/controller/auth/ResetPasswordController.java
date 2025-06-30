@@ -1,8 +1,8 @@
 package com.abdoatiia542.GraduationProject.controller.auth;
 
 import com.abdoatiia542.GraduationProject.constant.RegexConstants;
-import com.abdoatiia542.GraduationProject.service.auth.IResetPasswordService;
-import com.abdoatiia542.GraduationProject.service.auth.ResetPasswordService;
+import com.abdoatiia542.GraduationProject.service.auth.resetpassword.IResetPasswordService;
+import com.abdoatiia542.GraduationProject.service.auth.resetpassword.ResetPasswordService;
 import jakarta.validation.constraints.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

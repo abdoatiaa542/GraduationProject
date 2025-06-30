@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.service.auth;
+package com.abdoatiia542.GraduationProject.service.auth.sendemail;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

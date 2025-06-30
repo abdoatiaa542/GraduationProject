@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.service.auth;
+package com.abdoatiia542.GraduationProject.service.auth.authentication;
 
 import com.abdoatiia542.GraduationProject.dto.*;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
@@ -11,6 +11,7 @@ import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import com.abdoatiia542.GraduationProject.service.access_token.AccessTokenService;
 import com.abdoatiia542.GraduationProject.service.jwt.BearerTokenWrapper;
+import com.abdoatiia542.GraduationProject.service.jwt.JwtService;
 import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import io.jsonwebtoken.lang.Strings;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Service
@@ -31,6 +33,7 @@ public class AuthService implements IAuthService {
     private final UserRepository userRepository;
     private final TraineeRepository traineeRepository;
     private final TraineeRegistrationRequestMapper traineeRegistrationRequestMapper;
+    private final JwtService jwtService;
 
     @Override
     public Object registerTrainee(TraineeRegistrationRequest request) {
@@ -52,7 +55,11 @@ public class AuthService implements IAuthService {
                 refreshTokenValue,
                 trainee.getEmail(),
                 trainee.getUsername(),
-                trainee.getRole().name()
+                trainee.getRole().name(),
+                trainee.getFirstName(),
+                trainee.getLastName(),
+                trainee.getGender(),
+                trainee.getBirthYear()
         );
 
         return ApiResponse.of(message, response);
@@ -105,7 +112,27 @@ public class AuthService implements IAuthService {
                 String refreshTokenValue = refreshToken.getToken();
                 String message = "Successful user login.";
 
-                LoginResponse response = new LoginResponse(message, token, refreshTokenValue, user.getEmail(), user.getUsername(), user.getRole().name());
+                String firstName = null;
+                String lastName = null;
+
+                if (user instanceof Trainee trainee) {
+                    firstName = trainee.getFirstName();
+                    lastName = trainee.getLastName();
+                }
+
+                LoginResponse response = new LoginResponse(
+                        message,
+                        token,
+                        refreshTokenValue,
+                        user.getEmail(),
+                        user.getUsername(),
+                        user.getRole().name(),
+                        firstName,
+                        lastName,
+                        user.getGender(),
+                        user.getBirthYear()
+
+                        );
 
                 return ApiResponse.success(message, response);
             } else {
@@ -119,7 +146,6 @@ public class AuthService implements IAuthService {
 
     @Override
     public Object logoutUser(String deviceToken) {
-        System.out.println("i am here .............");
         String bearerToken = bearerTokenWrapper.getToken();
         if (!Strings.hasText(bearerToken)) {
             throw new IllegalArgumentException("Bearer token must not be null or empty");
@@ -145,5 +171,29 @@ public class AuthService implements IAuthService {
         return userRepository.existsByUsernameIgnoreCase(username) ? ApiResponse.success(username + " is exists") : ApiResponse.failure(username + " is not exists");
     }
 
+
+    @Override
+    public Object refreshToken(String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+
+        if (!accessTokenService.exists(token)) {
+            throw new IllegalStateException("Invalid token");
+        }
+
+        AccessToken oldToken = accessTokenService.get(token);
+        if (oldToken.getExpiration().before(new Date())) {
+            throw new IllegalStateException("Token has expired");
+        }
+
+        accessTokenService.delete(token);
+
+        AccessToken newToken = accessTokenService.refresh(oldToken.getUser());
+
+        return ApiResponse.of("Token refreshed", newToken.getToken());
+    }
+
+
+
 }
+
 

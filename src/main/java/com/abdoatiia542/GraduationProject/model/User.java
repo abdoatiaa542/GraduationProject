@@ -8,7 +8,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -45,7 +44,7 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = true)
     private Gender gender;
 
-    @Column(name = "birth_year" ,  nullable = true)
+    @Column(name = "birth_year", nullable = true)
     private Integer birthYear;
 
 
@@ -79,8 +78,6 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserPicture picture;
-
-
 
 
     @Override

@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.service.auth;
+package com.abdoatiia542.GraduationProject.service.auth.resetpassword;
 
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 

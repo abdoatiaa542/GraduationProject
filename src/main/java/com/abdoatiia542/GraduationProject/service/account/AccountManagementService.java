@@ -1,8 +1,10 @@
 package com.abdoatiia542.GraduationProject.service.account;
 
 
-import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.UserDetailsResponse;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
@@ -93,4 +95,31 @@ public class AccountManagementService implements IAccountManagementService {
         List<String> authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         return ApiResponse.success("Authorities retrieved successfully.", authorities);
     }
+
+
+    public ApiResponse getUserProfile() {
+
+        User user = ContextHolderUtils.getTrainee();
+
+        String firstName = null;
+        String lastName = null;
+
+        if (user instanceof Trainee trainee) {
+            firstName = trainee.getFirstName();
+            lastName = trainee.getLastName();
+        }
+
+        UserDetailsResponse response = new UserDetailsResponse(
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole().name(),
+                firstName,
+                lastName,
+                user.getGender() != null ? user.getGender().name() : null,
+                user.getBirthYear()
+        );
+
+        return ApiResponse.of("User profile retrieved successfully.", response);
+    }
 }
+

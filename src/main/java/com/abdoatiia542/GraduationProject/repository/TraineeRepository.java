@@ -12,5 +12,7 @@ public interface TraineeRepository extends JpaRepository<Trainee, Long> {
 
     Optional<Trainee> findByEmailIgnoreCase(String email);
 
+    Optional<Trainee> findByUsernameIgnoreCase(String username);
+
 
 }

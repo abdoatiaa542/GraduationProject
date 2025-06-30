@@ -54,5 +54,9 @@ public class AccountManagementController {
         return ResponseEntity.ok().body(service.getAuthorities());
     }
 
+    @GetMapping("/user-profile")
+    public ResponseEntity<?> getCurrentUser() {
+        return ResponseEntity.ok().body(service.getUserProfile());
+    }
 
 }

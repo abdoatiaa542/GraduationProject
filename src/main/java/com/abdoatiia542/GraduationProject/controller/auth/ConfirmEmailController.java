@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.controller.auth;
 
-import com.abdoatiia542.GraduationProject.service.auth.IConfirmEmailService;
+import com.abdoatiia542.GraduationProject.service.auth.confirmemail.IConfirmEmailService;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -18,4 +18,8 @@ public interface IAccountManagementService {
 
     ApiResponse getAuthorities();
 
+
+    ApiResponse getUserProfile() ;
+
+
 }

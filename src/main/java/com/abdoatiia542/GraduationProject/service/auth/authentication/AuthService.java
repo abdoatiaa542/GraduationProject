@@ -71,9 +71,19 @@ public class AuthService implements IAuthService {
         trainee.setFirstName(request.firstName());
         trainee.setLastName(request.lastName());
         trainee.setGender(request.gender());
+        trainee.setBirthYear(request.birthYear());
+        UserDetailsResponse response = new UserDetailsResponse(
+                trainee.getUsername(),
+                trainee.getEmail(),
+                trainee.getRole().name(),
+                trainee.getFirstName(),
+                trainee.getLastName(),
+                trainee.getGender().name(),
+                trainee.getBirthYear()
+        );
 
         traineeRepository.save(trainee);
-        return ApiResponse.success("Trainee registration completed successfully.");
+        return ApiResponse.success("Trainee registration completed successfully." , response);
     }
 
     @Override

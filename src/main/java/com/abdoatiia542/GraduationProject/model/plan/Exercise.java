@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +29,7 @@ public class Exercise {
     private String description;
 
     @Column(nullable = true)
-    private String ImageLink;
+    private String imageLink;
 
     @Column(nullable = true)
     private String videoLink;
@@ -48,10 +50,16 @@ public class Exercise {
     @Column(nullable = true)
     private Integer totalCalories; // sets * caloriesBurned
 
-    @ManyToMany(mappedBy = "exercises")
-    private List<WorkoutSessions> sessions;
 
-    @OneToMany
-    private List<BodyFocus> bodyFocuses;
+    @ManyToMany
+    @JoinTable(
+            name = "exercises_body_focuses",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "body_focus_id")
+    )
+    private Set<BodyFocus> bodyFocuses = new HashSet<>();
 
+
+    @Column(nullable = true)
+    private Integer durationRestSeconds;
 }

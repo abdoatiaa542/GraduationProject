@@ -48,12 +48,6 @@ public class AuthController {
         return ResponseUtil.okOrBadRequest(response);
     }
 
-    @PostMapping("/complete-measurements")
-    public ResponseEntity<?> completeMeasurements(@Valid @RequestBody TraineeMeasurementsRequest request) {
-        ApiResponse response = (ApiResponse) service.CompleteTraineeMeasurements(request);
-        return ResponseUtil.okOrBadRequest(response);
-    }
-
     // ---------------- Login ----------------
 
     @PostMapping("/login")

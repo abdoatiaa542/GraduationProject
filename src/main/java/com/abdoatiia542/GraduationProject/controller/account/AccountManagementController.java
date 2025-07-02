@@ -1,7 +1,11 @@
 package com.abdoatiia542.GraduationProject.controller.account;
 
+import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.service.account.IAccountManagementService;
+import com.abdoatiia542.GraduationProject.service.auth.authentication.IAuthService;
+import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
@@ -20,6 +24,7 @@ public class AccountManagementController {
 
 
     private final IAccountManagementService service;
+    private final IAuthService iAuthService;
 
 
     @GetMapping("/generate-secret-key")
@@ -35,6 +40,12 @@ public class AccountManagementController {
         return ResponseEntity.accepted().body(service.changePassword(request));
     }
 
+
+    @PostMapping("/complete-measurements")
+    public ResponseEntity<?> completeMeasurements(@Valid @RequestBody TraineeMeasurementsRequest request) {
+        ApiResponse response = (ApiResponse) iAuthService.CompleteTraineeMeasurements(request);
+        return ResponseUtil.okOrBadRequest(response);
+    }
 
     @PutMapping(value = "picture")
     ResponseEntity<?> uploadProfilePicture(

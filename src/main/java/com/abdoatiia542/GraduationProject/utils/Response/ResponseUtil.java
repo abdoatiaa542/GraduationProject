@@ -12,7 +12,11 @@ public class ResponseUtil {
     private ResponseUtil() {
         // Utility class - no need to instantiate
     }
-
+    public static ResponseEntity<ApiResponse> okOrNotFound(ApiResponse response) {
+        return response.success() ?
+                ResponseEntity.ok(response) :
+                ResponseEntity.status(404).body(response);
+    }
     public static <T> ResponseEntity<com.abdoatiia542.GraduationProject.dto.api.ApiResponse> buildListResponse(String message, List<T> data) {
         if (data == null || data.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

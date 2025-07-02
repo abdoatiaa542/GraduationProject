@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject.model.plan;
 
 import com.abdoatiia542.GraduationProject.model.Trainee;
+import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,11 @@ public class Plans {
     @Column(name = "goal", nullable = false, columnDefinition = "TEXT")
     private String goal;
 
+@Enumerated(EnumType.STRING)
+private TrainingLevel trainingLevel;
+
+@Column(name = "training_split", nullable = false, columnDefinition = "TEXT")
+private String trainingSplit;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TraineePlan> traineePlans = new ArrayList<>();

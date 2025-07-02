@@ -1,27 +1,24 @@
 package com.abdoatiia542.GraduationProject.dto.workouts;
 
-import com.abdoatiia542.GraduationProject.model.plan.BodyFocus;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 public class ExerciseDto {
-    private Long id;
+
+    private Integer id;
     private String exerciseName;
-    private Integer setsCount;
+    private String description;
+    private String imageLink;
+    private String videoLink;
     private String reps;
-    private Integer restSeconds;
-    private String notes;
-    private Integer exerciseOrder;
-    private List<BodyFocus> bodyFocuses;
+    private Integer sets;
+    private Integer durationSeconds;
     private Integer caloriesBurned;
     private Integer totalCalories;
-    private String imageUrl;
-    private String videoUrl;
-    private LocalDateTime createdAt;
-    private boolean isCompleted;
+    private Integer durationRestSeconds;
+    private Set<String> bodyFocuses;
 }

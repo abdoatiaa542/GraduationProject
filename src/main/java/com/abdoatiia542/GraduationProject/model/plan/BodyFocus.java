@@ -1,8 +1,10 @@
 package com.abdoatiia542.GraduationProject.model.plan;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "body_focus")
@@ -19,5 +21,9 @@ public class BodyFocus {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "bodyFocuses")
+    private Set<Exercise> exercises;
 
 }

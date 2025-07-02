@@ -39,7 +39,7 @@ public class WorkoutSessions {
     private String description;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany()
     @JoinTable(name = "workout_sessions_exercises",
             joinColumns = @JoinColumn(name = "workout_sessions_id"),
             inverseJoinColumns = @JoinColumn(name = "exercises_id"))

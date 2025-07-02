@@ -4,6 +4,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +19,9 @@ public class BodyFatRange {
 
     @NotNull
     @Min(5)
-    @Max(50)
+    @Max(42)
     private Double min;
 
-    @NotNull
     @Min(5)
-    @Max(50)
     private Double max;
 }

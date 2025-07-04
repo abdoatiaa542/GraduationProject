@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.model.food;
 
+import com.abdoatiia542.GraduationProject.model.enumerations.MealType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,9 @@ public class Meal {
 
     @Column(nullable = false, name = "name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private MealType type;
 
 
     @Column(nullable = false, name = "calories")

@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.model.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class MealItems {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true, name = "image_url")
+    @Column(nullable = false, name = "image_url")
     private String imageUrl;
 
     @ManyToOne

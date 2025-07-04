@@ -35,6 +35,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(new ApiResponse(false, exception.getMessage().split(":")[0], ""));
     }
 
+    @ExceptionHandler(value = NotFoundException.class)
+    protected ResponseEntity<Object> handleNotFoundException(@NotNull NotFoundException exception) {
+        return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND)
+                .body(function.apply(exception));
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull MethodArgumentNotValidException exception, @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request) {
         List<String> data = exception.getFieldErrors().stream().map(i -> "%s: %s".formatted(i.getField(), i.getDefaultMessage())).toList();

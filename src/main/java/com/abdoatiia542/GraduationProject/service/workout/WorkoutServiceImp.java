@@ -36,7 +36,7 @@ public class WorkoutServiceImp implements WorkoutService {
     public ApiResponse getExercisesByTrainingLevel(String level) {
         List<ExerciseDto> exercises = workoutSessionsRepository.findExercisesByTrainingLevel(level).stream()
                 .map(exerciseMapper::toDto)
-                .distinct() // لو حصل تكرار بسبب join
+                .distinct() //
                 .toList();
 
         if (exercises.isEmpty()) {

@@ -62,12 +62,8 @@ public class Trainee extends User {
 
     @Enumerated(EnumType.STRING)
     private ActivityLevel activityLevel;
-    @ManyToMany
-    @JoinTable(
-            name = "trainee_meal_plans",
-            joinColumns = @JoinColumn(name = "trainee_id"),
-            inverseJoinColumns = @JoinColumn(name = "meal_plan_id")
-    )
+
+    @OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealPlan> mealPlans;
 
 

@@ -4,7 +4,6 @@ import com.abdoatiia542.GraduationProject.model.Trainee;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -20,18 +19,22 @@ public class MealPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double calories;
-    private double protein;
-    private double fat;
-    private double carbs;
+    @Column(nullable = false, name = "total_calories")
+    private double totalCalories;
+    @Column(nullable = false, name = "total_carbs")
+    private double totalCarbs;
+    @Column(nullable = false, name = "total_protein")
+    private double totalProtein;
+    @Column(nullable = false, name = "total_fat")
+    private double totalFat;
 
-    private boolean vegetarian;
 
-    private LocalDateTime createdAt;
-
-    @ManyToMany(mappedBy = "mealPlans")
-    private List<Trainee> trainees;
-
-    @OneToMany(mappedBy = "mealPlan", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "mealPlan", cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Meal> meals;
+
+    @ManyToOne
+    private Trainee trainee;
+
+
 }

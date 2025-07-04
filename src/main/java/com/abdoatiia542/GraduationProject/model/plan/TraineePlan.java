@@ -2,6 +2,7 @@ package com.abdoatiia542.GraduationProject.model.plan;
 
 
 import com.abdoatiia542.GraduationProject.model.Trainee;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

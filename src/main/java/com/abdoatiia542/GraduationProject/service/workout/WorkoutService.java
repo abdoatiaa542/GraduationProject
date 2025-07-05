@@ -8,5 +8,8 @@ public interface WorkoutService {
     ApiResponse getWorkoutsByTrainingLevel(String trainingLevel);
     ApiResponse getBodyFocuses();
     ApiResponse getRecommendedWorkouts();
+    ApiResponse getSavedWorkouts();
+    ApiResponse saveWorkoutForTrainee(Integer workoutId);
+    ApiResponse unSaveWorkoutForTrainee(Integer workoutId);
 
 }

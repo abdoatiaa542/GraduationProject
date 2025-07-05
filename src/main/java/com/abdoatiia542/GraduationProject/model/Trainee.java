@@ -5,6 +5,7 @@ import com.abdoatiia542.GraduationProject.model.enumerations.ActivityLevel;
 import com.abdoatiia542.GraduationProject.model.enumerations.Goal;
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import com.abdoatiia542.GraduationProject.model.food.MealPlan;
+import com.abdoatiia542.GraduationProject.model.plan.WorkoutSessions;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -66,5 +68,10 @@ public class Trainee extends User {
     @OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealPlan> mealPlans;
 
+    @ManyToMany
+    @JoinTable(name = "user_saved_workouts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "workout_id"))
+    private List<WorkoutSessions> savedWorkouts = new ArrayList<>();
 
 }

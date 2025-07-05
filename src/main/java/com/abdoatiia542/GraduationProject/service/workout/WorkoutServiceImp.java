@@ -3,21 +3,26 @@ package com.abdoatiia542.GraduationProject.service.workout;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
 import com.abdoatiia542.GraduationProject.dto.workouts.WorkoutSessionDto;
+import com.abdoatiia542.GraduationProject.handler.ResourceNotFoundException;
 import com.abdoatiia542.GraduationProject.mapper.ExerciseMapper;
 import com.abdoatiia542.GraduationProject.mapper.WorkoutSessionMapper;
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import com.abdoatiia542.GraduationProject.model.plan.BodyFocus;
 import com.abdoatiia542.GraduationProject.model.plan.Exercise;
 import com.abdoatiia542.GraduationProject.model.plan.WorkoutSessions;
+import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.BodyFocusRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.ExerciseRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.WorkoutSessionsRepository;
+import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +31,7 @@ public class WorkoutServiceImp implements WorkoutService {
     private final ExerciseRepository exerciseRepository;
     private final WorkoutSessionsRepository workoutSessionsRepository;
     private final BodyFocusRepository bodyFocusRepository;
+    private final TraineeRepository traineeRepository;
 
 
     public ApiResponse getExercisesByBodyFocus(String bodyFocusName) {
@@ -77,6 +83,55 @@ public class WorkoutServiceImp implements WorkoutService {
                 .toList();
 
         return ApiResponse.success("Recommended sessions fetched successfully", recommended);
+    }
+
+    public ApiResponse getSavedWorkouts() {
+        Trainee trainee = traineeRepository.findByIdWithSavedWorkouts(ContextHolderUtils.getTrainee().getId());
+
+        final List<WorkoutSessionDto> savedWorkouts = trainee
+                .getSavedWorkouts()
+                .stream()
+                .map(WorkoutSessionMapper::toDto)
+                .toList();
+        return ApiResponse.success("Saved Workouts fetched successfully", savedWorkouts);
+    }
+
+    @Override
+    public ApiResponse saveWorkoutForTrainee(Integer workoutId) {
+        Trainee trainee = traineeRepository.findByIdWithSavedWorkouts(ContextHolderUtils.getTrainee().getId());
+
+        WorkoutSessions workout = workoutSessionsRepository.findById(workoutId)
+                .orElseThrow(() -> new ResourceNotFoundException("Workout not found with id: " + workoutId));
+
+        List<WorkoutSessions> savedWorkouts = trainee.getSavedWorkouts();
+
+        if (savedWorkouts.contains(workout)) {
+            return ApiResponse.failure("Workout already saved");
+        }
+
+        trainee.getSavedWorkouts().add(workout);
+        traineeRepository.save(trainee);
+
+        return ApiResponse.success("Workout saved successfully", null);
+    }
+
+    @Override
+    public ApiResponse unSaveWorkoutForTrainee(Integer workoutId) {
+        Trainee trainee = traineeRepository.findByIdWithSavedWorkouts(ContextHolderUtils.getTrainee().getId());
+
+        WorkoutSessions workout = workoutSessionsRepository.findById(workoutId)
+                .orElseThrow(() -> new ResourceNotFoundException("Workout not found with id: " + workoutId));
+
+        List<WorkoutSessions> savedWorkouts = trainee.getSavedWorkouts();
+
+        if (savedWorkouts.contains(workout)) {
+            return ApiResponse.failure("Workout was not in saved list");
+        }
+
+        trainee.getSavedWorkouts().removeIf(w -> w.getId().equals(workoutId));
+        traineeRepository.save(trainee);
+
+        return ApiResponse.success("Workout removed from saved workouts", null);
     }
 
 

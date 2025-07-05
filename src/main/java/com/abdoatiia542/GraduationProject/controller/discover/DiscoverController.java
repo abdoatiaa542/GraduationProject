@@ -40,4 +40,12 @@ public class DiscoverController {
         ApiResponse response = workoutService.getRecommendedWorkouts();
         return ResponseUtil.okOrNotFound(response);
     }
+
+    @GetMapping("/saved")
+    public ResponseEntity<?> getSavedWorkouts() {
+        final ApiResponse response = workoutService.getSavedWorkouts();
+        return ResponseUtil.okOrNotFound(response);
+    }
+
+
 }

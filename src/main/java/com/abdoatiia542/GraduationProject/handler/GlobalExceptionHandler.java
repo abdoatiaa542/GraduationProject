@@ -111,4 +111,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
+    @ExceptionHandler(value = ExpiredTokenException.class)
+    protected ResponseEntity<Object> handleExpiredTokenException(@NotNull ExpiredTokenException exception) {
+        return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(function.apply(exception));
+    }
+
+    @ExceptionHandler(value = InvalidTokenException.class)
+    protected ResponseEntity<Object> handleInvalidTokenException(@NotNull InvalidTokenException exception) {
+        return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(function.apply(exception));
+    }
+
+
+
+
 }

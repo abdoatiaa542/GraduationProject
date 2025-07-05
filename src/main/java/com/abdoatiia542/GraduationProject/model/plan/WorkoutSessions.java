@@ -39,7 +39,7 @@ public class WorkoutSessions {
     private String description;
 
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "workout_sessions_exercises",
             joinColumns = @JoinColumn(name = "workout_sessions_id"),
             inverseJoinColumns = @JoinColumn(name = "exercises_id"))

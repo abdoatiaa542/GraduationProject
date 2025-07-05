@@ -1,7 +1,6 @@
-package com.abdoatiia542.GraduationProject.controller.workout;
+package com.abdoatiia542.GraduationProject.controller.discover;
 
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
-import com.abdoatiia542.GraduationProject.service.trainee.TraineeService;
 import com.abdoatiia542.GraduationProject.service.workout.WorkoutService;
 import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.constraints.NotBlank;
@@ -12,30 +11,33 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController
-@RequestMapping(value = "api/v1/workout")
+@RequestMapping(value = "api/v1/discover")
 @AllArgsConstructor
-public class WorkoutController {
+public class DiscoverController {
 
     private final WorkoutService workoutService;
-    private final TraineeService traineeService;
 
-    @GetMapping("/exercisesByBodyFocus")
+    @GetMapping("/exercises")
     public ResponseEntity<?> getExercisesByBodyFocus(@RequestParam @NotBlank String bodyFocus) {
         ApiResponse response = workoutService.getExercisesByBodyFocus(bodyFocus);
         return ResponseUtil.okOrNotFound(response);
     }
 
-    @GetMapping("/exercisesByTrainingLevel")
-    public ResponseEntity<?> getExercisesByTrainingLevel(@RequestParam @NotBlank String level) {
-        ApiResponse response = workoutService.getExercisesByTrainingLevel(level);
+    @GetMapping("/body-focuses")
+    public ResponseEntity<?> getBodyFocuses() {
+        ApiResponse response = workoutService.getBodyFocuses();
         return ResponseUtil.okOrNotFound(response);
     }
 
-    @GetMapping("/generate-plan")
-    public ApiResponse getMyCurrentPlan() {
-        return traineeService.generatePlanForTrainee();
+    @GetMapping("/workouts")
+    public ResponseEntity<?> getWorkouts(@RequestParam @NotBlank String level) {
+        ApiResponse response = workoutService.getWorkoutsByTrainingLevel(level);
+        return ResponseUtil.okOrNotFound(response);
     }
 
-
-
+    @GetMapping("/recommended")
+    public ResponseEntity<?> getRecommendedWorkouts() {
+        ApiResponse response = workoutService.getRecommendedWorkouts();
+        return ResponseUtil.okOrNotFound(response);
+    }
 }

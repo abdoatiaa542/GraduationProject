@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Component
 public class ExerciseMapper {
 
-    public ExerciseDto toDto(Exercise exercise) {
+    public static ExerciseDto toDto(Exercise exercise) {
         return ExerciseDto.builder()
                 .id(exercise.getId())
                 .exerciseName(exercise.getName())

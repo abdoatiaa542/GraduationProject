@@ -4,7 +4,7 @@ import com.abdoatiia542.GraduationProject.dto.workoutResponse.ExerciseDTO;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.PlanDTO;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.PlanDayDTO;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.WorkoutSessionDTO;
-import com.abdoatiia542.GraduationProject.model.plan.Plans;
+import com.abdoatiia542.GraduationProject.model.exercises.Plans;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

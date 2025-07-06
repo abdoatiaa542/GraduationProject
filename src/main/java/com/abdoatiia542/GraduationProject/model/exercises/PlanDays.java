@@ -1,10 +1,12 @@
-package com.abdoatiia542.GraduationProject.model.plan;
+package com.abdoatiia542.GraduationProject.model.exercises;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class PlanDays {
     private Plans plan;
 
 
-    @OneToMany
-    @JoinColumn(name = "plan_day_id") // دا هيحط foreign key في workout_sessions
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "plan_day_id")
     private List<WorkoutSessions> workoutSessions;
 
 

@@ -1,7 +1,7 @@
 package com.abdoatiia542.GraduationProject.mapper;
 
 import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
-import com.abdoatiia542.GraduationProject.model.plan.Exercise;
+import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.model.plan;
+package com.abdoatiia542.GraduationProject.model.exercises;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;

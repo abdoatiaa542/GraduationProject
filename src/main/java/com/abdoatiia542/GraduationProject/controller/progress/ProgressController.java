@@ -20,12 +20,13 @@ public class ProgressController {
 
     @PostMapping("/exercise/complete")
     public ResponseEntity<Map<String, Object>> recordExerciseCompletion(@RequestParam Integer exerciseId) {
-     int totalBurned =   progressService.completeExerciseAndTrackProgress(exerciseId);
+        int totalBurned = progressService.completeExerciseAndTrackProgress(exerciseId);
         return ResponseEntity.ok(
                 Map.of("message", "✅ Exercise progress recorded for today.",
                         "burnedCalories", totalBurned)
         );
     }
+
     @GetMapping
     public ResponseEntity<DailyProgressDto> getProgressByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         DailyProgressDto dto = progressService.getProgressByDate(date);

@@ -7,10 +7,7 @@ import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import com.abdoatiia542.GraduationProject.model.food.MealPlan;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;

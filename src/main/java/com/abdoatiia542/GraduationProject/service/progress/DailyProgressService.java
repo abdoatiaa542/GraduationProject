@@ -1,12 +1,11 @@
 package com.abdoatiia542.GraduationProject.service.progress;
 
+import com.abdoatiia542.GraduationProject.dto.progress.DailyProgressDto;
 import com.abdoatiia542.GraduationProject.handler.NotFoundException;
-import com.abdoatiia542.GraduationProject.model.plan.Exercise;
 import com.abdoatiia542.GraduationProject.model.Trainee;
-import com.abdoatiia542.GraduationProject.model.plan.Exercise;
-import com.abdoatiia542.GraduationProject.model.plan.WorkoutSessions;
+import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
+import com.abdoatiia542.GraduationProject.model.exercises.WorkoutSessions;
 import com.abdoatiia542.GraduationProject.model.progress.DailyProgress;
-import com.abdoatiia542.GraduationProject.repository.workouts.ExerciseRepository;
 import com.abdoatiia542.GraduationProject.repository.progress.DailyProgressRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.ExerciseRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.WorkoutSessionsRepository;
@@ -14,7 +13,6 @@ import com.abdoatiia542.GraduationProject.service.trainee.TraineeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.abdoatiia542.GraduationProject.dto.progress.DailyProgressDto;
 
 import java.time.LocalDate;
 
@@ -42,6 +40,7 @@ public class DailyProgressService {
 
         return calories;
     }
+
     public int completeWorkoutSessionAndTrackProgress(Integer sessionId) {
         Trainee trainee = traineeService.getCurrentTrainee();
         WorkoutSessions session = workoutSessionsRepository.findById(sessionId)
@@ -67,6 +66,7 @@ public class DailyProgressService {
                 .map(DailyProgress::getTotalBurnedCalories)
                 .orElse(0);
     }
+
     private void addProgressToToday(Trainee trainee, int calories, int exercisesCount, int trainingDurationSeconds) {
         LocalDate today = LocalDate.now();
 
@@ -106,7 +106,6 @@ public class DailyProgressService {
                 .totalTrainingSeconds(progress.getTotalTrainingSeconds() != null ? progress.getTotalTrainingSeconds() : 0)
                 .build();
     }
-
 
 
 }

@@ -1,7 +1,7 @@
 package com.abdoatiia542.GraduationProject.repository.workouts;
 
-import com.abdoatiia542.GraduationProject.model.plan.Exercise;
-import com.abdoatiia542.GraduationProject.model.plan.WorkoutSessions;
+import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
+import com.abdoatiia542.GraduationProject.model.exercises.WorkoutSessions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

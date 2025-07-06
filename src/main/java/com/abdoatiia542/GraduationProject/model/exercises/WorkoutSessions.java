@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.model.plan;
+package com.abdoatiia542.GraduationProject.model.exercises;
 
 
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;

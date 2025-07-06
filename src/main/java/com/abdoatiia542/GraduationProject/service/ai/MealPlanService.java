@@ -1,11 +1,13 @@
 package com.abdoatiia542.GraduationProject.service.ai;
 
 import com.abdoatiia542.GraduationProject.dto.ai.*;
+import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.food.Meal;
 import com.abdoatiia542.GraduationProject.model.food.MealItems;
 import com.abdoatiia542.GraduationProject.model.food.MealPlan;
 import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.food.MealPlanRepository;
+import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -34,15 +36,25 @@ public class MealPlanService {
         this.traineeRepository = traineeRepository;
     }
 
-    public MealPlanOptionDto generateMealPlan(NutritionPredictRequest request, Long traineeId) {
-        // Step 1
-        NutritionResponse nutrition = callNutritionPredictAPI(request);
+    public MealPlanOptionDto generateMealPlan() {
+
+        Trainee trainee = ContextHolderUtils.getTrainee();
+
+        //  Step 1: Build request from trainee object
+        NutritionPredictRequest request = NutritionPredictRequest.buildRequestFromTrainee(trainee);
+
+        System.out.println(request.ActivityLevel());
+        System.out.println(request.Goal());
+        System.out.println(request.Age());
 
         // Step 2
-        MealPlanOptionDto firstOption = callMealPlanAPI(nutrition);
+        NutritionResponse nutrition = callNutritionPredictAPI(request);
 
         // Step 3
-        saveMealPlan(firstOption, traineeId);
+        MealPlanOptionDto firstOption = callMealPlanAPI(nutrition);
+
+        // Step 4
+        saveMealPlan(firstOption, trainee.getId());
 
         return firstOption;
     }

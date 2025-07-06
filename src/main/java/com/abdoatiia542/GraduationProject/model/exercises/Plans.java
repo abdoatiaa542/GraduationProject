@@ -1,15 +1,11 @@
-package com.abdoatiia542.GraduationProject.model.plan;
+package com.abdoatiia542.GraduationProject.model.exercises;
 
-import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +28,17 @@ public class Plans {
     @Column(name = "goal", nullable = false, columnDefinition = "TEXT")
     private String goal;
 
-@Enumerated(EnumType.STRING)
-private TrainingLevel trainingLevel;
+    @Enumerated(EnumType.STRING)
+    private TrainingLevel trainingLevel;
 
-@Column(name = "training_split", nullable = false, columnDefinition = "TEXT")
-private String trainingSplit;
+    @Column(name = "training_split", nullable = false, columnDefinition = "TEXT")
+    private String trainingSplit;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TraineePlan> traineePlans = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "plan_id")
-    private List<PlanDays> planDays = new ArrayList<>();
+    private List<PlanDays> planDays = new ArrayList<>();;
 
 }

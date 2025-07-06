@@ -2,8 +2,6 @@ package com.abdoatiia542.GraduationProject.service.workout;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
 import com.abdoatiia542.GraduationProject.mapper.ExerciseMapper;
-import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
-import com.abdoatiia542.GraduationProject.model.plan.WorkoutSessions;
 import com.abdoatiia542.GraduationProject.repository.workouts.ExerciseRepository;
 import com.abdoatiia542.GraduationProject.repository.workouts.WorkoutSessionsRepository;
 import lombok.RequiredArgsConstructor;

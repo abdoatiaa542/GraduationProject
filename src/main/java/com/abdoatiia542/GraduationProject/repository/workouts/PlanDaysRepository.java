@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.repository.workouts;
 
-import com.abdoatiia542.GraduationProject.model.plan.PlanDays;
+import com.abdoatiia542.GraduationProject.model.exercises.PlanDays;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

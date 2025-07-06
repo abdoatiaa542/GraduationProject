@@ -28,6 +28,7 @@ public class DailyProgress {
     private Integer totalExercisesCount;
 
     private Integer totalTrainingSeconds;
+
     @ManyToOne
     @JoinColumn(name = "trainee_id", nullable = false)
     private Trainee trainee;

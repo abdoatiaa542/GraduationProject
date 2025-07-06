@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.service.auth.authentication;
 
+import com.abdoatiia542.GraduationProject.cloudnairy.CloudinaryService;
 import com.abdoatiia542.GraduationProject.dto.*;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.handler.ExpiredTokenException;
@@ -22,7 +23,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -36,6 +39,7 @@ public class AuthService implements IAuthService {
     private final TraineeRepository traineeRepository;
     private final TraineeRegistrationRequestMapper traineeRegistrationRequestMapper;
     private final JwtService jwtService;
+    private final CloudinaryService cloudinaryService;
 
     @Override
     public Object registerTrainee(TraineeRegistrationRequest request) {
@@ -74,6 +78,18 @@ public class AuthService implements IAuthService {
         trainee.setLastName(request.lastName());
         trainee.setGender(request.gender());
         trainee.setBirthYear(request.birthYear());
+
+        if (request.image() != null && !request.image().isEmpty()) {
+            try {
+                Map uploadResult = cloudinaryService.upload(request.image());
+                String imageUrl = (String) uploadResult.get("secure_url");
+                trainee.setImage(imageUrl);
+            } catch (IOException e) {
+                return ApiResponse.of("Image upload failed.");
+            }
+        }
+
+
         UserDetailsResponse response = new UserDetailsResponse(
                 trainee.getUsername(),
                 trainee.getEmail(),
@@ -81,12 +97,13 @@ public class AuthService implements IAuthService {
                 trainee.getFirstName(),
                 trainee.getLastName(),
                 trainee.getGender().name(),
-                trainee.getBirthYear()
+                trainee.getBirthYear(),
+                trainee.getImage()
         );
 
-        traineeRepository.save(trainee);
-        return ApiResponse.success("Trainee registration completed successfully." , response);
+        return ApiResponse.success("Trainee registration completed successfully.", response);
     }
+
 
     @Override
     public Object CompleteTraineeMeasurements(TraineeMeasurementsRequest request) {
@@ -144,7 +161,7 @@ public class AuthService implements IAuthService {
                         user.getGender(),
                         user.getBirthYear()
 
-                        );
+                );
 
                 return ApiResponse.success(message, response);
             } else {
@@ -203,7 +220,6 @@ public class AuthService implements IAuthService {
 
         return ApiResponse.of("Token refreshed", newToken.getToken());
     }
-
 
 
 }

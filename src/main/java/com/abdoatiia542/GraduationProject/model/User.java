@@ -75,6 +75,8 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(name = "device_token", nullable = false)
     private Set<String> deviceTokens = new HashSet<>();
 
+    @Column(nullable = true)
+    String image;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserPicture picture;

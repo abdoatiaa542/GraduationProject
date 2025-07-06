@@ -35,4 +35,8 @@ public class ProgressController {
     public ResponseEntity<?> recordWorkoutCompletion(@RequestParam Integer sessionId) {
         return ResponseUtil.okOrNotFound(progressService.completeWorkoutSessionAndTrackProgress(sessionId));
     }
+    @PostMapping("/meal/complete")
+    public ResponseEntity<?> recordNutrition(@RequestParam Long id) {
+        return ResponseUtil.okOrNotFound(progressService.completeMeal(id));
+    }
 }

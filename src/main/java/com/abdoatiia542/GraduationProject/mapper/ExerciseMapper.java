@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.mapper;
 
-import com.abdoatiia542.GraduationProject.dto.workouts.ExerciseDto;
+import com.abdoatiia542.GraduationProject.dto.dailyRoutine.ExerciseDto;
 import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 @Component
 public class ExerciseMapper {
 
-    public ExerciseDto toDto(Exercise exercise) {
+    public static ExerciseDto toDto(Exercise exercise) {
         return ExerciseDto.builder()
                 .id(exercise.getId())
-                .exerciseName(exercise.getName())
+                .name(exercise.getName())
                 .description(exercise.getDescription())
                 .imageLink(exercise.getImageLink())
                 .videoLink(exercise.getVideoLink())

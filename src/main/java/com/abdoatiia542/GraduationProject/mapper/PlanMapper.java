@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.mapper;
 
-import com.abdoatiia542.GraduationProject.dto.workoutResponse.ExerciseDTO;
+import com.abdoatiia542.GraduationProject.dto.dailyRoutine.ExerciseDto;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.PlanDTO;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.PlanDayDTO;
 import com.abdoatiia542.GraduationProject.dto.workoutResponse.WorkoutSessionDTO;
@@ -34,8 +34,8 @@ public class PlanMapper {
                 sessionDTO.setImage(session.getImage());
                 sessionDTO.setTrainingLevel(session.getTrainingLevel().name());
 
-                List<ExerciseDTO> exerciseDTOs = session.getExercises().stream().map(ex -> {
-                    ExerciseDTO exDTO = new ExerciseDTO();
+                List<ExerciseDto> exerciseDTOs = session.getExercises().stream().map(ex -> {
+                    ExerciseDto exDTO = new ExerciseDto();
                     exDTO.setId(ex.getId());
                     exDTO.setName(ex.getName());
                     exDTO.setDescription(ex.getDescription());

@@ -3,7 +3,7 @@ package com.abdoatiia542.GraduationProject.service.dailyRoutine;
 
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.dailyRoutine.DailyWorkoutResponse;
-import com.abdoatiia542.GraduationProject.dto.dailyRoutine.WorkoutSessionDto;
+import com.abdoatiia542.GraduationProject.dto.workoutResponse.WorkoutSessionDTO;
 import com.abdoatiia542.GraduationProject.mapper.WorkoutSessionMapper;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.exercises.PlanDays;
@@ -57,7 +57,7 @@ public class DailyRoutineService {
             return ApiResponse.failure("No workouts found for today's plan day.");
         }
 
-        List<WorkoutSessionDto> workoutDtos = WorkoutSessionMapper
+        List<WorkoutSessionDTO> workoutDtos = WorkoutSessionMapper
                 .mapToDtoList(currentPlanDay.get().getWorkoutSessions());
 
         DailyWorkoutResponse response = DailyWorkoutResponse.builder()

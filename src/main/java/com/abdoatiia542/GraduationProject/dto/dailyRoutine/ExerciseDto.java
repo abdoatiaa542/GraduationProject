@@ -1,12 +1,16 @@
 package com.abdoatiia542.GraduationProject.dto.dailyRoutine;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExerciseDto {
     private Integer id;
     private String name;

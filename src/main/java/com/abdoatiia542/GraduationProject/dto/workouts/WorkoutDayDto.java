@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.dto.workouts;
 
+import com.abdoatiia542.GraduationProject.dto.dailyRoutine.ExerciseDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;

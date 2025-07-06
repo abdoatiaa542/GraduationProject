@@ -50,7 +50,7 @@ public class Exercise {
     private Integer totalCalories; // sets * caloriesBurned
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "exercises_body_focuses",
             joinColumns = @JoinColumn(name = "exercise_id"),

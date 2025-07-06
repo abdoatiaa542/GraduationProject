@@ -2,6 +2,8 @@ package com.abdoatiia542.GraduationProject.service.auth.authentication;
 
 import com.abdoatiia542.GraduationProject.dto.*;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.handler.ExpiredTokenException;
+import com.abdoatiia542.GraduationProject.handler.InvalidTokenException;
 import com.abdoatiia542.GraduationProject.handler.ResourceAlreadyExistsException;
 import com.abdoatiia542.GraduationProject.mapper.TraineeRegistrationRequestMapper;
 import com.abdoatiia542.GraduationProject.model.AccessToken;
@@ -187,12 +189,12 @@ public class AuthService implements IAuthService {
         String token = authHeader.replace("Bearer ", "");
 
         if (!accessTokenService.exists(token)) {
-            throw new IllegalStateException("Invalid token");
+            throw new InvalidTokenException("Invalid refresh token");
         }
 
         AccessToken oldToken = accessTokenService.get(token);
         if (oldToken.getExpiration().before(new Date())) {
-            throw new IllegalStateException("Token has expired");
+            throw new ExpiredTokenException("Refresh token expired");
         }
 
         accessTokenService.delete(token);

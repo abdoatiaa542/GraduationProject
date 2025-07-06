@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.dto.dailyRoutine;
 
+import com.abdoatiia542.GraduationProject.dto.workoutResponse.WorkoutSessionDTO;
 import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,5 @@ public class DailyWorkoutResponse {
     private String planGoal;
     private TrainingLevel trainingLevel;
     private String note;
-    private List<WorkoutSessionDto> workoutSessions;
+    private List<WorkoutSessionDTO> workoutSessions;
 }

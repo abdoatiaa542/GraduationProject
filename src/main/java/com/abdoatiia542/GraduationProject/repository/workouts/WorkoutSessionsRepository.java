@@ -1,5 +1,6 @@
 package com.abdoatiia542.GraduationProject.repository.workouts;
 
+import com.abdoatiia542.GraduationProject.model.enumerations.TrainingLevel;
 import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
 import com.abdoatiia542.GraduationProject.model.exercises.WorkoutSessions;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,16 +13,9 @@ import java.util.Optional;
 
 @Repository
 public interface WorkoutSessionsRepository extends JpaRepository<WorkoutSessions, Long> {
-        @Query("""
-    SELECT DISTINCT e
-    FROM WorkoutSessions ws
-    JOIN ws.exercises e
-    JOIN FETCH e.bodyFocuses
-    WHERE LOWER(ws.trainingLevel) = LOWER(:level)
-""")
-        List<Exercise> findExercisesByTrainingLevel(@Param("level") String level);
+;
 
-        Optional<WorkoutSessions> findById(Integer id);
+    Optional<WorkoutSessions> findById(Integer id);
 
-
+    List<WorkoutSessions> findByTrainingLevel(TrainingLevel level);
 }

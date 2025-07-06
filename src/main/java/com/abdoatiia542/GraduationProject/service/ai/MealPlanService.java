@@ -3,6 +3,7 @@ package com.abdoatiia542.GraduationProject.service.ai;
 import com.abdoatiia542.GraduationProject.dto.ai.*;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.mapper.MealMapper;
+import com.abdoatiia542.GraduationProject.mapper.MealPlanMapper;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.food.Meal;
 import com.abdoatiia542.GraduationProject.model.food.MealItems;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,10 +48,6 @@ public class MealPlanService {
         //  Step 1: Build request from trainee object
         AIServicePredictRequest request = AIServicePredictRequest.buildRequestFromTrainee(trainee);
 
-        System.out.println(request.ActivityLevel());
-        System.out.println(request.Goal());
-        System.out.println(request.Age());
-
         // Step 2
         NutritionResponse nutrition = callNutritionPredictAPI(request);
 
@@ -59,7 +57,7 @@ public class MealPlanService {
         // Step 4
         saveMealPlan(firstOption, trainee.getId());
 
-        return ApiResponse.success("Meal plan generated successfully");
+        return ApiResponse.success("Meal plan generated successfully" , firstOption);
     }
 
     @Transactional
@@ -67,15 +65,20 @@ public class MealPlanService {
         Trainee trainee = ContextHolderUtils.getTrainee();
         LocalDate today = LocalDate.now();
 
+        // Step 1: Try to get today's plan from DB
         MealPlan mealPlan = mealPlanRepository.findByTraineeAndDate(trainee, today)
-                .orElseThrow(() -> new IllegalStateException("No meal plan found for today"));
+                .orElseGet(() -> {
+                    ApiResponse response = generateMealPlan();
+                    final MealPlan plan = MealPlanMapper.toMealPlan((MealPlanOptionDto) response.data(), trainee , today);
+                    return mealPlanRepository.save(plan);
+                });
 
-        // Step 2: Convert MealPlan entity to DTO
+        // Step 2: Map meals to DTOs
         List<MealDto> meals = mealPlan.getMeals().stream()
                 .map(MealMapper::toDto)
                 .toList();
 
-        // Step 3: Wrap in MealPlanOptionDto
+        // Step 3: Create daily summary
         DailyTotalDto dailyTotal = new DailyTotalDto(
                 mealPlan.getTotalCalories(),
                 mealPlan.getTotalCarbs(),
@@ -83,6 +86,7 @@ public class MealPlanService {
                 mealPlan.getTotalProtein()
         );
 
+        // Step 4: Return the result
         return ApiResponse.success("Your Daily Meal Plan", new MealPlanOptionDto(dailyTotal, meals));
     }
 

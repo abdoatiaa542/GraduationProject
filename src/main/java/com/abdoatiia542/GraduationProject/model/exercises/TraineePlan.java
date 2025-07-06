@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @NoArgsConstructor
@@ -32,5 +33,12 @@ public class TraineePlan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false)
     private Plans plan;
+
+
+    public boolean isActive() {
+        if (startDate == null) return false;
+        long daysSinceStart = ChronoUnit.DAYS.between(startDate, LocalDate.now());
+        return daysSinceStart <= 30;
+    }
 
 }

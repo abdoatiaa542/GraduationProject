@@ -48,22 +48,21 @@ public class WorkoutPlanService {
         Trainee trainee = ContextHolderUtils.getTrainee();
         LocalDate today = LocalDate.now();
 
-        Optional<TraineePlan> optionalPlan = traineePlanRepository
-                .findTraineePlanByStartDateAndTrainee(today, trainee);
+        List<TraineePlan> plans = traineePlanRepository.findAllByTrainee(trainee);
 
-        if (optionalPlan.isEmpty()) {
-            return ApiResponse.failure("No active plan found for today.");
-        }
+        TraineePlan activePlan = plans.stream()
+                .filter(TraineePlan::isActive)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No active plan found for today."));
 
-        TraineePlan traineePlan = optionalPlan.get();
-        Plans plan = traineePlan.getPlan();
+        Plans plan = activePlan.getPlan();
 
         int totalDays = plan.getPlanDays().size();
         if (totalDays == 0) {
             return ApiResponse.failure("This plan has no workout days.");
         }
 
-        long daysSinceStart = ChronoUnit.DAYS.between(traineePlan.getStartDate(), today);
+        long daysSinceStart = ChronoUnit.DAYS.between(activePlan.getStartDate(), today);
         int currentDayNumber = (int) (daysSinceStart % totalDays) + 1;
 
         Optional<PlanDays> currentPlanDay = plan.getPlanDays().stream()
@@ -95,14 +94,23 @@ public class WorkoutPlanService {
     @Transactional
     public ApiResponse generatePlanForTrainee() {
         Trainee trainee = fetchAuthenticatedTrainee();
-
+        LocalDate today = LocalDate.now();
         AIServicePredictRequest request = AIServicePredictRequest.buildRequestFromTrainee(trainee);
         Integer planId = fetchPlanIdFromAI(request);
 
+
+        List<TraineePlan> plans = traineePlanRepository.findAllByTrainee(trainee);
+        boolean hasActivePlan = plans.stream()
+                .anyMatch(TraineePlan::isActive);
+
+        if (hasActivePlan) {
+            throw new IllegalArgumentException("Trainee already has an active plan.");
+        }
         Plans plan = plansRepository.findById(planId)
                 .orElseThrow(() -> new NotFoundException("Plan not found"));
 
         TraineePlan traineePlan = assignPlanToTrainee(trainee, plan);
+
         traineePlanRepository.save(traineePlan);
 
         PlanDTO dto = PlanMapper.mapToDTO(plan);

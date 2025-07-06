@@ -7,13 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface TraineePlanRepository extends JpaRepository<TraineePlan, Long> {
-
-    Optional<TraineePlan> findById(Long aLong);
-
-    Optional<TraineePlan> findTraineePlanByStartDateAndTrainee(LocalDate startDate, Trainee trainee);
 
     @Query("SELECT tp FROM TraineePlan tp " +
             "JOIN FETCH tp.plan p " +
@@ -29,4 +26,9 @@ public interface TraineePlanRepository extends JpaRepository<TraineePlan, Long> 
             "ORDER BY tp.startDate DESC")
     Optional<TraineePlan> findActiveTraineePlan(@Param("traineeId") Long traineeId,
                                                 @Param("currentDate") LocalDate currentDate);
+
+
+    List<TraineePlan> findAllByTrainee(Trainee traineeId);
+
+
 }

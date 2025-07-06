@@ -1,16 +1,15 @@
 package com.abdoatiia542.GraduationProject.controller.auth;
 
 import com.abdoatiia542.GraduationProject.dto.LoginRequest;
-import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationCompleteRequest;
 import com.abdoatiia542.GraduationProject.dto.TraineeRegistrationRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
-import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.service.auth.authentication.AuthService;
 import com.abdoatiia542.GraduationProject.service.auth.authentication.IAuthService;
 import com.abdoatiia542.GraduationProject.service.jwt.JwtService;
 import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +39,8 @@ public class AuthController {
                 .body(service.registerTrainee(request));
     }
 
-    @PostMapping("/complete-registration")
-    public ResponseEntity<?> completeRegistration(@Valid @RequestBody TraineeRegistrationCompleteRequest request) {
+    @PostMapping(value = "/complete-registration", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> completeRegistration(@ModelAttribute TraineeRegistrationCompleteRequest request) {
         ApiResponse response = (ApiResponse) service.completeTraineeRegistration(request);
         return ResponseUtil.okOrBadRequest(response);
     }
@@ -73,7 +72,6 @@ public class AuthController {
         com.abdoatiia542.GraduationProject.dto.api.ApiResponse response = (com.abdoatiia542.GraduationProject.dto.api.ApiResponse) service.existsByUsername(username);
         return ResponseEntity.ok(response);
     }
-
 
 
     @PostMapping(value = "refresh-token")

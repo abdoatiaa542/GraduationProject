@@ -74,4 +74,16 @@ public class Trainee extends User {
             inverseJoinColumns = @JoinColumn(name = "workout_id"))
     private List<WorkoutSessions> savedWorkouts = new ArrayList<>();
 
+
+    public boolean isMeasurementsSet() {
+        return height != null
+                && weight != null
+                && targetWeight != null
+                && goal != null
+                && bodyFat != null
+                && targetBodyFat != null
+                && trainingLevel != null
+                && activityLevel != null;
+    }
+
 }

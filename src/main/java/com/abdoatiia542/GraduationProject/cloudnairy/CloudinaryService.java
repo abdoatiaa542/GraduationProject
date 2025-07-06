@@ -23,14 +23,18 @@ public class CloudinaryService {
                 "api_secret", apiSecret));
     }
 
-    public Map upload(MultipartFile file, Map options) throws IOException {
-        return cloudinary.uploader().upload(file.getBytes(), options != null ? options : ObjectUtils.emptyMap());
+    public Map upload(MultipartFile file) throws IOException {
+        return cloudinary.uploader().upload(
+                file.getBytes(),
+                ObjectUtils.asMap("resource_type", "auto")
+        );
     }
 
     public Map delete(String publicId) throws IOException {
         Map<String, Object> options = ObjectUtils.asMap("invalidate", true);
         return cloudinary.uploader().destroy(publicId, options);
     }
+
     public String getUrl(String publicId) {
         return cloudinary.url().generate(publicId);
     }

@@ -28,7 +28,7 @@ public class CloudinaryController {
             if (file.isEmpty()) {
                 return ResponseEntity.badRequest().body(ApiResponse.failure("File is empty"));
             }
-            Map result = cloudinaryService.upload(file, null);
+            Map result = cloudinaryService.upload(file);
             return ResponseEntity.ok(ApiResponse.success("File uploaded successfully", result));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

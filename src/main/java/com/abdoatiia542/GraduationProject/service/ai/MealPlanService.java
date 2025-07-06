@@ -1,6 +1,9 @@
 package com.abdoatiia542.GraduationProject.service.ai;
 
 import com.abdoatiia542.GraduationProject.dto.ai.*;
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.mapper.MealMapper;
+import com.abdoatiia542.GraduationProject.mapper.MealPlanMapper;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.food.Meal;
 import com.abdoatiia542.GraduationProject.model.food.MealItems;
@@ -16,9 +19,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,16 +41,12 @@ public class MealPlanService {
         this.traineeRepository = traineeRepository;
     }
 
-    public MealPlanOptionDto generateMealPlan() {
+    public ApiResponse generateMealPlan() {
 
         Trainee trainee = ContextHolderUtils.getTrainee();
 
         //  Step 1: Build request from trainee object
-        NutritionPredictRequest request = NutritionPredictRequest.buildRequestFromTrainee(trainee);
-
-        System.out.println(request.ActivityLevel());
-        System.out.println(request.Goal());
-        System.out.println(request.Age());
+        AIServicePredictRequest request = AIServicePredictRequest.buildRequestFromTrainee(trainee);
 
         // Step 2
         NutritionResponse nutrition = callNutritionPredictAPI(request);
@@ -56,11 +57,42 @@ public class MealPlanService {
         // Step 4
         saveMealPlan(firstOption, trainee.getId());
 
-        return firstOption;
+        return ApiResponse.success("Meal plan generated successfully" , firstOption);
     }
 
+    @Transactional
+    public ApiResponse getDailyMealPlan() {
+        Trainee trainee = ContextHolderUtils.getTrainee();
+        LocalDate today = LocalDate.now();
+
+        // Step 1: Try to get today's plan from DB
+        MealPlan mealPlan = mealPlanRepository.findByTraineeAndDate(trainee, today)
+                .orElseGet(() -> {
+                    ApiResponse response = generateMealPlan();
+                    final MealPlan plan = MealPlanMapper.toMealPlan((MealPlanOptionDto) response.data(), trainee , today);
+                    return mealPlanRepository.save(plan);
+                });
+
+        // Step 2: Map meals to DTOs
+        List<MealDto> meals = mealPlan.getMeals().stream()
+                .map(MealMapper::toDto)
+                .toList();
+
+        // Step 3: Create daily summary
+        DailyTotalDto dailyTotal = new DailyTotalDto(
+                mealPlan.getTotalCalories(),
+                mealPlan.getTotalCarbs(),
+                mealPlan.getTotalFat(),
+                mealPlan.getTotalProtein()
+        );
+
+        // Step 4: Return the result
+        return ApiResponse.success("Your Daily Meal Plan", new MealPlanOptionDto(dailyTotal, meals));
+    }
+
+
     // ✅ Step 1: Call nutrition-predict API
-    private NutritionResponse callNutritionPredictAPI(NutritionPredictRequest request) {
+    private NutritionResponse callNutritionPredictAPI(AIServicePredictRequest request) {
         ResponseEntity<List<NutritionResponse>> response = restTemplate.exchange(
                 NUTRITION_PREDICT_URL,
                 HttpMethod.POST,
@@ -69,7 +101,12 @@ public class MealPlanService {
                 }
         );
 
-        return response.getBody().get(0);
+        List<NutritionResponse> responses = response.getBody();
+
+        if (!response.getStatusCode().is2xxSuccessful() || responses == null || responses.isEmpty()) {
+            throw new IllegalStateException("Failed to get nutrition prediction from API.");
+        }
+        return responses.get(0);
     }
 
     // ✅ Step 2: Call meal-plan-text API
@@ -88,7 +125,13 @@ public class MealPlanService {
                 MealPlanResponse.class
         );
 
-        return response.getBody().options().get(0);
+        MealPlanResponse body = response.getBody();
+
+        if (!response.getStatusCode().is2xxSuccessful() || body == null || body.options() == null || body.options().isEmpty()) {
+            throw new IllegalStateException("Failed to retrieve a valid meal plan option from API.");
+        }
+
+        return body.options().get(0);
     }
 
     // ✅ Step 3: Save result to DB
@@ -99,6 +142,7 @@ public class MealPlanService {
                 .totalProtein(option.daily_total().protein())
                 .totalFat(option.daily_total().fat())
                 .trainee(traineeRepository.findById(traineeId).orElseThrow())
+                .date(LocalDate.now())
                 .build();
 
         List<Meal> meals = new ArrayList<>();

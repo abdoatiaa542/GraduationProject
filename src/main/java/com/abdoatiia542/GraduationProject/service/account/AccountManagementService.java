@@ -116,7 +116,8 @@ public class AccountManagementService implements IAccountManagementService {
                 firstName,
                 lastName,
                 user.getGender() != null ? user.getGender().name() : null,
-                user.getBirthYear()
+                user.getBirthYear() ,
+                user.getImage()
         );
 
         return ApiResponse.of("User profile retrieved successfully.", response);

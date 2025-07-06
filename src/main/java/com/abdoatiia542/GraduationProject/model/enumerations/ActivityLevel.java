@@ -28,13 +28,6 @@ public enum ActivityLevel {
     }
 
 
-    @JsonValue
-    public String toJson() {
-        // Capitalize first letter, lowercase the rest
-        String original = name().toLowerCase();
-        return Character.toUpperCase(original.charAt(0)) + original.substring(1);
-    }
-
     private static final Map<String, ActivityLevel> VALUE_MAP = Stream.of(values())
             .collect(Collectors.toMap(
                     a -> a.value.toLowerCase(), // lowercase for flexible matching
@@ -43,6 +36,6 @@ public enum ActivityLevel {
 
     @JsonCreator
     public static ActivityLevel from(String value) {
-        return ActivityLevel.valueOf(value.toUpperCase().replace(" ", "_"));
+        return ActivityLevel.valueOf(value.toUpperCase());
     }
 }

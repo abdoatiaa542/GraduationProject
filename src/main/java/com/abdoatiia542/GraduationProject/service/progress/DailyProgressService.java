@@ -1,7 +1,9 @@
 package com.abdoatiia542.GraduationProject.service.progress;
 
+import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.progress.DailyProgressDto;
 import com.abdoatiia542.GraduationProject.handler.NotFoundException;
+import com.abdoatiia542.GraduationProject.mapper.DailyProgressMapper;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.exercises.Exercise;
 import com.abdoatiia542.GraduationProject.model.exercises.WorkoutSessions;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class DailyProgressService {
     private final WorkoutSessionsRepository workoutSessionsRepository;
 
 
-    public int completeExerciseAndTrackProgress(Integer exerciseId) {
+    public ApiResponse completeExerciseAndTrackProgress(Integer exerciseId) {
         Trainee trainee = traineeService.getCurrentTrainee();
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException("Exercise with ID " + exerciseId + " not found."));
@@ -37,11 +40,10 @@ public class DailyProgressService {
 
         // 1 exercise only
         addProgressToToday(trainee, calories, 1, duration);
-
-        return calories;
+        return ApiResponse.of("Exercise progress recorded for today." , Map.of("burnedCalories", calories));
     }
 
-    public int completeWorkoutSessionAndTrackProgress(Integer sessionId) {
+    public ApiResponse completeWorkoutSessionAndTrackProgress(Integer sessionId) {
         Trainee trainee = traineeService.getCurrentTrainee();
         WorkoutSessions session = workoutSessionsRepository.findById(sessionId)
                 .orElseThrow(() -> new NotFoundException("Workout session with ID " + sessionId + " not found."));
@@ -56,7 +58,8 @@ public class DailyProgressService {
         }
 
         addProgressToToday(trainee, totalCalories, totalExercises, totalDuration);
-        return totalCalories;
+
+        return ApiResponse.of("Exercise progress recorded for today." , Map.of("burnedCalories", totalCalories));
     }
 
 
@@ -93,18 +96,13 @@ public class DailyProgressService {
     }
 
 
-    public DailyProgressDto getProgressByDate(LocalDate date) {
+    public ApiResponse getProgressByDate(LocalDate date) {
         Trainee trainee = traineeService.getCurrentTrainee();
 
         DailyProgress progress = progressRepository.findByDateAndTrainee(date, trainee)
                 .orElseThrow(() -> new NotFoundException("No progress found for date: " + date));
-
-        return DailyProgressDto.builder()
-                .date(progress.getDate())
-                .totalBurnedCalories(progress.getTotalBurnedCalories() != null ? progress.getTotalBurnedCalories() : 0)
-                .totalExercisesCount(progress.getTotalExercisesCount() != null ? progress.getTotalExercisesCount() : 0)
-                .totalTrainingSeconds(progress.getTotalTrainingSeconds() != null ? progress.getTotalTrainingSeconds() : 0)
-                .build();
+        DailyProgressDto dto = DailyProgressMapper.toDto(progress);
+        return ApiResponse.of("Progress Retrieved Successfully", dto);
     }
 
 

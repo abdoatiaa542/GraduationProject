@@ -21,11 +21,6 @@ public enum Goal {
 
     @JsonCreator
     public static Goal from(String value) {
-        for (Goal goal : Goal.values()) {
-            if (goal.value.equalsIgnoreCase(value)) {
-                return goal;
-            }
-        }
-        throw new IllegalArgumentException("Unknown goal: " + value);
+        return Goal.valueOf(value.toUpperCase());
     }
 }

@@ -12,7 +12,6 @@ import com.abdoatiia542.GraduationProject.service.auth.sendemail.IEmailSender;
 import com.abdoatiia542.GraduationProject.service.db.DatabaseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -103,7 +102,7 @@ public class ResetPasswordService implements IResetPasswordService {
     @Override
     public ApiResponse checkResetPasswordCode(String email, int code) {
         getResetPasswordToken(email, code);
-return ApiResponse.success("Reset password code is valid");
+        return ApiResponse.success("Reset password code is valid");
     }
 
     @Override
@@ -116,7 +115,7 @@ return ApiResponse.success("Reset password code is valid");
 
         resetPasswordTokenRepository.delete(token);
 
-return ApiResponse.success("Password reset successfully");
+        return ApiResponse.success("Password reset successfully");
     }
 
     private static int generateCode() {

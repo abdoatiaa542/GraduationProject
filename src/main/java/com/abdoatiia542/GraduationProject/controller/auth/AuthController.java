@@ -22,13 +22,11 @@ import java.net.URI;
 @RequestMapping(value = "api/v1/auth")
 public class AuthController {
     private final IAuthService service;
-    private final JwtService jwtService;
-    private final TraineeRepository traineeRepository;
 
-    public AuthController(AuthService service, JwtService jwtService, TraineeRepository traineeRepository) {
+
+    public AuthController(AuthService service, JwtService jwtService) {
         this.service = service;
-        this.jwtService = jwtService;
-        this.traineeRepository = traineeRepository;
+
     }
 
     //    @GetMapping("/generate-secure-secret-key")

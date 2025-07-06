@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class PlanMapper {
 
-    public PlanDTO mapToDTO(Plans plan) {
+    public static PlanDTO mapToDTO(Plans plan) {
         PlanDTO dto = new PlanDTO();
         dto.setId(plan.getId());
         dto.setName(plan.getName());

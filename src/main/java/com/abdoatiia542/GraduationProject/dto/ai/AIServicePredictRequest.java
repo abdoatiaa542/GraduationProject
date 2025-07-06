@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 @Builder
-public record NutritionPredictRequest(
+public record AIServicePredictRequest(
         double Weight,
         double Height,
         int Age,
@@ -17,7 +17,7 @@ public record NutritionPredictRequest(
         String ActivityLevel
 ) {
 
-    public static NutritionPredictRequest buildRequestFromTrainee(Trainee trainee) {
+    public static AIServicePredictRequest buildRequestFromTrainee(Trainee trainee) {
         Objects.requireNonNull(trainee, "Trainee must not be null");
 
         if (trainee.getBirthYear() == null)
@@ -25,7 +25,7 @@ public record NutritionPredictRequest(
 
         int age = LocalDate.now().getYear() - trainee.getBirthYear();
 
-        return NutritionPredictRequest.builder()
+        return AIServicePredictRequest.builder()
                 .Weight(Objects.requireNonNull(trainee.getWeight(), "Weight must not be null"))
                 .Height(Objects.requireNonNull(trainee.getHeight(), "Height must not be null"))
                 .Age(age)

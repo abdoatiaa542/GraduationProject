@@ -36,65 +36,6 @@ public class TraineeService {
         return traineeRepo.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new NotFoundException("Trainee not found for username: " + username));
     }
-    @Transactional
-    public ApiResponse generatePlanForTrainee() {
 
-        Long traineeId=getCurrentTrainee().getId();
-
-
-        Trainee trainee = traineeRepo.findById(traineeId)
-                .orElseThrow(() -> new NotFoundException("Trainee not found"));
-
-        Map<String, Object> requestData = Map.of(
-                "Weight", trainee.getWeight(),
-                "Height", trainee.getHeight(),
-                "Age", (LocalDate.now().getYear() - trainee.getBirthYear()),
-                "Gender", capitalize(trainee.getGender().name().toLowerCase()),
-                "Goal", formatGoal(trainee.getGoal().toString()),
-                "ActivityLevel", capitalize(trainee.getActivityLevel().toString().toLowerCase())
-        );
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "https://abdowa7eed.pythonanywhere.com/api/workout-plan-predict",
-                requestData,
-                String.class
-        );
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            List<Map<String, Object>> responseList = mapper.readValue(response.getBody(), new TypeReference<>() {});
-            Integer planId = (Integer) responseList.get(0).get("plan");
-
-            Plans plan = plansRepository.findById(planId)
-                    .orElseThrow(() -> new NotFoundException("Plan not found"));
-
-            TraineePlan traineePlan = TraineePlan.builder()
-                    .trainee(trainee)
-                    .plan(plan)
-                    .startDate(LocalDate.now())
-                    .build();
-
-            traineePlanRepository.save(traineePlan);
-            PlanDTO dto = planMapper.mapToDTO(plan);
-            return ApiResponse.success("Plan assigned to trainee", dto);
-
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to parse response from AI model: " + e.getMessage(), e);
-        }
-    }
-    private String formatGoal(String goal) {
-        return switch (goal.toUpperCase()) {
-            case "FAT_LOSS" -> "Fat Loss";
-            case "MUSCLE_GAIN" -> "Muscle Gain";
-            case "STAY_FIT" -> "Stay Fit";
-            default -> goal;
-        };
-    }
-    private String capitalize(String value) {
-        if (value == null || value.isEmpty()) return value;
-        return value.substring(0, 1).toUpperCase() + value.substring(1).toLowerCase();
-    }
 
 }

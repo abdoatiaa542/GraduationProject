@@ -2,29 +2,28 @@ package com.abdoatiia542.GraduationProject.controller.dailyRoutine;
 
 
 import com.abdoatiia542.GraduationProject.service.ai.MealPlanService;
-import com.abdoatiia542.GraduationProject.service.dailyRoutine.DailyRoutineService;
+import com.abdoatiia542.GraduationProject.service.dailyRoutine.WorkoutPlanService;
+import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/daily-plan")
+@RequestMapping("/api/v1/daily-plan")
 public class DailyRoutineController {
 
     private final MealPlanService mealPlanService;
-    private final DailyRoutineService dailyRoutineService;
+    private final WorkoutPlanService dailyRoutineService;
 
-//    @PostMapping("/meal")
-//    public ResponseEntity<?> generateMealPlan(@RequestBody NutritionPredictRequest request) {
-//        return ResponseEntity.ok().body(mealPlanService.generateMealPlan(request));
-//    }
+
 
     @GetMapping("/meal")
     public ResponseEntity<?> generateMealPlan() {
-        return ResponseEntity.ok().body(mealPlanService.generateMealPlan());
+        return ResponseUtil.okOrBadRequest(mealPlanService.getDailyMealPlan());
     }
 
     @GetMapping("/workout")

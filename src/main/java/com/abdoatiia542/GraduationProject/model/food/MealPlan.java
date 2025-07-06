@@ -4,6 +4,7 @@ import com.abdoatiia542.GraduationProject.model.Trainee;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -28,6 +29,8 @@ public class MealPlan {
     @Column(nullable = false, name = "total_fat")
     private double totalFat;
 
+    @Column(nullable = false, name = "date")
+    private LocalDate date;
 
     @OneToMany(mappedBy = "mealPlan", cascade = {
             CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)

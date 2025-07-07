@@ -45,6 +45,12 @@ public class MealPlanService {
 
         Trainee trainee = ContextHolderUtils.getTrainee();
 
+        Optional<MealPlan> plan = mealPlanRepository.findTopByTraineeOrderByIdDesc(trainee);
+
+        if(plan.isPresent() && plan.get().getDate().equals(LocalDate.now())){
+            throw new IllegalArgumentException("User already has a meal plan for today");
+        }
+
         //  Step 1: Build request from trainee object
         AIServicePredictRequest request = AIServicePredictRequest.buildRequestFromTrainee(trainee);
 
@@ -63,12 +69,12 @@ public class MealPlanService {
     @Transactional
     public ApiResponse getDailyMealPlan() {
         Trainee trainee = ContextHolderUtils.getTrainee();
-        LocalDate today = LocalDate.now();
 
         // Step 1: Try to get today's plan from DB
-        MealPlan mealPlan = mealPlanRepository.findByTraineeAndDate(trainee, today)
+        MealPlan mealPlan = mealPlanRepository.findTopByTraineeOrderByIdDesc(trainee)
                 .orElseGet(() -> {
                     ApiResponse response = generateMealPlan();
+                    LocalDate today = LocalDate.now();
                     final MealPlan plan = MealPlanMapper.toMealPlan((MealPlanOptionDto) response.data(), trainee , today);
                     return mealPlanRepository.save(plan);
                 });

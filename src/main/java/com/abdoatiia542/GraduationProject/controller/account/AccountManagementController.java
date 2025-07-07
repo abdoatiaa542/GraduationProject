@@ -2,6 +2,7 @@ package com.abdoatiia542.GraduationProject.controller.account;
 
 import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.account.ImageUpdateRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.service.account.IAccountManagementService;
@@ -25,6 +26,7 @@ public class AccountManagementController {
 
 
     private final IAccountManagementService service;
+
     private final IAuthService iAuthService;
 
 
@@ -40,7 +42,7 @@ public class AccountManagementController {
     ) {
         return ResponseEntity.accepted().body(service.changePassword(request));
     }
-    @PostMapping("/edit-profile")
+    @PutMapping("/edit-profile")
     ResponseEntity<?>editProfile(@Valid @RequestBody ProfileRequest request){
         return ResponseEntity.accepted().body(service.editeProfile(request));
     }
@@ -57,8 +59,10 @@ public class AccountManagementController {
     ) {
         return ResponseEntity.accepted().body(service.uploadProfilePicture(pictureFile));
     }
-
-
+    @PutMapping("/update-image")
+    public ResponseEntity<?> updateImage(@ModelAttribute ImageUpdateRequest request) {
+        return ResponseEntity.ok(service.updateUserImage(request));
+    }
     @DeleteMapping(value = "picture")
     ResponseEntity<?> removeProfilePicture() {
         return ResponseEntity.accepted().body(service.removeProfilePicture());
@@ -73,5 +77,6 @@ public class AccountManagementController {
     public ResponseEntity<?> getCurrentUser() {
         return ResponseEntity.ok().body(service.getUserProfile());
     }
+
 
 }

@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject.service.account;
 
 import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
+import com.abdoatiia542.GraduationProject.dto.account.ImageUpdateRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
@@ -23,6 +24,8 @@ public interface IAccountManagementService {
     ApiResponse getUserProfile() ;
 
     ApiResponse editeProfile( ProfileRequest request) ;
+
+    Object updateUserImage(ImageUpdateRequest request) ;
 
 
 }

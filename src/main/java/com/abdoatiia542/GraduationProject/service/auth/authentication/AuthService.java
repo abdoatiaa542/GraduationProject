@@ -85,12 +85,11 @@ public class AuthService implements IAuthService {
                 Map uploadResult = cloudinaryService.upload(request.image());
                 String imageUrl = (String) uploadResult.get("secure_url");
                 trainee.setImage(imageUrl);
-                traineeRepository.save(trainee);
             } catch (IOException e) {
                 return ApiResponse.of("Image upload failed.");
             }
         }
-
+        traineeRepository.save(trainee);
 
         UserDetailsResponse response = new UserDetailsResponse(
                 trainee.getUsername(),
@@ -100,7 +99,8 @@ public class AuthService implements IAuthService {
                 trainee.getLastName(),
                 trainee.getGender().name(),
                 trainee.getBirthYear(),
-                trainee.getImage()
+                trainee.getImage(),
+                trainee.isMeasurementsSet()
         );
 
         return ApiResponse.success("Trainee registration completed successfully.", response);

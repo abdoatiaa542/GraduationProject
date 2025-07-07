@@ -94,7 +94,6 @@ public class WorkoutPlanService {
     @Transactional
     public ApiResponse generatePlanForTrainee() {
         Trainee trainee = fetchAuthenticatedTrainee();
-        LocalDate today = LocalDate.now();
         AIServicePredictRequest request = AIServicePredictRequest.buildRequestFromTrainee(trainee);
         Integer planId = fetchPlanIdFromAI(request);
 

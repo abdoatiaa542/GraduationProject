@@ -103,10 +103,11 @@ public class AccountManagementService implements IAccountManagementService {
 
         String firstName = null;
         String lastName = null;
-
+        Boolean isMeasurementsSet = null;
         if (user instanceof Trainee trainee) {
             firstName = trainee.getFirstName();
             lastName = trainee.getLastName();
+            isMeasurementsSet = trainee.isMeasurementsSet();
         }
 
         UserDetailsResponse response = new UserDetailsResponse(
@@ -117,8 +118,11 @@ public class AccountManagementService implements IAccountManagementService {
                 lastName,
                 user.getGender() != null ? user.getGender().name() : null,
                 user.getBirthYear() ,
-                user.getImage()
+                user.getImage(),
+                isMeasurementsSet
         );
+
+
 
         return ApiResponse.of("User profile retrieved successfully.", response);
     }

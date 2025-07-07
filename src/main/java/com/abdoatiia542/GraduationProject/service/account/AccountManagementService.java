@@ -1,8 +1,10 @@
 package com.abdoatiia542.GraduationProject.service.account;
 
 
+import com.abdoatiia542.GraduationProject.cloudnairy.CloudinaryService;
 import com.abdoatiia542.GraduationProject.dto.UserDetailsResponse;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.account.ImageUpdateRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.model.Trainee;
@@ -18,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -29,6 +33,7 @@ public class AccountManagementService implements IAccountManagementService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final TraineeRepository traineeRepository;
+    private final CloudinaryService cloudinaryService;
 //    @Override
 //    public ApiResponse getUserProfile() {
 //        User user = ContextHolderUtils.getUser();
@@ -138,6 +143,28 @@ public class AccountManagementService implements IAccountManagementService {
         trainee.setBirthYear(request.birthYear());
         traineeRepository.save(trainee);
         return ApiResponse.of("User profile updated successfully.");
+    }
+
+
+@Override
+    public Object updateUserImage (ImageUpdateRequest request) {
+        Trainee trainee = (Trainee) ContextHolderUtils.getUser();
+
+        if (request.image() != null && !request.image().isEmpty()) {
+            try {
+                Map uploadResult = cloudinaryService.upload(request.image());
+                String imageUrl = (String) uploadResult.get("secure_url");
+                trainee.setImage(imageUrl);
+            } catch (IOException e) {
+                return ApiResponse.of("Image upload failed.");
+            }
+        } else {
+            return ApiResponse.of("Image is required.");
+        }
+
+        traineeRepository.save(trainee);
+
+        return ApiResponse.success("Profile image updated successfully.",Map.of("imageUrl", trainee.getImage()));
     }
 
 }

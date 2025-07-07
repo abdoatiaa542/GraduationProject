@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-// complete regestration >> picture
-//  endpoint  >> update user image
-// edit profile >> firname , lastname , email , birthyear
+// complete regestration >> picture  :  done
+//  endpoint  >> update user image    :  done
+// edit profile >> firname , lastname , email , birthyear :  done
 // advansed >> sign with google  , notification , divice token
 
 @RestController

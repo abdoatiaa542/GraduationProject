@@ -29,6 +29,8 @@ public class WorkoutSessions {
     @Column(name = "imageUrl", nullable = true)
     private String image;
 
+    @Column(name = "videoUrl", nullable = true)
+    private String videoUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "training_level")

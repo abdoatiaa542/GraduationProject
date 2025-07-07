@@ -1,9 +1,12 @@
 package com.abdoatiia542.GraduationProject.controller.traineeworkout;
 
+import com.abdoatiia542.GraduationProject.dto.ExerciseUploadRequestDto;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.dto.workoutResponse.WorkoutMediaUpdateRequest;
 import com.abdoatiia542.GraduationProject.service.workout.WorkoutService;
 import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,4 +29,22 @@ public class TraineeWorkoutController {
         ApiResponse response = workoutService.unSaveWorkoutForTrainee(workoutId);
         return ResponseUtil.okOrNotFound(response);
     }
+
+    @PutMapping(value = "/{id}/upload-media", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateWorkoutMedia(
+            @PathVariable Integer id,
+            @ModelAttribute WorkoutMediaUpdateRequest data
+    ) {
+        return ResponseEntity.ok().body(workoutService.updateWorkoutOnly(id, data));
+    }
+
+
+    @PutMapping(value = "/exercises/{exerciseId}/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateExerciseOnly(
+            @PathVariable Integer exerciseId,
+            @ModelAttribute ExerciseUploadRequestDto request
+    ) {
+        return ResponseEntity.ok(workoutService.updateExerciseOnly(exerciseId, request));
+    }
+
 }

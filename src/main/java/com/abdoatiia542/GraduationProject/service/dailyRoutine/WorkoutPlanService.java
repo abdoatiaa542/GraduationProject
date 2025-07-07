@@ -1,6 +1,5 @@
 package com.abdoatiia542.GraduationProject.service.dailyRoutine;
 
-
 import com.abdoatiia542.GraduationProject.dto.ai.AIServicePredictRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.dto.dailyRoutine.DailyWorkoutResponse;

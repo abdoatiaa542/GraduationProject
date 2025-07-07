@@ -2,6 +2,7 @@ package com.abdoatiia542.GraduationProject.controller.account;
 
 import com.abdoatiia542.GraduationProject.dto.TraineeMeasurementsRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.service.account.IAccountManagementService;
 import com.abdoatiia542.GraduationProject.service.auth.authentication.IAuthService;
@@ -39,7 +40,10 @@ public class AccountManagementController {
     ) {
         return ResponseEntity.accepted().body(service.changePassword(request));
     }
-
+    @PostMapping("/edit-profile")
+    ResponseEntity<?>editProfile(@Valid @RequestBody ProfileRequest request){
+        return ResponseEntity.accepted().body(service.editeProfile(request));
+    }
 
     @PostMapping("/complete-measurements")
     public ResponseEntity<?> completeMeasurements(@Valid @RequestBody TraineeMeasurementsRequest request) {

@@ -5,6 +5,7 @@ import com.abdoatiia542.GraduationProject.model.enumerations.MealType;
 import java.util.List;
 
 public record MealDto(
+        Long id,
         String name,
         MealType type,
         double calories,

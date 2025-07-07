@@ -61,7 +61,7 @@ public class MealPlanService {
         MealPlanOptionDto firstOption = callMealPlanAPI(nutrition);
 
         // Step 4
-        saveMealPlan(firstOption, trainee.getId());
+        firstOption = saveMealPlan(firstOption, trainee.getId());
 
         return ApiResponse.success("Meal plan generated successfully" , firstOption);
     }
@@ -141,7 +141,7 @@ public class MealPlanService {
     }
 
     // ✅ Step 3: Save result to DB
-    private void saveMealPlan(MealPlanOptionDto option, Long traineeId) {
+    private MealPlanOptionDto saveMealPlan(MealPlanOptionDto option, Long traineeId) {
         MealPlan mealPlan = MealPlan.builder()
                 .totalCalories(option.daily_total().calories())
                 .totalCarbs(option.daily_total().carbs())
@@ -154,6 +154,7 @@ public class MealPlanService {
         List<Meal> meals = new ArrayList<>();
 
         for (MealDto mealDto : option.meals()) {
+
             Meal meal = Meal.builder()
                     .name(mealDto.name())
                     .calories(mealDto.calories())
@@ -177,6 +178,14 @@ public class MealPlanService {
         }
 
         mealPlan.setMeals(meals);
+
         mealPlanRepository.save(mealPlan);
+        List<MealDto> updatedMealDtos = meals.stream().map(MealMapper::toDto).toList();
+        final MealPlanOptionDto updatedDtoWithIds = new MealPlanOptionDto(
+                    option.daily_total(), updatedMealDtos);
+        return updatedDtoWithIds;
+
     }
+
+
 }

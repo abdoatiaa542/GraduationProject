@@ -3,9 +3,11 @@ package com.abdoatiia542.GraduationProject.service.account;
 
 import com.abdoatiia542.GraduationProject.dto.UserDetailsResponse;
 import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
+import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
+import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;
 import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import com.abdoatiia542.GraduationProject.utils.file.FileUtils;
@@ -26,7 +28,7 @@ public class AccountManagementService implements IAccountManagementService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
+    private final TraineeRepository traineeRepository;
 //    @Override
 //    public ApiResponse getUserProfile() {
 //        User user = ContextHolderUtils.getUser();
@@ -125,6 +127,17 @@ public class AccountManagementService implements IAccountManagementService {
 
 
         return ApiResponse.of("User profile retrieved successfully.", response);
+    }
+
+    @Override
+    public ApiResponse editeProfile(ProfileRequest request) {
+        Trainee trainee = ContextHolderUtils.getTrainee();
+        trainee.setLastName(request.lastName());
+        trainee.setFirstName(request.firstName());
+        trainee.setEmail(request.email());
+        trainee.setBirthYear(request.birthYear());
+        traineeRepository.save(trainee);
+        return ApiResponse.of("User profile updated successfully.");
     }
 
 }

@@ -1,5 +1,8 @@
 package com.abdoatiia542.GraduationProject.dto;
 
+import lombok.Builder;
+
+@Builder
 public record UserDetailsResponse(
         String username,
         String email,

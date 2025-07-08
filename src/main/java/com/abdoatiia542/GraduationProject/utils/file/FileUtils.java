@@ -20,7 +20,8 @@ import java.util.function.Predicate;
 public abstract class FileUtils {
     public static Set<String> SUPPORTED_IMAGE_TYPES = Set.of(
             MediaType.IMAGE_PNG_VALUE,
-            MediaType.IMAGE_JPEG_VALUE
+            MediaType.IMAGE_JPEG_VALUE,
+            "image/jpg"
     );
 
     public static Set<String> SUPPORTED_VIDEO_TYPES = Set.of(

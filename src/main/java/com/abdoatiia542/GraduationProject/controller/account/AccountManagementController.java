@@ -11,6 +11,7 @@ import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,15 +54,10 @@ public class AccountManagementController {
         return ResponseUtil.okOrBadRequest(response);
     }
 
-    @PutMapping(value = "picture")
-    ResponseEntity<?> uploadProfilePicture(
-            @NotEmpty @RequestPart(value = "picture") MultipartFile pictureFile
+    @PutMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateImage(@RequestPart("image") MultipartFile imageFile
     ) {
-        return ResponseEntity.accepted().body(service.uploadProfilePicture(pictureFile));
-    }
-    @PutMapping("/update-image")
-    public ResponseEntity<?> updateImage(@ModelAttribute ImageUpdateRequest request) {
-        return ResponseEntity.ok(service.updateUserImage(request));
+        return ResponseEntity.ok(service.updateUserImage(imageFile));
     }
     @DeleteMapping(value = "picture")
     ResponseEntity<?> removeProfilePicture() {

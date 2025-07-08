@@ -9,9 +9,11 @@ import com.abdoatiia542.GraduationProject.model.food.Meal;
 import com.abdoatiia542.GraduationProject.model.food.MealItems;
 import com.abdoatiia542.GraduationProject.model.food.MealPlan;
 import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
+import com.abdoatiia542.GraduationProject.repository.food.CompletedMealRepository;
 import com.abdoatiia542.GraduationProject.repository.food.MealPlanRepository;
 import com.abdoatiia542.GraduationProject.utils.context.ContextHolderUtils;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -27,6 +29,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MealPlanService {
 
 
@@ -34,12 +37,9 @@ public class MealPlanService {
     private static final String NUTRITION_PREDICT_URL = "https://abdowa7eed.pythonanywhere.com/api/nutrition-predict";
     private final MealPlanRepository mealPlanRepository;
     private final TraineeRepository traineeRepository;
+    private final CompletedMealRepository completedMealRepository;
     final RestTemplate restTemplate = new RestTemplate();
 
-    public MealPlanService(MealPlanRepository mealPlanRepository, TraineeRepository traineeRepository) {
-        this.mealPlanRepository = mealPlanRepository;
-        this.traineeRepository = traineeRepository;
-    }
 
     public ApiResponse generateMealPlan() {
 
@@ -79,8 +79,10 @@ public class MealPlanService {
                     return mealPlanRepository.save(plan);
                 });
 
-        // Step 2: Map meals to DTOs
+        LocalDate today = LocalDate.now();
+
         List<MealDto> meals = mealPlan.getMeals().stream()
+                .filter(meal -> !completedMealRepository.existsByTraineeAndMealAndDate(trainee, meal, today))
                 .map(MealMapper::toDto)
                 .toList();
 

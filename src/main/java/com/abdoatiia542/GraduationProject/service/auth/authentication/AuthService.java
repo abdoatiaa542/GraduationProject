@@ -65,7 +65,8 @@ public class AuthService implements IAuthService {
                 trainee.getFirstName(),
                 trainee.getLastName(),
                 trainee.getGender(),
-                trainee.getBirthYear()
+                trainee.getBirthYear(),
+                false
         );
 
         return ApiResponse.of(message, response);
@@ -88,7 +89,7 @@ public class AuthService implements IAuthService {
                 return ApiResponse.of("Image upload failed.");
             }
         }
-
+        traineeRepository.save(trainee);
 
         UserDetailsResponse response = new UserDetailsResponse(
                 trainee.getUsername(),
@@ -98,7 +99,8 @@ public class AuthService implements IAuthService {
                 trainee.getLastName(),
                 trainee.getGender().name(),
                 trainee.getBirthYear(),
-                trainee.getImage()
+                trainee.getImage(),
+                trainee.isMeasurementsSet()
         );
 
         return ApiResponse.success("Trainee registration completed successfully.", response);
@@ -143,10 +145,13 @@ public class AuthService implements IAuthService {
 
                 String firstName = null;
                 String lastName = null;
+                boolean isMeasurementsSet = false;
 
                 if (user instanceof Trainee trainee) {
                     firstName = trainee.getFirstName();
                     lastName = trainee.getLastName();
+                    isMeasurementsSet = trainee.isMeasurementsSet();
+
                 }
 
                 LoginResponse response = new LoginResponse(
@@ -159,8 +164,8 @@ public class AuthService implements IAuthService {
                         firstName,
                         lastName,
                         user.getGender(),
-                        user.getBirthYear()
-
+                        user.getBirthYear(),
+                        isMeasurementsSet
                 );
 
                 return ApiResponse.success(message, response);

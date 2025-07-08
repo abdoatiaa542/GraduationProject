@@ -29,6 +29,13 @@ public class DailyProgress {
 
     private Integer totalTrainingSeconds;
 
+    private Double consumedCalories;
+
+    private Double consumedCarbs;
+
+    private Double consumedFat;
+
+    private Double consumedProtein;
     @ManyToOne
     @JoinColumn(name = "trainee_id", nullable = false)
     private Trainee trainee;

@@ -12,7 +12,8 @@ public record LoginResponse(
         String firstName,
         String lastName,
         Gender gender,
-        Integer birthYear
+        Integer birthYear,
+        boolean isMeasurementsSet
 
 ) {
 

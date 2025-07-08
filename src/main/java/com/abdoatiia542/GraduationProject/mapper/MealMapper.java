@@ -8,6 +8,7 @@ public class MealMapper {
 
     public static MealDto toDto(Meal meal) {
        return new MealDto(
+                meal.getId(),
                 meal.getName(),
                 meal.getType(),
                 meal.getCalories(),

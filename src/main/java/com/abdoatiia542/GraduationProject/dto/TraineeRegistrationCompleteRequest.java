@@ -23,7 +23,7 @@ public record TraineeRegistrationCompleteRequest(
         @Nullable
         Integer birthYear ,
 
-        @NotNull
+        @Nullable
         MultipartFile image
 ) {
 

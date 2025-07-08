@@ -11,6 +11,7 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 10
+        query.plan_cache_max_size: 0
   datasource:
     url: ${application.datasource.url}
     username: ${application.datasource.username}

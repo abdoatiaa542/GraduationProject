@@ -143,11 +143,10 @@ public class WorkoutServiceImp implements WorkoutService {
 
 
     public ApiResponse updateExerciseOnly(Integer id, ExerciseUploadRequestDto request) {
-        Exercise exercise = exerciseRepository.findById(id).orElse(null);
-        if (exercise == null) {
-            return ApiResponse.of("Exercise not found");
-        }
+        Exercise exercise = exerciseRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Exercise not found with id: " + id));
 
+        exercise.setId(id);
         exercise.setName(request.getName());
         exercise.setDescription(request.getDescription());
         exercise.setReps(request.getReps());
@@ -202,16 +201,13 @@ public class WorkoutServiceImp implements WorkoutService {
 
     @Transactional
     public ApiResponse updateWorkoutOnly(Integer id, WorkoutMediaUpdateRequest request) {
-        Optional<WorkoutSessions> workoutOptional = workoutSessionsRepository.findById(id);
-        WorkoutSessions workout = workoutOptional.get();
-        if (workoutOptional.isEmpty()) {
-            return ApiResponse.of("Workout not found");
-        }
+        WorkoutSessions workout = workoutSessionsRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Workout not found with id: " + id));
 
+        workout.setId(id);
         workout.setName(request.name());
         workout.setDescription(request.description());
         workout.setTrainingLevel(request.trainingLevel());
-//        workout.setExercises(workout.getExercises());
 
         try {
             if (request.workoutImage() != null && !request.workoutImage().isEmpty()) {
@@ -242,131 +238,11 @@ public class WorkoutServiceImp implements WorkoutService {
     }
 
 
-//    public ApiResponse updateWorkoutMedia(Integer id, WorkoutMediaUpdateRequest data) {
-//        WorkoutSessions workout = workoutSessionsRepository.findById(id).orElse(null);
-//        if (workout == null) return ApiResponse.of("Workout not found");
-//
-//        if (data.name() != null) workout.setName(data.name());
-//        if (data.description() != null) workout.setDescription(data.description());
-//        if (data.trainingLevel() != null) workout.setTrainingLevel(data.trainingLevel());
-//
-//
+    @Override
+    public ApiResponse getExercisesById(Integer id) {
+        Exercise exerciseOptional = exerciseRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("Workout not found with id: " + id));
 
-    //
-//
-//        if (data.exercises() != null && !data.exercises().isEmpty()) {
-//            List<Exercise> updatedExercises = new ArrayList<>();
-//
-//            for (ExerciseUploadRequestDto exerciseDto : data.exercises()) {
-//                Exercise exercise = null;
-//
-//    If exercise
-//    has ID, try
-//    to find
-//    existing exercise
-    //                if (exerciseDto.getId() != null) {
-//                    exercise = exerciseRepository.findById(exerciseDto.getId()).orElse(null);
-//                }
-//
-//    If exercise
-//    not found
-//    or no
-//    ID provided, create new one
-    //                if (exercise == null) {
-//                    exercise = new Exercise();
-//                }
-//
-//    Update exercise
-//    properties
-    //                if (exerciseDto.getName() != null) exercise.setName(exerciseDto.getName());
-//                if (exerciseDto.getDescription() != null) exercise.setDescription(exerciseDto.getDescription());
-//
-//
-//                if (exerciseDto.getReps() != null) exercise.setReps(exerciseDto.getReps());
-//                if (exerciseDto.getSets() != null) exercise.setSets(exerciseDto.getSets());
-//                if (exerciseDto.getDurationSeconds() != null)
-//                    exercise.setDurationSeconds(exerciseDto.getDurationSeconds());
-//                if (exerciseDto.getDurationRestSeconds() != null)
-//                    exercise.setDurationRestSeconds(exerciseDto.getDurationRestSeconds());
-//                if (exerciseDto.getCaloriesBurned() != null)
-//                    exercise.setCaloriesBurned(exerciseDto.getCaloriesBurned());
-//                if (exerciseDto.getTotalCalories() != null) exercise.setTotalCalories(exerciseDto.getTotalCalories());
-//
-//
-//    Handle exerImage
-//    links with
-//    upload
-//                    if (exerciseDto.getExerciseImage() != null && !exerciseDto.getExerciseImage().isEmpty()) {
-//                    try {
-//                        Map uploadResult = cloudinaryService.upload(exerciseDto.getExerciseImage());
-//                        exercise.setImageLink(uploadResult.get("secure_url").toString());
-//                    } catch (IOException e) {
-//                        return ApiResponse.of("Error while uploading image for exercise '" + exerciseDto.getName() + "': " + e.getMessage());
-//                    }
-//                }
-//
-//                if (exerciseDto.getExerciseVideo() != null && !exerciseDto.getExerciseVideo().isEmpty()) {
-//                    try {
-//                        Map uploadResult = cloudinaryService.upload(exerciseDto.getExerciseVideo());
-//                        exercise.setVideoLink(uploadResult.get("secure_url").toString());
-//                    } catch (IOException e) {
-//                        return ApiResponse.of("Error while uploading video for exercise '" + exerciseDto.getName() + "': " + e.getMessage());
-//                    }
-//                }
-//
-//
-//    Handle body
-//    focuses
-    //                if (exerciseDto.getBodyFocuses() != null && !exerciseDto.getBodyFocuses().isEmpty()) {
-//                    Set<BodyFocus> bodyFocuses = new HashSet<>();
-//                    for (String bodyFocusName : exerciseDto.getBodyFocuses()) {
-//                        BodyFocus bodyFocus = bodyFocusRepository.findByNameIgnoreCase(bodyFocusName).get();
-//                        if (bodyFocus != null) {
-//                            bodyFocuses.add(bodyFocus);
-//                        }
-//                    }
-//                    exercise.setBodyFocuses(bodyFocuses);
-//                }
-//
-//    Save the
-//    exercise
-    //                exercise = exerciseRepository.save(exercise);
-//                updatedExercises.add(exercise);
-//            }
-//
-//    Update workout
-//    exercises
-//            workout.setExercises(updatedExercises);
-//        }
-//
-//
-
-//
-//        if (data.workoutImage() != null && !data.workoutImage().isEmpty()) {
-//            String contentType = data.workoutImage().getContentType();
-//            if (contentType != null) {
-//                try {
-//                    Map uploadResult = cloudinaryService.upload(data.workoutImage());
-//                    if (contentType.startsWith("image")) {
-//                        String imageUrl = (String) uploadResult.get("secure_url");
-//                        workout.setImage(imageUrl);
-//                    } else if (contentType.startsWith("video")) {
-//                        String videoUrl = (String) uploadResult.get("secure_url");
-//                        workout.setVideoUrl(videoUrl);
-//                    } else {
-//                        return ApiResponse.of("Unsupported workoutImage type: " + contentType);
-//                    }
-//                } catch (IOException e) {
-//                    return ApiResponse.of("Error while uploading workoutImage: " + e.getMessage());
-//                }
-//            } else {
-//                return ApiResponse.of("Unable to determine workoutImage type.");
-//            }
-//        }
-//
-//        workoutSessionsRepository.save(workout);
-//        return ApiResponse.success("Workout updated successfully", workout);
-//    }
-//
-//
+        return ApiResponse.of("exercise response: ", exerciseOptional);
+    }
 }

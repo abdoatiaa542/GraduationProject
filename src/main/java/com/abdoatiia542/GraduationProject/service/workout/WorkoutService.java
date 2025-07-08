@@ -24,4 +24,7 @@ public interface WorkoutService {
     ApiResponse updateWorkoutOnly(Integer id, WorkoutMediaUpdateRequest data);
 
     ApiResponse updateExerciseOnly(Integer id, ExerciseUploadRequestDto exerciseUploadRequestDto);
+
+    ApiResponse getExercisesById(Integer id);
+
 }

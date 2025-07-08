@@ -30,6 +30,12 @@ public class TraineeWorkoutController {
         return ResponseUtil.okOrNotFound(response);
     }
 
+    @GetMapping("get exercises by id/{id}")
+    public ResponseEntity<?> getExercisesByWorkoutId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(workoutService.getExercisesById(id));
+    }
+
+
     @PutMapping(value = "/{id}/upload-media", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateWorkoutMedia(
             @PathVariable Integer id,
@@ -39,7 +45,7 @@ public class TraineeWorkoutController {
     }
 
 
-    @PutMapping(value = "/exercises/{exerciseId}/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/exercises/{exerciseId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateExerciseOnly(
             @PathVariable Integer exerciseId,
             @ModelAttribute ExerciseUploadRequestDto request

@@ -12,7 +12,8 @@ import java.util.Optional;
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
     @Query("SELECT DISTINCT e FROM Exercise e JOIN FETCH e.bodyFocuses bf WHERE LOWER(bf.name) = LOWER(:name)")
-     List<Exercise> findByBodyFocuses(@Param("name")String name);
+    List<Exercise> findByBodyFocuses(@Param("name") String name);
+
     Optional<Exercise> findById(Integer id);
 
 }

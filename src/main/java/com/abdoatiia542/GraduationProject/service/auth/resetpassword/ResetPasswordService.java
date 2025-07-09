@@ -51,10 +51,8 @@ public class ResetPasswordService implements IResetPasswordService {
             throw new IllegalArgumentException("User account is locked");
         }
 
-        List<String> emails = getUserEmails(user);
-
         Map<String, Object> response = new HashMap<>();
-        response.put("emails", emails);
+        response.put("email", user.getEmail());
         response.put("userId", user.getId());
 
         return ApiResponse.success("User account found successfully, this is available emails to reset password", response);

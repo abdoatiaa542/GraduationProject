@@ -28,11 +28,6 @@ public class AuthController {
 
     }
 
-    //    @GetMapping("/generate-secure-secret-key")
-//    public String generateSecureSecretKey() {
-//        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-//        return Base64.getEncoder().encodeToString(key.getEncoded());
-//    }
     @PostMapping("/trainee-registration")
     public ResponseEntity<?> registerTrainee(@Valid @RequestBody TraineeRegistrationRequest request) {
         return ResponseEntity.created(URI.create("/api/v1/auth/trainee-registration"))
@@ -59,18 +54,6 @@ public class AuthController {
     public ResponseEntity<?> logoutUser(@RequestParam(value = "device-token", required = false) String deviceToken) {
         ApiResponse response = (ApiResponse) service.logoutUser(deviceToken);
         return ResponseUtil.accepted(response);
-    }
-
-    @GetMapping("/exists-by-email")
-    public ResponseEntity<?> existsByEmail(@RequestParam String email) {
-        com.abdoatiia542.GraduationProject.dto.api.ApiResponse response = (com.abdoatiia542.GraduationProject.dto.api.ApiResponse) service.existsByEmail(email);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/exists-by-username")
-    public ResponseEntity<?> existsByUsername(@RequestParam String username) {
-        com.abdoatiia542.GraduationProject.dto.api.ApiResponse response = (com.abdoatiia542.GraduationProject.dto.api.ApiResponse) service.existsByUsername(username);
-        return ResponseEntity.ok(response);
     }
 
 

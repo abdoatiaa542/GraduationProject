@@ -31,11 +31,6 @@ public class AccountManagementController {
     private final IAuthService iAuthService;
 
 
-//    @GetMapping("/generate-secret-key")
-//    public String generateSecretKey() {
-//        String secretKey = Encoders.BASE64.encode(Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded());
-//        return secretKey;
-//    }
 
     @PostMapping(value = "password/change")
     ResponseEntity<?> changePassword(
@@ -58,15 +53,6 @@ public class AccountManagementController {
     public ResponseEntity<?> updateImage(@RequestPart("image") MultipartFile imageFile
     ) {
         return ResponseEntity.ok(service.updateUserImage(imageFile));
-    }
-    @DeleteMapping(value = "picture")
-    ResponseEntity<?> removeProfilePicture() {
-        return ResponseEntity.accepted().body(service.removeProfilePicture());
-    }
-
-    @GetMapping(value = "authorities")
-    ResponseEntity<?> getAuthorities() {
-        return ResponseEntity.ok().body(service.getAuthorities());
     }
 
     @GetMapping("/user-profile")

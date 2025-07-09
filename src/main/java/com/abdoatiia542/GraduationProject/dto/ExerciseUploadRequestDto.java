@@ -14,15 +14,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExerciseUploadRequestDto {
-    private String name;
-    private String description;
+
     MultipartFile exerciseImage;
     MultipartFile exerciseVideo;
-    private String reps;
-    private Integer sets;
-    private Integer durationSeconds;
-    private Integer durationRestSeconds;
-    private Integer caloriesBurned;
-    private Integer totalCalories;
-    private Set<String> bodyFocuses;
+
 }

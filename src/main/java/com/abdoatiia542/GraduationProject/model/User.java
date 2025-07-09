@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject.model;
 
 import com.abdoatiia542.GraduationProject.model.enumerations.Gender;
+import com.abdoatiia542.GraduationProject.model.enumerations.Provider;
 import com.abdoatiia542.GraduationProject.model.enumerations.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,9 +37,11 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
+    @Enumerated(value = EnumType.STRING)
+    private Provider providerId;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = true)

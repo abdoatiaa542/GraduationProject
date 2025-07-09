@@ -15,4 +15,7 @@ public interface WorkoutSessionsRepository extends JpaRepository<WorkoutSessions
     Optional<WorkoutSessions> findById(Integer id);
 
     List<WorkoutSessions> findByTrainingLevel(TrainingLevel level);
+
+    Optional<WorkoutSessions>findByNameIgnoreCase(String name);
+
 }

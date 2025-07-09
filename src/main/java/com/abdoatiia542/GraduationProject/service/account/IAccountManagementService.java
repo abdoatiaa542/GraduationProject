@@ -25,7 +25,7 @@ public interface IAccountManagementService {
 
     ApiResponse editeProfile( ProfileRequest request) ;
 
-    Object updateUserImage(ImageUpdateRequest request) ;
+    ApiResponse updateUserImage(MultipartFile request) ;
 
 
 }

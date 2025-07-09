@@ -7,6 +7,7 @@ import com.abdoatiia542.GraduationProject.dto.account.ChangePasswordRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ImageUpdateRequest;
 import com.abdoatiia542.GraduationProject.dto.account.ProfileRequest;
 import com.abdoatiia542.GraduationProject.dto.api.ApiResponse;
+import com.abdoatiia542.GraduationProject.mapper.UserDetailsResponseMapper;
 import com.abdoatiia542.GraduationProject.model.Trainee;
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
@@ -124,11 +125,10 @@ public class AccountManagementService implements IAccountManagementService {
                 firstName,
                 lastName,
                 user.getGender() != null ? user.getGender().name() : null,
-                user.getBirthYear() ,
+                user.getBirthYear(),
                 user.getImage(),
                 isMeasurementsSet
         );
-
 
 
         return ApiResponse.of("User profile retrieved successfully.", response);
@@ -142,30 +142,29 @@ public class AccountManagementService implements IAccountManagementService {
         trainee.setEmail(request.email());
         trainee.setBirthYear(request.birthYear());
         traineeRepository.save(trainee);
-        return ApiResponse.of("User profile updated successfully.");
+        final UserDetailsResponse userDetailsResponse = UserDetailsResponseMapper.toUserDetailResponse(trainee);
+        return ApiResponse.success("User profile updated successfully." , userDetailsResponse);
     }
 
 
-@Override
-    public Object updateUserImage (ImageUpdateRequest request) {
-        Trainee trainee = (Trainee) ContextHolderUtils.getUser();
+    @Override
+    public ApiResponse updateUserImage(MultipartFile image) {
+        User user = ContextHolderUtils.getUser();
 
-        if (request.image() != null && !request.image().isEmpty()) {
-            try {
-                Map uploadResult = cloudinaryService.upload(request.image());
-                String imageUrl = (String) uploadResult.get("secure_url");
-                trainee.setImage(imageUrl);
-            } catch (IOException e) {
-                return ApiResponse.of("Image upload failed.");
-            }
-        } else {
-            return ApiResponse.of("Image is required.");
+
+        try {
+            Map uploadResult = cloudinaryService.upload(image);
+            String imageUrl = (String) uploadResult.get("secure_url");
+            user.setImage(imageUrl);
+            final UserDetailsResponse userDetailsResponse = UserDetailsResponseMapper.toUserDetailResponse(user);
+            userRepository.save(user);
+            return ApiResponse.success("Profile image updated successfully.", userDetailsResponse);
+        } catch (IOException e) {
+            return ApiResponse.failure("Image upload failed.");
         }
 
-        traineeRepository.save(trainee);
 
-        return ApiResponse.success("Profile image updated successfully.",Map.of("imageUrl", trainee.getImage()));
     }
-
 }
+
 

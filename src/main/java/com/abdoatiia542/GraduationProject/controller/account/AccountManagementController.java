@@ -11,9 +11,8 @@ import com.abdoatiia542.GraduationProject.utils.Response.ResponseUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 // complete regestration >> picture  :  done
@@ -32,22 +31,6 @@ public class AccountManagementController {
     private final IAuthService iAuthService;
 
 
-    //    @GetMapping("/generate-secret-key")
-//    public String generateSecretKey() {
-//        String secretKey = Encoders.BASE64.encode(Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded());
-//        return secretKey;
-//    }
-//    @GetMapping("/grantcode")
-//    public String grantCode(@RequestParam("code") String code, @RequestParam("scope") String scope, @RequestParam("authuser") String authUser, @RequestParam("prompt") String prompt) {
-//        return processGrantCode(code);
-//    }
-
-
-
-//    @GetMapping("/user")
-//    public String getUserDetails(@AuthenticationPrincipal OAuth2User principal) {
-//        return "Hello, " + principal.getAttribute("name") + "! Your email is: " + principal.getAttribute("email");
-//    }
 
     @PostMapping(value = "password/change")
     ResponseEntity<?> changePassword(
@@ -55,9 +38,8 @@ public class AccountManagementController {
     ) {
         return ResponseEntity.accepted().body(service.changePassword(request));
     }
-
     @PutMapping("/edit-profile")
-    ResponseEntity<?> editProfile(@Valid @RequestBody ProfileRequest request) {
+    ResponseEntity<?>editProfile(@Valid @RequestBody ProfileRequest request){
         return ResponseEntity.accepted().body(service.editeProfile(request));
     }
 
@@ -67,26 +49,10 @@ public class AccountManagementController {
         return ResponseUtil.okOrBadRequest(response);
     }
 
-    @PutMapping(value = "picture")
-    ResponseEntity<?> uploadProfilePicture(
-            @NotEmpty @RequestPart(value = "picture") MultipartFile pictureFile
+    @PutMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateImage(@RequestPart("image") MultipartFile imageFile
     ) {
-        return ResponseEntity.accepted().body(service.uploadProfilePicture(pictureFile));
-    }
-
-    @PutMapping("/update-image")
-    public ResponseEntity<?> updateImage(@ModelAttribute ImageUpdateRequest request) {
-        return ResponseEntity.ok(service.updateUserImage(request));
-    }
-
-    @DeleteMapping(value = "picture")
-    ResponseEntity<?> removeProfilePicture() {
-        return ResponseEntity.accepted().body(service.removeProfilePicture());
-    }
-
-    @GetMapping(value = "authorities")
-    ResponseEntity<?> getAuthorities() {
-        return ResponseEntity.ok().body(service.getAuthorities());
+        return ResponseEntity.ok(service.updateUserImage(imageFile));
     }
 
     @GetMapping("/user-profile")

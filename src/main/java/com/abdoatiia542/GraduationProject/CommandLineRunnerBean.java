@@ -1,6 +1,7 @@
 package com.abdoatiia542.GraduationProject;
 
 import com.abdoatiia542.GraduationProject.model.Trainee;
+import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.model.enumerations.*;
 import com.abdoatiia542.GraduationProject.model.exercises.*;
 import com.abdoatiia542.GraduationProject.repository.TraineeRepository;
@@ -73,19 +74,19 @@ public class CommandLineRunnerBean {
                     .targetWeight(70.0)
                     .build();
 
-            Trainee trainee2 = Trainee.builder()
+            User trainee2 = User.builder()
                     .username("amer")
                     .email("amer@example.com")
                     .password(passwordEncoder.encode("password"))
-                    .role(Role.TRAINEE)
+                    .role(Role.SUPER_ADMIN)
                     .gender(Gender.FEMALE)
-                    .activityLevel(ActivityLevel.ACTIVE)
-                    .goal(Goal.LOSE_WEIGHT)
+//                    .activityLevel(ActivityLevel.ACTIVE)
+//                    .goal(Goal.LOSE_WEIGHT)
                     .birthYear(2002)
                     .enabled(true)
-                    .height(165.0)
-                    .weight(60.0)
-                    .targetWeight(55.0)
+//                    .height(165.0)
+//                    .weight(60.0)
+//                    .targetWeight(55.0)
                     .build();
 
             Trainee trainee3 = Trainee.builder()

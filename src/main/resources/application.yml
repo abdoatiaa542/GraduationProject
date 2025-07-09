@@ -1,8 +1,10 @@
 spring:
   application:
     name: Graduation_Project
+
   profiles:
     active: '@spring.profiles.active@'
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
@@ -11,19 +13,29 @@ spring:
     properties:
       hibernate:
         default_batch_fetch_size: 10
+
   datasource:
     url: ${application.datasource.url}
     username: ${application.datasource.username}
     password: ${application.datasource.password}
     driver-class-name: org.postgresql.Driver
+
   mail:
     host: smtp.gmail.com
     port: 587
-    username: your-email@gmail.com
-    password: your-email-password
+    username: abdo20132233@gmail.com
+    password: zuegeowocrncbpem  # <-- Paste your app password without spaces
     properties:
-      mail.smtp.auth: true
-      mail.smtp.starttls.enable: true
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
   servlet:
     multipart:
       max-file-size: 10MB

@@ -58,7 +58,7 @@ public class SimpleEmailSender implements IEmailSender {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setFrom(from);
-            helper.setSubject("Confirm Fit AI Account Email");
+            helper.setSubject("Confirm Fit Monitor Account Email");
             helper.setTo(template.receiverEmail());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");

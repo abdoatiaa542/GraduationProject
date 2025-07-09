@@ -5,9 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 public record WorkoutMediaUpdateRequest(
-        String name,
-        String description,
-        TrainingLevel trainingLevel,
+
         MultipartFile workoutImage
 
 ) {

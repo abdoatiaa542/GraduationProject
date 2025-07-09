@@ -147,23 +147,10 @@ public class WorkoutServiceImp implements WorkoutService {
                 new ResourceNotFoundException("Exercise not found with id: " + id));
 
         exercise.setId(id);
-        exercise.setName(request.getName());
-        exercise.setDescription(request.getDescription());
-        exercise.setReps(request.getReps());
-        exercise.setSets(request.getSets());
-        exercise.setDurationSeconds(request.getDurationSeconds());
-        exercise.setDurationRestSeconds(request.getDurationRestSeconds());
-        exercise.setCaloriesBurned(request.getCaloriesBurned());
-        exercise.setTotalCalories(request.getTotalCalories());
 
-        // body focuses
-        if (request.getBodyFocuses() != null && !request.getBodyFocuses().isEmpty()) {
-            Set<BodyFocus> focuses = new HashSet<>();
-            for (String name : request.getBodyFocuses()) {
-                bodyFocusRepository.findByNameIgnoreCase(name).ifPresent(focuses::add);
-            }
-            exercise.setBodyFocuses(focuses);
-        }
+
+
+
 
         try {
             if (request.getExerciseImage() != null && !request.getExerciseImage().isEmpty()) {
@@ -205,9 +192,7 @@ public class WorkoutServiceImp implements WorkoutService {
                 () -> new ResourceNotFoundException("Workout not found with id: " + id));
 
         workout.setId(id);
-        workout.setName(request.name());
-        workout.setDescription(request.description());
-        workout.setTrainingLevel(request.trainingLevel());
+
 
         try {
             if (request.workoutImage() != null && !request.workoutImage().isEmpty()) {

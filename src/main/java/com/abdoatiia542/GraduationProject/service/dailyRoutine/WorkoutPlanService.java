@@ -37,6 +37,7 @@ public class WorkoutPlanService {
     private final TraineePlanRepository traineePlanRepository;
     private final PlansRepository plansRepository;
     private final TraineeRepository traineeRepo;
+    private final WorkoutSessionMapper workoutSessionMapper;
     final RestTemplate restTemplate = new RestTemplate();
 
     private static final String WORKOUT_PLAN_URL = "https://abdowa7eed.pythonanywhere.com/api/workout-plan-predict";
@@ -72,7 +73,7 @@ public class WorkoutPlanService {
             return ApiResponse.failure("No workouts found for today's plan day.");
         }
 
-        List<WorkoutSessionDTO> workoutDtos = WorkoutSessionMapper
+        List<WorkoutSessionDTO> workoutDtos = workoutSessionMapper
                 .mapToDtoList(currentPlanDay.get().getWorkoutSessions());
 
         DailyWorkoutResponse response = DailyWorkoutResponse.builder()

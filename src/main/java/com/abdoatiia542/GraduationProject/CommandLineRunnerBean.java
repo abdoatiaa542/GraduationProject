@@ -40,19 +40,6 @@ public class CommandLineRunnerBean {
         return args -> {
             log.info("⚙️ Command line runner started");
 
-            insertUser();
-            //Exercises Model
-            insertPlan1Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan2Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan3Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan4Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan5Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan6Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan7Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-            insertPlan8Data(plansRepository, planDaysRepository, sessionRepository, exerciseRepository, bodyFocusRepository);
-
-//            insertQuickTestData(); // نسخة مبسطة للتست السريع
-
             log.info("✅ CommandLineRunnerBean initialized successfully");
         };
     }

@@ -20,8 +20,8 @@ public class ProgressController {
 
 
     @PostMapping("/exercise/complete")
-    public ResponseEntity<?> recordExerciseCompletion(@RequestParam Integer exerciseId) {
-        return ResponseUtil.okOrNotFound( progressService.completeExerciseAndTrackProgress(exerciseId));
+    public ResponseEntity<?> recordExerciseCompletion(@RequestParam Integer exerciseId, @RequestParam Integer exerciseDuration) {
+        return ResponseUtil.okOrNotFound( progressService.completeExerciseAndTrackProgress(exerciseId, exerciseDuration));
     }
 
     @GetMapping
@@ -32,8 +32,8 @@ public class ProgressController {
 
 
     @PostMapping("/workout/complete")
-    public ResponseEntity<?> recordWorkoutCompletion(@RequestParam Integer sessionId) {
-        return ResponseUtil.okOrNotFound(progressService.completeWorkoutSessionAndTrackProgress(sessionId));
+    public ResponseEntity<?> recordWorkoutCompletion(@RequestParam Integer sessionId, @RequestParam Integer exerciseDuration) {
+        return ResponseUtil.okOrNotFound(progressService.completeWorkoutSessionAndTrackProgress(sessionId , exerciseDuration));
     }
     @PostMapping("/meal/complete")
     public ResponseEntity<?> recordNutrition(@RequestParam Long id) {

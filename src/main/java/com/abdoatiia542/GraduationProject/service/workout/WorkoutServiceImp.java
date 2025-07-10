@@ -39,6 +39,7 @@ public class WorkoutServiceImp implements WorkoutService {
     private final BodyFocusRepository bodyFocusRepository;
     private final TraineeRepository traineeRepository;
     private final CloudinaryService cloudinaryService;
+    private final WorkoutSessionMapper workoutSessionMapper;
 
 
     public ApiResponse getExercisesByBodyFocus(String bodyFocusName) {
@@ -57,7 +58,7 @@ public class WorkoutServiceImp implements WorkoutService {
 
     public ApiResponse getWorkoutsByTrainingLevel(String level) {
         List<WorkoutSessionDTO> exercises = workoutSessionsRepository.findByTrainingLevel(TrainingLevel.from(level.toUpperCase())).stream()
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .distinct() //
                 .toList();
 
@@ -86,7 +87,7 @@ public class WorkoutServiceImp implements WorkoutService {
         Collections.shuffle(allSessions);
         List<WorkoutSessionDTO> recommended = allSessions.stream()
                 .limit(6)
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .toList();
 
         return ApiResponse.success("Recommended sessions fetched successfully", recommended);
@@ -98,7 +99,7 @@ public class WorkoutServiceImp implements WorkoutService {
         final List<WorkoutSessionDTO> savedWorkouts = trainee
                 .getSavedWorkouts()
                 .stream()
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .toList();
         return ApiResponse.success("Saved Workouts fetched successfully", savedWorkouts);
     }

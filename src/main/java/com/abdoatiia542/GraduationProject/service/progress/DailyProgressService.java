@@ -39,31 +39,30 @@ public class DailyProgressService {
     private final CompletedMealRepository completedMealRepository;
 
     // ✅ تسجيل تمرين فردي
-    public ApiResponse completeExerciseAndTrackProgress(Integer exerciseId) {
+    public ApiResponse completeExerciseAndTrackProgress(Integer exerciseId , Integer exerciseDuration) {
         Trainee trainee = traineeService.getCurrentTrainee();
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new NotFoundException("Exercise with ID " + exerciseId + " not found."));
 
         int calories = (exercise.getTotalCalories() != null) ? exercise.getTotalCalories() : 0;
-        int duration = (exercise.getDurationSeconds() != null) ? exercise.getDurationSeconds() : 0;
+        int duration = exercise.getDurationSeconds() == null ? exerciseDuration : exercise.getDurationSeconds();
 
         addProgressToToday(trainee, calories, 1, duration);
         return ApiResponse.of("Exercise progress recorded for today.", Map.of("burnedCalories", calories));
     }
 
     // ✅ تسجيل جلسة تمرينات كاملة
-    public ApiResponse completeWorkoutSessionAndTrackProgress(Integer sessionId) {
+    public ApiResponse completeWorkoutSessionAndTrackProgress(Integer sessionId , Integer workoutDuration) {
         Trainee trainee = traineeService.getCurrentTrainee();
         WorkoutSessions session = workoutSessionsRepository.findById(sessionId)
                 .orElseThrow(() -> new NotFoundException("Workout session with ID " + sessionId + " not found."));
 
         int totalCalories = 0;
-        int totalDuration = 0;
+        int totalDuration = workoutDuration;
         int totalExercises = session.getExercises().size();
 
         for (Exercise ex : session.getExercises()) {
             totalCalories += (ex.getTotalCalories() != null) ? ex.getTotalCalories() : 0;
-            totalDuration += (ex.getDurationSeconds() != null) ? ex.getDurationSeconds() : 0;
         }
 
         addProgressToToday(trainee, totalCalories, totalExercises, totalDuration);

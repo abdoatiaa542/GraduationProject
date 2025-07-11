@@ -39,6 +39,7 @@ public class WorkoutServiceImp implements WorkoutService {
     private final BodyFocusRepository bodyFocusRepository;
     private final TraineeRepository traineeRepository;
     private final CloudinaryService cloudinaryService;
+    private final WorkoutSessionMapper workoutSessionMapper;
 
 
     public ApiResponse getExercisesByBodyFocus(String bodyFocusName) {
@@ -57,7 +58,7 @@ public class WorkoutServiceImp implements WorkoutService {
 
     public ApiResponse getWorkoutsByTrainingLevel(String level) {
         List<WorkoutSessionDTO> exercises = workoutSessionsRepository.findByTrainingLevel(TrainingLevel.from(level.toUpperCase())).stream()
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .distinct() //
                 .toList();
 
@@ -86,7 +87,7 @@ public class WorkoutServiceImp implements WorkoutService {
         Collections.shuffle(allSessions);
         List<WorkoutSessionDTO> recommended = allSessions.stream()
                 .limit(6)
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .toList();
 
         return ApiResponse.success("Recommended sessions fetched successfully", recommended);
@@ -98,7 +99,7 @@ public class WorkoutServiceImp implements WorkoutService {
         final List<WorkoutSessionDTO> savedWorkouts = trainee
                 .getSavedWorkouts()
                 .stream()
-                .map(WorkoutSessionMapper::toDto)
+                .map(workoutSessionMapper::toDto)
                 .toList();
         return ApiResponse.success("Saved Workouts fetched successfully", savedWorkouts);
     }
@@ -147,23 +148,10 @@ public class WorkoutServiceImp implements WorkoutService {
                 new ResourceNotFoundException("Exercise not found with id: " + id));
 
         exercise.setId(id);
-        exercise.setName(request.getName());
-        exercise.setDescription(request.getDescription());
-        exercise.setReps(request.getReps());
-        exercise.setSets(request.getSets());
-        exercise.setDurationSeconds(request.getDurationSeconds());
-        exercise.setDurationRestSeconds(request.getDurationRestSeconds());
-        exercise.setCaloriesBurned(request.getCaloriesBurned());
-        exercise.setTotalCalories(request.getTotalCalories());
 
-        // body focuses
-        if (request.getBodyFocuses() != null && !request.getBodyFocuses().isEmpty()) {
-            Set<BodyFocus> focuses = new HashSet<>();
-            for (String name : request.getBodyFocuses()) {
-                bodyFocusRepository.findByNameIgnoreCase(name).ifPresent(focuses::add);
-            }
-            exercise.setBodyFocuses(focuses);
-        }
+
+
+
 
         try {
             if (request.getExerciseImage() != null && !request.getExerciseImage().isEmpty()) {
@@ -205,9 +193,7 @@ public class WorkoutServiceImp implements WorkoutService {
                 () -> new ResourceNotFoundException("Workout not found with id: " + id));
 
         workout.setId(id);
-        workout.setName(request.name());
-        workout.setDescription(request.description());
-        workout.setTrainingLevel(request.trainingLevel());
+
 
         try {
             if (request.workoutImage() != null && !request.workoutImage().isEmpty()) {

@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.utils;
+package com.abdoatiia542.GraduationProject.utils.constants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

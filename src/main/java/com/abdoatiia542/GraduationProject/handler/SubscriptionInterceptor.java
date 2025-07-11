@@ -1,5 +1,8 @@
 //package com.abdoatiia542.GraduationProject.handler;
 //
+//import com.abdoatiia542.GraduationProject.model.User;
+//import com.abdoatiia542.GraduationProject.repository.UserRepository;
+//import com.abdoatiia542.GraduationProject.service.jwt.JwtService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.messaging.Message;
 //import org.springframework.messaging.MessageChannel;
@@ -15,7 +18,6 @@
 //@Component
 //@RequiredArgsConstructor
 //public class SubscriptionInterceptor implements ChannelInterceptor {
-//    private final ChatRepo chatRepo;
 //    private final JwtService jwtService;
 //    private final UserRepository userRepository;
 //
@@ -24,7 +26,7 @@
 //        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 //
 //        Map<String, Object> sessionAttributes = accessor.getSessionAttributes();
-//        if(accessor.getCommand().equals(StompCommand.MESSAGE)){
+//        if (accessor.getCommand().equals(StompCommand.MESSAGE)) {
 ////            System.out.println(accessor.getDestination());
 //        }
 //
@@ -40,7 +42,7 @@
 //            String authorization = (String) sessionAttributes.get("Authorization");
 //            String token = authorization.substring(7);
 //
-//            if(authorization == null || !jwtService.isValidToken(token)) {
+//            if (authorization == null || !jwtService.isValidToken(token)) {
 //                throw new MessagingException("Your subscription request should be authorized");
 //            }
 //
@@ -49,14 +51,14 @@
 //            User user = userRepository.findByUsername(username)
 //                    .orElseThrow(() -> new MessagingException("User not found"));
 //
-//            if(destination.startsWith("/user")) {
+//            if (destination.startsWith("/user")) {
 //                String userId = destination.split("/")[2];
-//                if(!user.getId().toString().equals(userId)) {
+//                if (!user.getId().toString().equals(userId)) {
 //                    throw new MessagingException("You are not authorized to view this user messages.");
 //                }
 //            }
 //
-//            if(accessor.getDestination().startsWith("/chat")) {
+//            if (accessor.getDestination().startsWith("/chat")) {
 //
 //                String chatId = destination.split("/")[2];
 //                DirectChat directChat = chatRepo.findById(Integer.valueOf(chatId)).orElseThrow(() -> new ResourceNotFoundException("DirectChat doesn't exist"));

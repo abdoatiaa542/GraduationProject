@@ -2,6 +2,5 @@ package com.abdoatiia542.GraduationProject.model.enumerations;
 
 public enum NotificationType {
     NOTIFICATION,
-
     MESSAGE
 }

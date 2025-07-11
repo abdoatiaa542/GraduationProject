@@ -9,7 +9,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         default_batch_fetch_size: 10
@@ -68,3 +68,5 @@ cloudinary:
   cloud-name: dt6tkjbv0
   api-key: 847815547535319
   api-secret: lXtK-kVtnNDjf45r4210rbwRS-k
+
+#http://localhost:8080/oauth2/authorization/google

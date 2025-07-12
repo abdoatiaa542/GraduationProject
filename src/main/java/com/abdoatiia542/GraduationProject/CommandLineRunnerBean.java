@@ -39,7 +39,7 @@ public class CommandLineRunnerBean {
     CommandLineRunner commandLineRunner() {
         return args -> {
             log.info("⚙️ Command line runner started");
-
+            insertUser();
             log.info("✅ CommandLineRunnerBean initialized successfully");
         };
     }
@@ -389,6 +389,7 @@ public class CommandLineRunnerBean {
         plan.setPlanDays(days);
         plansRepo.save(plan);
     }
+
     private void insertPlan4Data(PlansRepository plansRepo,
                                  PlanDaysRepository planDaysRepo,
                                  WorkoutSessionsRepository sessionRepo,
@@ -668,6 +669,7 @@ public class CommandLineRunnerBean {
         plan.setPlanDays(days);
         plansRepo.save(plan);
     }
+
     private void insertPlan7Data(PlansRepository plansRepo,
                                  PlanDaysRepository planDaysRepo,
                                  WorkoutSessionsRepository sessionRepo,
@@ -747,6 +749,7 @@ public class CommandLineRunnerBean {
         plan.setPlanDays(days);
         plansRepo.save(plan);
     }
+
     private void insertPlan8Data(PlansRepository plansRepo,
                                  PlanDaysRepository planDaysRepo,
                                  WorkoutSessionsRepository sessionRepo,
@@ -777,11 +780,11 @@ public class CommandLineRunnerBean {
         List<Exercise> pullA = List.of(
                 createExercise("Barbell Deadlift", "Heavy", "5-6", 4, 150, 50, 200, Set.of(back)),
                 createExercise("Pull Ups", "Weighted if possible", "AMRAP", 4, 90, 34, 136, Set.of(back, armShoulder)),
-                        createExercise("Pull Ups", "Weighted if possible", "AMRAP", 4, 90, 34, 136, Set.of(back, armShoulder)),
-                        createExercise("Barbell Row", "Strict back control", "8-10", 4, 90, 36, 144, Set.of(back)),
-                        createExercise("Face Pulls", "Rear delt focus", "15-20", 3, 60, 28, 84, Set.of(back, armShoulder)),
-                        createExercise("Barbell Curl", "Heavy", "10-12", 3, 60, 30, 90, Set.of(armShoulder))
-                );
+                createExercise("Pull Ups", "Weighted if possible", "AMRAP", 4, 90, 34, 136, Set.of(back, armShoulder)),
+                createExercise("Barbell Row", "Strict back control", "8-10", 4, 90, 36, 144, Set.of(back)),
+                createExercise("Face Pulls", "Rear delt focus", "15-20", 3, 60, 28, 84, Set.of(back, armShoulder)),
+                createExercise("Barbell Curl", "Heavy", "10-12", 3, 60, 30, 90, Set.of(armShoulder))
+        );
         WorkoutSessions pullSessionA = sessionRepo.save(
                 WorkoutSessions.builder().name("Pull A").trainingLevel(TrainingLevel.ADVANCED).exercises(pullA).build()
         );
@@ -853,7 +856,6 @@ public class CommandLineRunnerBean {
     }
 
 
-
     private BodyFocus getOrCreateBodyFocus(String name, BodyFocusRepository repo) {
         return repo.findByNameIgnoreCase(name).orElseGet(() -> repo.save(BodyFocus.builder().name(name).build()));
     }
@@ -868,6 +870,7 @@ public class CommandLineRunnerBean {
                 .build();
         return bodyFocusRepository.save(bodyFocus);
     }
+
     private Exercise createExercise(String name, String description, String reps,
                                     Integer sets, Integer restSeconds, int caloriesBurned, int totalCalories,
                                     Set<BodyFocus> focuses) {
@@ -899,7 +902,7 @@ public class CommandLineRunnerBean {
     private WorkoutSessions createWorkoutSession(String name, String description,
                                                  TrainingLevel level, List<Exercise> exercises) {
 
-        Optional<WorkoutSessions> existing =workoutSessionsRepository.findByNameIgnoreCase(name.trim());
+        Optional<WorkoutSessions> existing = workoutSessionsRepository.findByNameIgnoreCase(name.trim());
         if (existing.isPresent()) {
             return existing.get();
         }
@@ -936,6 +939,7 @@ public class CommandLineRunnerBean {
 
         return planDaysRepository.save(planDay);
     }
+
     private String normalizeName(String name) {
         return name.trim().toLowerCase().replaceAll("[\\s\\-]", "");
     }
@@ -968,6 +972,7 @@ public class CommandLineRunnerBean {
 
         return traineePlanRepository.save(traineePlan);
     }
+
     private void insertQuickTestData() {
         // 1. إنشاء BodyFocus بسيط
         BodyFocus chest = BodyFocus.builder().name("Chest").build();

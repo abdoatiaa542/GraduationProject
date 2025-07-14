@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.security;
 
 
 import org.springframework.context.annotation.Bean;

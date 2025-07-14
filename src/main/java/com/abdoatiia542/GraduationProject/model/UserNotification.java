@@ -9,7 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "USER_NOTIFICATIONS", uniqueConstraints = {@UniqueConstraint(name = "USER_NOTIFICATION_UNIQUE_CONSTRAINT", columnNames = {"notification_id", "user_id"})})
+@Table(name = "USER_NOTIFICATIONS", uniqueConstraints = {
+        @UniqueConstraint(name = "USER_NOTIFICATION_UNIQUE_CONSTRAINT",
+                columnNames = {"notification_id", "user_id"})})
 public class UserNotification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

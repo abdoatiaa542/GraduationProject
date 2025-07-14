@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.RestTemplate;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

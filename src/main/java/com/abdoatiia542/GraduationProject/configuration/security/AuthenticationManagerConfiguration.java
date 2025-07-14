@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.security;
 
 import com.abdoatiia542.GraduationProject.model.User;
 import com.abdoatiia542.GraduationProject.repository.UserRepository;

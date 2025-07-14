@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.WebSocket;
 
 import com.abdoatiia542.GraduationProject.handler.JwtHandshakeInterceptor;
 import lombok.RequiredArgsConstructor;

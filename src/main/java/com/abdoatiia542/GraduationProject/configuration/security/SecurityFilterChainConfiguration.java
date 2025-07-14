@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.security;
 
 import com.abdoatiia542.GraduationProject.customizer.CorsCustomizer;
 import com.abdoatiia542.GraduationProject.customizer.CustomOAuth2SuccessHandler;
@@ -8,12 +8,9 @@ import com.abdoatiia542.GraduationProject.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -48,9 +45,6 @@ public class SecurityFilterChainConfiguration {
                 .oauth2Login(oauth -> oauth.successHandler(customOAuth2SuccessHandler))
                 .build();
     }
-
-
-
 
 
 }

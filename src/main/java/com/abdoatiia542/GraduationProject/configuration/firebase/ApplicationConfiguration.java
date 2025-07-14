@@ -1,4 +1,4 @@
-package com.abdoatiia542.GraduationProject.configuration;
+package com.abdoatiia542.GraduationProject.configuration.firebase;
 
 import com.abdoatiia542.GraduationProject.service.jwt.BearerTokenWrapper;
 import com.google.auth.oauth2.GoogleCredentials;

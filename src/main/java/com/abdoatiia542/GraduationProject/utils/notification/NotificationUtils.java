@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -52,7 +51,6 @@ public class NotificationUtils {
         List<String> deviceTokens = NotificationUtils.getDeviceTokens(usersList);
         firebaseNotificationSender.accept(notification, deviceTokens);
     }
-
 
 
 //

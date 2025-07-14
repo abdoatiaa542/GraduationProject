@@ -1,6 +1,6 @@
 package com.abdoatiia542.GraduationProject.model.exercises;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -47,7 +47,7 @@ public class MealPlanService {
 
         Optional<MealPlan> plan = mealPlanRepository.findTopByTraineeOrderByIdDesc(trainee);
 
-        if(plan.isPresent() && plan.get().getDate().equals(LocalDate.now())){
+        if (plan.isPresent() && plan.get().getDate().equals(LocalDate.now())) {
             throw new IllegalArgumentException("User already has a meal plan for today");
         }
 
@@ -63,7 +63,7 @@ public class MealPlanService {
         // Step 4
         firstOption = saveMealPlan(firstOption, trainee.getId());
 
-        return ApiResponse.success("Meal plan generated successfully" , firstOption);
+        return ApiResponse.success("Meal plan generated successfully", firstOption);
     }
 
     @Transactional
@@ -75,7 +75,7 @@ public class MealPlanService {
                 .orElseGet(() -> {
                     ApiResponse response = generateMealPlan();
                     LocalDate today = LocalDate.now();
-                    final MealPlan plan = MealPlanMapper.toMealPlan((MealPlanOptionDto) response.data(), trainee , today);
+                    final MealPlan plan = MealPlanMapper.toMealPlan((MealPlanOptionDto) response.data(), trainee, today);
                     return mealPlanRepository.save(plan);
                 });
 
@@ -184,7 +184,7 @@ public class MealPlanService {
         mealPlanRepository.save(mealPlan);
         List<MealDto> updatedMealDtos = meals.stream().map(MealMapper::toDto).toList();
         final MealPlanOptionDto updatedDtoWithIds = new MealPlanOptionDto(
-                    option.daily_total(), updatedMealDtos);
+                option.daily_total(), updatedMealDtos);
         return updatedDtoWithIds;
 
     }

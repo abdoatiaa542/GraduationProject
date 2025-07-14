@@ -30,11 +30,11 @@ public class ProgressController {
 
     }
 
-
     @PostMapping("/workout/complete")
     public ResponseEntity<?> recordWorkoutCompletion(@RequestParam Integer sessionId, @RequestParam Integer exerciseDuration) {
         return ResponseUtil.okOrNotFound(progressService.completeWorkoutSessionAndTrackProgress(sessionId , exerciseDuration));
     }
+
     @PostMapping("/meal/complete")
     public ResponseEntity<?> recordNutrition(@RequestParam Long id) {
         return ResponseUtil.okOrNotFound(progressService.completeMeal(id));
